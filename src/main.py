@@ -41,30 +41,23 @@ def load_pretrained_emb(word_vec_fname, p_data):
 def main(args):
 
 	p_data, q_data, train_triples, test_triples = prepare_data(args.post_data_tsvfile, args.qa_data_tsvfile, \
-																args.train_ids_file, args.test_ids_file, args.sim_ques_fname)
+																args.train_ids_file, args.test_ids_file)
 
 	pretrained_emb = load_pretrained_emb(args.word_vec_fname, p_data)
 
-	#N = int(len(triples)*0.8)
-	#train_triples = triples[:N]
-	#test_triples = triples[N:]
-
 	# Initialize models
-	#p_encoder = EncoderAvgEmb(pretrained_emb)
-	p_encoder = EncoderRNN(p_data.n_words, hidden_size, n_layers, dropout=dropout)
-	q_encoder = EncoderRNN(q_data.n_words, hidden_size, n_layers, dropout=dropout)
+	#encoder = EncoderAvgEmb(pretrained_emb)
+	encoder = EncoderRNN(p_data.n_words, hidden_size, n_layers, dropout=dropout)
 	decoder = AttnDecoderRNN(attn_model, hidden_size, q_data.n_words, n_layers)
 
 	# Initialize optimizers and criterion
-	p_encoder_optimizer = optim.Adam(p_encoder.parameters(), lr=learning_rate)
-	q_encoder_optimizer = optim.Adam(q_encoder.parameters(), lr=learning_rate)
+	encoder_optimizer = optim.Adam(encoder.parameters(), lr=learning_rate)
 	decoder_optimizer = optim.Adam(decoder.parameters(), lr=learning_rate * decoder_learning_ratio)
 	criterion = nn.CrossEntropyLoss()
 
 	# Move models to GPU
 	if USE_CUDA:
-		p_encoder.cuda()
-		q_encoder.cuda()
+		encoder.cuda()
 		decoder.cuda()
 
 	# Keep track of time elapsed and running averages
@@ -75,31 +68,25 @@ def main(args):
 	print 'No. of train_triples %d' % len(train_triples)
 	print 'No. of test_triples %d' % len(test_triples)
 
-	#p_input_batches, p_input_lengths, q_input_batches, q_input_lengths, target_batches, target_lengths = \
-	#		preprocess_data(p_data, q_data, train_triples)
-
-	p_input_seqs, q_input_seqs, target_seqs = preprocess_data(p_data, q_data, train_triples)
+	input_seqs, target_seqs = preprocess_data(p_data, q_data, train_triples)
 
 	n_batches = len(train_triples) / batch_size
 	while epoch < n_epochs:
 		epoch += 1
 		
-		#for p_batch, p_lens, q_batch, q_lens, target_batch, target_lens in iterate_minibatches(p_input_batches, p_input_lengths, \
-		#				q_input_batches, q_input_lengths, target_batches, target_lengths, batch_size):
-	
-		for p_input_seqs_batch, q_input_seqs_batch, target_seqs_batch in \
-				iterate_minibatches(p_input_seqs, q_input_seqs, target_seqs, batch_size):	
+		for input_seqs_batch, target_seqs_batch in \
+				iterate_minibatches(input_seqs, target_seqs, batch_size):	
 
-			p_batch, p_lens, q_batch, q_lens, target_batch, target_lens = \
-				add_padding(p_input_seqs_batch, q_input_seqs_batch, target_seqs_batch, USE_CUDA)
+			input_batch, input_lens, target_batch, target_lens = \
+				add_padding(input_seqs_batch, target_seqs_batch, USE_CUDA)
 
+			start_time = time.time()
 			# Run the train function
 			loss, ec, dc = train(
-				p_batch, p_lens, 
-				q_batch, q_lens, 
+				input_batch, input_lens, 
 				target_batch, target_lens,
-				p_encoder, q_encoder, decoder,
-				p_encoder_optimizer, q_encoder_optimizer, decoder_optimizer, criterion, USE_CUDA
+				encoder, decoder,
+				encoder_optimizer, decoder_optimizer, criterion, USE_CUDA
 			)
 	
 			# Keep track of loss
@@ -109,7 +96,7 @@ def main(args):
 		print_loss_total = 0
 		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
 		print(print_summary)
-		evaluate_randomly(p_data, q_data, test_triples, p_encoder, q_encoder, decoder)
+		evaluate_randomly(p_data, q_data, test_triples, encoder, decoder)
 	
 if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])
@@ -117,7 +104,6 @@ if __name__ == "__main__":
 	argparser.add_argument("--qa_data_tsvfile", type = str)
 	argparser.add_argument("--train_ids_file", type = str)
 	argparser.add_argument("--test_ids_file", type = str)
-	argparser.add_argument("--sim_ques_fname", type = str)
 	argparser.add_argument("--word_vec_fname", type = str)
 	args = argparser.parse_args()
 	print args

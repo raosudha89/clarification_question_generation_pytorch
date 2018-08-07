@@ -91,25 +91,11 @@ def unicode_to_ascii(s):
 def normalize_string(s, max_len):
 	#s = unicode_to_ascii(s.lower().strip())
 	s = s.lower().strip()
-	#s = re.sub(r"([,.!?])", r" \1 ", s)
-	#s = re.sub(r"[^a-zA-Z,.!?]+", r" ", s)
-	#s = re.sub(r"\s+", r" ", s).strip()
 	words = s.split()
 	s = ' '.join(words[:max_len])
 	return s
 
-def get_sim_ques(sim_ques_filename):
-	sim_ques_file = open(sim_ques_filename, 'r')
-	sim_ques = {}
-	for line in sim_ques_file.readlines():
-		parts = line.split()
-		if len(parts) > 1:
-			sim_ques[parts[0]] = parts[1:]
-		else:
-			sim_ques[parts[0]] = []
-	return sim_ques
-
-def read_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file, sim_ques_filename):
+def read_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file):
 	print("Reading lines...")
 	posts = {}
 	questions = {}
@@ -117,12 +103,12 @@ def read_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file, sim_que
 	p_idf = defaultdict(int)
 	with open(post_data_tsv, 'rb') as tsvfile:
 		post_reader = csv.reader(tsvfile, delimiter='\t')
-		N = 0
+		i = 0
 		for row in post_reader:
-			if N == 0:
-				N += 1
+			if i == 0:
+				i += 1
 				continue
-			N += 1
+			i += 1
 			post_id,title,post = row
 			post = title + ' ' + post
 			post = normalize_string(post, MAX_POST_LEN)
@@ -133,11 +119,8 @@ def read_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file, sim_que
 			posts[post_id] = post 
 
 	for w in p_idf:
-		p_idf[w] = math.log(N*1.0/p_idf[w])
+		p_idf[w] = math.log(i*1.0/p_idf[w])
 
-	sim_ques = get_sim_ques(sim_ques_filename)	
-
-	no_sim_ques = 0
 	with open(qa_data_tsv, 'rb') as tsvfile:
 		qa_reader = csv.reader(tsvfile, delimiter='\t')
 		i = 0
@@ -154,20 +137,17 @@ def read_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file, sim_que
 	train_triples = []
 	test_triples = []
 	for post_id in questions:	
-		try:
-			#ret_ques = questions[sim_ques[post_id][1]]
-			#ret_ques = ' EOS '.join([questions[sim_ques[post_id][1]], questions[sim_ques[post_id][2]], questions[sim_ques[post_id][3]]])
-			ret_ques = [questions[sim_ques[post_id][1]], questions[sim_ques[post_id][2]], questions[sim_ques[post_id][3]]]
-			if post_id in train_ids:
-				train_triples.append([posts[post_id], ret_ques, questions[post_id]]) #first ques in the sim ques is the org ques itself
-			if post_id in test_ids:
-				test_triples.append([posts[post_id], ret_ques, questions[post_id]]) #first ques in the sim ques is the org ques itself
-		except:
-			no_sim_ques += 1
+		if post_id in train_ids:
+			train_triples.append([posts[post_id], questions[post_id]])
+		if post_id in test_ids:
+			test_triples.append([posts[post_id], questions[post_id]])
 
-	print 'No sim ques for %d questions' % no_sim_ques
 	p_data = Data('post', p_tf, p_idf)
 	q_data = Data('question')
+
+	#For debugging
+	#train_triples = train_triples[:1000]
+	#test_triples = test_triples[:200]
 
 	return p_data, q_data, train_triples, test_triples
 
