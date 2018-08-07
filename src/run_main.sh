@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#SBATCH --job-name=qg_au_pqlist_rnn
-#SBATCH --output=qg_au_pqlist_rnn
+#SBATCH --job-name=qg_only_post_100
+#SBATCH --output=qg_only_post_100
 #SBATCH --qos=gpu-long
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
 #SBATCH --time=48:00:00
-#SBATCH --mem=32g
+#SBATCH --mem=64g
 
 #DATA_DIR=/fs/clip-amr/question_generation/data_v9/unix.stackexchange.com
 #DATA_DIR=/fs/clip-amr/question_generation/data_v9/superuser.com
@@ -21,5 +21,4 @@ python $SCRIPT_DIR/main.py --post_data_tsvfile $DATA_DIR/post_data.tsv \
 							--qa_data_tsvfile $DATA_DIR/qa_data.tsv \
 							--train_ids_file $DATA_DIR/train_ids \
 							--test_ids_file $DATA_DIR/test_ids \
-							--sim_ques_fname $OLD_DATA_DIR/lucene_similar_questions.txt \
 							--word_vec_fname $EMB_DIR/vectors_200.txt			
