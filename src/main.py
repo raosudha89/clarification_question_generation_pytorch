@@ -40,7 +40,7 @@ def load_pretrained_emb(word_vec_fname, p_data):
 
 def main(args):
 
-	p_data, q_data, train_triples, test_triples = prepare_data(args.post_data_tsvfile, args.qa_data_tsvfile, \
+	p_data, q_data, train_data, test_data = prepare_data(args.post_data_tsvfile, args.qa_data_tsvfile, \
 																args.train_ids_file, args.test_ids_file)
 
 	#pretrained_emb = load_pretrained_emb(args.word_vec_fname, p_data)
@@ -65,12 +65,12 @@ def main(args):
 	print_loss_total = 0 # Reset every print_every
 	epoch = 0.0
 	
-	print 'No. of train_triples %d' % len(train_triples)
-	print 'No. of test_triples %d' % len(test_triples)
+	print 'No. of train_data %d' % len(train_data)
+	print 'No. of test_data %d' % len(test_data)
 
-	input_seqs, target_seqs = preprocess_data(p_data, q_data, train_triples)
+	input_seqs, target_seqs = preprocess_data(p_data, q_data, train_data)
 
-	n_batches = len(train_triples) / batch_size
+	n_batches = len(train_data) / batch_size
 	while epoch < n_epochs:
 		epoch += 1
 		
@@ -96,7 +96,7 @@ def main(args):
 		print_loss_total = 0
 		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
 		print(print_summary)
-		evaluate_randomly(p_data, q_data, test_triples, encoder, decoder)
+		evaluate_randomly(p_data, q_data, test_data, encoder, decoder)
 	
 if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])
