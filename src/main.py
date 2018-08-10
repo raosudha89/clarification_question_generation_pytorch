@@ -12,17 +12,17 @@ from torch.autograd import Variable
 from torch import optim
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_packed_sequence, pack_padded_sequence#, masked_cross_entropy
-from masked_cross_entropy import *
 
 import numpy as np
 
+from read_data import *
 from prepare_data import *
 from seq2seq.encoderRNN import *
 from seq2seq.encoderAvgEmb import *
 from seq2seq.attnDecoderRNN import *
-from helper import *
+from seq2seq.masked_cross_entropy import *
+from seq2seq.helper import *
 from seq2seq.attn import *
-from read_data import *
 from seq2seq.train import *
 from seq2seq.evaluate import *
 
@@ -43,7 +43,7 @@ def main(args):
 	p_data, q_data, train_triples, test_triples = prepare_data(args.post_data_tsvfile, args.qa_data_tsvfile, \
 																args.train_ids_file, args.test_ids_file)
 
-	pretrained_emb = load_pretrained_emb(args.word_vec_fname, p_data)
+	#pretrained_emb = load_pretrained_emb(args.word_vec_fname, p_data)
 
 	# Initialize models
 	#encoder = EncoderAvgEmb(pretrained_emb)
@@ -104,7 +104,7 @@ if __name__ == "__main__":
 	argparser.add_argument("--qa_data_tsvfile", type = str)
 	argparser.add_argument("--train_ids_file", type = str)
 	argparser.add_argument("--test_ids_file", type = str)
-	argparser.add_argument("--word_vec_fname", type = str)
+	#argparser.add_argument("--word_vec_fname", type = str)
 	args = argparser.parse_args()
 	print args
 	print ""

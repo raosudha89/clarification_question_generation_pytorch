@@ -35,6 +35,8 @@ class AttnDecoderRNN(nn.Module):
 		embedded = embedded.view(1, batch_size, self.hidden_size) # S=1 x B x N
 
 		# Get current hidden state from input word and last hidden state
+		import pdb
+		pdb.set_trace()
 		rnn_output, hidden = self.gru(embedded, last_hidden)
 
 		# Calculate attention from current RNN state and all p_encoder outputs;

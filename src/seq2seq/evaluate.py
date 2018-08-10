@@ -89,6 +89,7 @@ def evaluate(p_data, q_data, p_encoder, decoder, input_seq, max_length=MAX_POST_
 
 	# Store output words and attention states
 	decoded_words = []
+	decoder_p_attns = torch.zeros(max_length + 1, max_length + 1)
 	
 	# Run through decoder
 	for di in range(max_length):

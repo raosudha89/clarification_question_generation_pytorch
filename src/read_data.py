@@ -95,7 +95,51 @@ def normalize_string(s, max_len):
 	s = ' '.join(words[:max_len])
 	return s
 
-def read_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file):
+def get_context(line):
+	splits = line.split('<EOP>')
+	context = splits[0]
+	context = normalize_string(context, MAX_POST_LEN) + ' <EOP>'
+	if len(splits) > 1:
+		sim_ques = splits[1].split('<EOQ>')
+		for ques in sim_ques:
+			ques = normalize_string(context, MAX_QUES_LEN)
+			context += ques + ' <EOQ>'
+	return context
+
+def read_data(train_src, train_tgt, test_src, test_tgt):
+	print("Reading lines...")
+	train_data = []
+	test_data = []
+	p_tf = defaultdict(int)
+	p_idf = defaultdict(int)
+	for line in open(train_src, 'r').readlines():
+		context = get_context(line)
+		for w in context.split():
+			p_tf[w] += 1
+		for w in set(context.split()):
+			p_idf[w] += 1
+		train_data.append([context, None])
+	i = 0
+	for line in open(train_tgt, 'r').readlines():
+		question = normalize_string(line, MAX_QUES_LEN)
+		train_data[i][1] = question
+		i += 1
+	assert(i == len(train_data))
+	for line in open(test_src, 'r').readlines():
+		context = get_context(line)
+		test_data.append([context, None])
+	i = 0
+	for line in open(test_tgt, 'r').readlines():
+		question = normalize_string(line, MAX_QUES_LEN)
+		test_data[i][1] = question
+		i += 1
+	assert(i == len(test_data))
+	p_data = Data('post', p_tf, p_idf)
+	q_data = Data('question')
+
+	return p_data, q_data, train_data, test_data
+
+def read_tsv_data(post_data_tsv, qa_data_tsv, train_ids_file, test_ids_file):
 	print("Reading lines...")
 	posts = {}
 	questions = {}

@@ -35,17 +35,17 @@ def train(input_batches, input_lengths, target_batches, target_lengths, \
 		decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
 
 		all_decoder_outputs[t] = decoder_output
-		#decoder_input = target_batches[t] # Next input is current target
+		decoder_input = target_batches[t] # Next input is current target
 
 		# Get most likely word index (highest value) from output
-		topv, topi = decoder_output.data.topk(1)
-		ni = topi[0][0]
+		#topv, topi = decoder_output.data.topk(1)
+		#ni = topi[0][0]
 
-		decoder_input = Variable(torch.LongTensor([[ni]])) # Chosen word is next input
-		if USE_CUDA: decoder_input = decoder_input.cuda()
+		#decoder_input = Variable(torch.LongTensor([[ni]])) # Chosen word is next input
+		#if USE_CUDA: decoder_input = decoder_input.cuda()
 
 		# Stop at end of sentence 
-		if ni == EOS_token: break		
+		#if ni == EOS_token: break		
 
 	# Loss calculation and backpropagation
 	loss = masked_cross_entropy(
