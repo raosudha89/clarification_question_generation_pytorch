@@ -23,7 +23,8 @@ class LSTM(nn.Module):
 		self.batch_size = batch_size
 		self.word_embeddings = nn.Embedding.from_pretrained(torch.FloatTensor(embeddings))
 		#self.word_embeddings = nn.Embedding(len(embeddings), len(embeddings[0]))
-		self.lstm = nn.LSTM(len(embeddings[0]), hidden_dim, num_layers=2, bidirectional=True, dropout=dropout)
+		#self.lstm = nn.LSTM(len(embeddings[0]), hidden_dim, num_layers=2, bidirectional=True, dropout=dropout)
+		self.lstm = nn.LSTM(len(embeddings[0]), hidden_dim, num_layers=2, bidirectional=False, dropout=dropout)
 		#self.hidden = self.init_hidden()
 		self.dropout = nn.Dropout(dropout)
 
@@ -133,7 +134,7 @@ def main(args):
 	context_model = LSTM(word_embeddings, HIDDEN_DIM, BATCH_SIZE, dropout)
 	question_model = LSTM(word_embeddings, HIDDEN_DIM, BATCH_SIZE, dropout)
 	answer_model = LSTM(word_embeddings, HIDDEN_DIM, BATCH_SIZE, dropout)
-	utility_model = Feedforward(HIDDEN_DIM*2*3, HIDDEN_DIM, 1, batch_size=BATCH_SIZE)
+	utility_model = Feedforward(HIDDEN_DIM*3, HIDDEN_DIM, 1, batch_size=BATCH_SIZE)
 
 	if args.cuda:
 		context_model.cuda()
@@ -215,9 +216,9 @@ def validate(context_model, question_model, answer_model, utility_model, \
 		context_out = context_model(contexts)
 		question_out = question_model(questions)
 		answer_out = answer_model(answers)
-		context_masks = torch.transpose(context_masks[:,:,None].expand(context_masks.shape[0], context_masks.shape[1], 200), 0, 1)
-		question_masks = torch.transpose(question_masks[:,:,None].expand(question_masks.shape[0], question_masks.shape[1], 200), 0, 1)
-		answer_masks = torch.transpose(answer_masks[:,:,None].expand(answer_masks.shape[0], answer_masks.shape[1], 200), 0, 1)
+		context_masks = torch.transpose(context_masks[:,:,None].expand(context_masks.shape[0], context_masks.shape[1], 100), 0, 1)
+		question_masks = torch.transpose(question_masks[:,:,None].expand(question_masks.shape[0], question_masks.shape[1], 100), 0, 1)
+		answer_masks = torch.transpose(answer_masks[:,:,None].expand(answer_masks.shape[0], answer_masks.shape[1], 100), 0, 1)
 		context_out = torch.mean(context_out * context_masks, 0)
 		question_out = torch.mean(question_out * question_masks, 0)
 		answer_out = torch.mean(answer_out * answer_masks, 0)
