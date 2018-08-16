@@ -36,6 +36,22 @@ class RNN(nn.Module):
 			
 		return self.fc(hidden.squeeze(0))		
 
+class FeedForward(nn.Module):
+	def __init__(self, input_dim, hidden_dim, output_dim):
+		super(FeedForward, self).__init__()
+
+		self.layer1 = nn.Linear(input_dim, hidden_dim)
+		self.relu = nn.ReLU()
+		self.layer2 = nn.Linear(hidden_dim, output_dim)
+
+	def forward(self, x):
+
+		x = self.layer1(x)
+		x = self.relu(x)
+		x = self.layer2(x)
+
+		return x
+
 import torch.nn.functional as F
 
 def binary_accuracy(preds, y):
@@ -50,20 +66,26 @@ def binary_accuracy(preds, y):
 	return acc
 
 
-def train_fn(model, train_data, optimizer, criterion, batch_size):
+def train_fn(context_model, question_model, answer_model, utility_model, train_data, optimizer, criterion, batch_size):
 	
 	epoch_loss = 0
 	epoch_acc = 0
 	
-	model.train()
+	context_model.train()
+	question_model.train()
+	answer_model.train()
+	utility_model.train()
 	
-	contexts, labels = train_data
+	contexts, questions, answers, labels = train_data
 	num_batches = 0
-	for c, l in iterate_minibatches(contexts, labels, batch_size):
+	for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, batch_size):
 		
 		optimizer.zero_grad()
 		
-		predictions = model(torch.transpose(c, 0, 1)).squeeze(1)
+		c_out = context_model(torch.transpose(c, 0, 1)).squeeze(1)
+		q_out = question_model(torch.transpose(q, 0, 1)).squeeze(1)
+		a_out = answer_model(torch.transpose(a, 0, 1)).squeeze(1)
+		predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
 		
 		loss = criterion(predictions, l)
 		
@@ -79,19 +101,26 @@ def train_fn(model, train_data, optimizer, criterion, batch_size):
 		
 	return epoch_loss / num_batches, epoch_acc / num_batches
 
-def evaluate(model, dev_data, criterion, batch_size):
+def evaluate(context_model, question_model, answer_model, utility_model, dev_data, criterion, batch_size):
 	
 	epoch_loss = 0
 	epoch_acc = 0
 	num_batches = 0	
-	model.eval()
+
+	context_model.eval()
+	question_model.eval()
+	answer_model.eval()
+	utility_model.eval()
 	
 	with torch.no_grad():
 	
-		contexts, labels = dev_data
-		for c, l in iterate_minibatches(contexts, labels, batch_size):
+		contexts, questions, answers, labels = dev_data
+		for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, batch_size):
 
-			predictions = model(torch.transpose(c, 0, 1)).squeeze(1)
+			c_out = context_model(torch.transpose(c, 0, 1)).squeeze(1)
+			q_out = question_model(torch.transpose(q, 0, 1)).squeeze(1)
+			a_out = answer_model(torch.transpose(a, 0, 1)).squeeze(1)
+			predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
 			
 			loss = criterion(predictions, l)
 			
@@ -114,30 +143,24 @@ def prepare_sequence(seq, to_ix, max_len, cuda=False):
 		masks.append(mask)
 		sequence += [mask_idx]*(max_len - len(sequence))
 		sequences.append(sequence)
-	#if cuda:
-	#	sequences = autograd.Variable(torch.LongTensor(sequences).cuda())
-	#	masks = autograd.Variable(torch.FloatTensor(masks).cuda())
-	#else:
-	#	sequences = autograd.Variable(torch.LongTensor(sequences))
-	#	masks = autograd.Variable(torch.FloatTensor(masks))
-	return sequences, masks
+	sequences = torch.LongTensor(sequences).cuda()
+	masks = torch.FloatTensor(masks).cuda()
+	return sequences
 
 def prepare_data(input_data, vocab, split, cuda):
 	input_data = np.array(input_data)
 	input_data = np.transpose(input_data)
 	contexts_data, questions_data, answers_data, labels_data = input_data
-	#print len(contexts_data)
-	contexts_data = contexts_data[:80240]
-	questions_data = questions_data[:80240]
-	answers_data = answers_data[:80240]
+	#contexts_data = contexts_data[:80240]
+	#questions_data = questions_data[:80240]
+	#answers_data = answers_data[:80240]
+	#labels_data = labels_data[:80240]
 	labels_data = np.array(labels_data, dtype=np.int32)
-	labels_data = labels_data[:80240]
-	#print np.count_nonzero(labels_data)
-	contexts, context_masks = prepare_sequence(contexts_data, vocab, 250, cuda)
-	questions, question_masks = prepare_sequence(questions_data, vocab, 50, cuda)
-	answers, answer_masks = prepare_sequence(answers_data, vocab, 50, cuda)
+	contexts = prepare_sequence(contexts_data, vocab, 250, cuda)
+	questions = prepare_sequence(questions_data, vocab, 50, cuda)
+	answers = prepare_sequence(answers_data, vocab, 50, cuda)
 	labels = prepare_label(labels_data, cuda)
-	output_data = [contexts, context_masks, questions, question_masks, answers, answer_masks, labels]
+	output_data = [contexts, questions, answers, labels]
 	return output_data	
 
 def prepare_label(labels, cuda=False):
@@ -148,7 +171,7 @@ def prepare_label(labels, cuda=False):
 		var = autograd.Variable(torch.FloatTensor([float(l) for l in labels]))
 	return var
 
-def iterate_minibatches(contexts, labels, batch_size, shuffle=True):
+def iterate_minibatches(contexts, questions, answers, labels, batch_size, shuffle=True):
 	if shuffle:
 		indices = np.arange(len(contexts))
 		np.random.shuffle(indices)
@@ -157,7 +180,7 @@ def iterate_minibatches(contexts, labels, batch_size, shuffle=True):
 			excerpt = indices[start_idx:start_idx + batch_size]
 		else:
 			excerpt = slice(start_idx, start_idx + batch_size)
-		yield contexts[excerpt], labels[excerpt]
+		yield contexts[excerpt], questions[excerpt], answers[excerpt], labels[excerpt]
 
 def main(args):
 	SEED = 1234
@@ -174,20 +197,39 @@ def main(args):
 	BATCH_SIZE = 64
 	INPUT_DIM = len(vocab)
 	EMBEDDING_DIM = 200
-	HIDDEN_DIM = 256
+	HIDDEN_DIM = 100
 	OUTPUT_DIM = 1
-	N_LAYERS = 2
+	N_LAYERS = 1
 	BIDIRECTIONAL = True
 	DROPOUT = 0.5
 
-	model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, OUTPUT_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT)
+	context_model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, HIDDEN_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT)
+	question_model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, HIDDEN_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT)
+	answer_model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, HIDDEN_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT)
+
+	utility_model = FeedForward(HIDDEN_DIM*3, HIDDEN_DIM, OUTPUT_DIM)
 
 	word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings).cuda())
-	model.embedding.weight.data.copy_(word_embeddings)
-	optimizer = optim.Adam(model.parameters())
+	context_model.embedding.weight.data.copy_(word_embeddings)
+	question_model.embedding.weight.data.copy_(word_embeddings)
+	answer_model.embedding.weight.data.copy_(word_embeddings)
+
+	# Fix word embeddings
+	context_model.embedding.weight.requires_grad = False
+	question_model.embedding.weight.requires_grad = False
+	answer_model.embedding.weight.requires_grad = False
+
+	optimizer = optim.Adam(list([par for par in context_model.parameters() if par.requires_grad]) + \
+							list([par for par in question_model.parameters() if par.requires_grad]) + \
+							list([par for par in answer_model.parameters() if par.requires_grad]) + \
+							list([par for par in utility_model.parameters() if par.requires_grad]))
+
 	criterion = nn.BCEWithLogitsLoss()
 	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-	model = model.to(device)
+	context_model = context_model.to(device)
+	question_model = question_model.to(device)
+	answer_model = answer_model.to(device)
+	utility_model = utility_model.to(device)
 	criterion = criterion.to(device)
 
 	N_EPOCHS = 300
@@ -195,31 +237,11 @@ def main(args):
 	dev_data = prepare_data(dev_data, vocab, 'dev', args.cuda)
 	test_data = prepare_data(test_data, vocab, 'test', args.cuda)
 
-	posts_data, post_masks_data, \
-	questions_data, question_masks_data, \
-	answers_data, answer_masks_data, labels_data = train_data
-
-	contexts_data = [None]*len(posts_data)
-	for i in range(len(posts_data)):
-		contexts_data[i] = posts_data[i][:50] + questions_data[i][:50]
-	#contexts_data = autograd.Variable(torch.LongTensor(contexts_data).cuda())
-	contexts_data = torch.LongTensor(contexts_data).cuda()
-	new_train_data = [contexts_data, labels_data]	
-
-	posts_data, post_masks_data, \
-	questions_data, question_masks_data, \
-	answers_data, answer_masks_data, labels_data = dev_data
-
-	contexts_data = [None]*len(posts_data)
-	for i in range(len(posts_data)):
-		contexts_data[i] = posts_data[i][:50] + questions_data[i][:50]
-	#contexts_data = autograd.Variable(torch.LongTensor(contexts_data).cuda())
-	contexts_data = torch.LongTensor(contexts_data).cuda()
-	new_dev_data = [contexts_data, labels_data]	
-
 	for epoch in range(N_EPOCHS):
-		train_loss, train_acc = train_fn(model, new_train_data, optimizer, criterion, BATCH_SIZE)
-		valid_loss, valid_acc = evaluate(model, new_dev_data, criterion, BATCH_SIZE)
+		train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model, \
+											train_data, optimizer, criterion, BATCH_SIZE)
+		valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
+                                            dev_data, criterion, BATCH_SIZE)
 		print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % (epoch, train_loss, train_acc, valid_loss, valid_acc)   
 
 if __name__ == "__main__":
