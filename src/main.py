@@ -15,8 +15,8 @@ from torch.nn.utils.rnn import pad_packed_sequence, pack_padded_sequence#, maske
 
 import numpy as np
 
-from read_data import *
-from prepare_data import *
+from seq2seq.read_data import *
+from seq2seq.prepare_data import *
 from seq2seq.encoderRNN import *
 from seq2seq.encoderAvgEmb import *
 from seq2seq.attnDecoderRNN import *
@@ -40,8 +40,8 @@ def load_pretrained_emb(word_vec_fname, p_data):
 
 def main(args):
 
-	p_data, q_data, train_data, test_data = prepare_data(args.post_data_tsvfile, args.qa_data_tsvfile, \
-																args.train_ids_file, args.test_ids_file)
+	p_data, q_data, train_data, test_data = prepare_data(args.train_src, args.train_tgt, \
+															args.test_src, args.test_tgt)
 
 	#pretrained_emb = load_pretrained_emb(args.word_vec_fname, p_data)
 
@@ -68,12 +68,15 @@ def main(args):
 	print 'No. of train_data %d' % len(train_data)
 	print 'No. of test_data %d' % len(test_data)
 
-	input_seqs, target_seqs = preprocess_data(p_data, q_data, train_data)
+	input_seqs, target_seqs = preprocess_data(p_data, q_data, train_data, shuffle=True)
 
 	n_batches = len(train_data) / batch_size
 	while epoch < n_epochs:
 		epoch += 1
-		
+		if epoch > n_epochs - 10:
+			out_file = open(args.test_pred+'.epoch%d' % int(epoch), 'w')	
+		else:
+			out_file = None
 		for input_seqs_batch, target_seqs_batch in \
 				iterate_minibatches(input_seqs, target_seqs, batch_size):	
 
@@ -96,14 +99,15 @@ def main(args):
 		print_loss_total = 0
 		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
 		print(print_summary)
-		evaluate_randomly(p_data, q_data, test_data, encoder, decoder)
+		evaluate_testset(p_data, q_data, encoder, decoder, test_data, batch_size, out_file)
 	
 if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])
-	argparser.add_argument("--post_data_tsvfile", type = str)
-	argparser.add_argument("--qa_data_tsvfile", type = str)
-	argparser.add_argument("--train_ids_file", type = str)
-	argparser.add_argument("--test_ids_file", type = str)
+	argparser.add_argument("--train_src", type = str)
+	argparser.add_argument("--train_tgt", type = str)
+	argparser.add_argument("--test_src", type = str)
+	argparser.add_argument("--test_tgt", type = str)
+	argparser.add_argument("--test_pred", type = str)
 	#argparser.add_argument("--word_vec_fname", type = str)
 	args = argparser.parse_args()
 	print args

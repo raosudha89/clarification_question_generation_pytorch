@@ -33,12 +33,14 @@ def train(input_batches, input_lengths, target_batches, target_lengths, \
 	# Run through decoder one time step at a time
 	for t in range(max_target_length):
 		decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
-
 		all_decoder_outputs[t] = decoder_output
+
+		# Teacher Forcing
 		decoder_input = target_batches[t] # Next input is current target
 
 		# Get most likely word index (highest value) from output
 		#topv, topi = decoder_output.data.topk(1)
+		#decoder_input = topi.squeeze(1) 
 		#ni = topi[0][0]
 
 		#decoder_input = Variable(torch.LongTensor([[ni]])) # Chosen word is next input
