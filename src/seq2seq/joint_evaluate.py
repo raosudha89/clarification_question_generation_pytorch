@@ -1,37 +1,38 @@
 import random
-from constants import *
+from joint_constants import *
 from prepare_pqa_data import *
 from masked_cross_entropy import *
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
-def evaluate_testset(p_data, q_data, a_data, q_encoder, q_decoder, a_encoder, a_decoder, \
+def evaluate_testset(word2index, index2word, q_encoder, q_decoder, a_encoder, a_decoder, \
 						test_triples, batch_size, ques_out_file, ans_out_file):
 
-	post_seqs, ques_seqs, ans_seqs = preprocess_data(p_data, q_data, a_data, test_triples, shuffle=True)
+	post_seqs, post_lens, \
+	ques_seqs, ques_lens, \
+	ans_seqs, ans_lens = preprocess_data(test_triples, word2index)
 	print_loss_total = 0
-	for post_seqs_batch, ques_seqs_batch, ans_seqs_batch in \
-                iterate_minibatches(post_seqs, ques_seqs, ans_seqs, batch_size):
-		post_seqs_batch, post_lens, \
-		ques_seqs_batch, ques_lens, \
-		ans_seqs_batch, ans_lens = add_padding(post_seqs_batch, ques_seqs_batch, ans_seqs_batch, USE_CUDA)
+	for post_seqs_batch, post_lens_batch, \
+		ques_seqs_batch, ques_lens_batch, \
+		ans_seqs_batch, ans_lens_batch in \
+                iterate_minibatches(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens, batch_size):
 
-		if USE_CUDA:
-			post_seqs_batch = post_seqs_batch.cuda()
-			ques_seqs_batch = ques_seqs_batch.cuda()
-			ans_seqs_batch = ans_seqs_batch.cuda()
-
-		q_loss = run_decoder(p_data, q_data, q_encoder, q_decoder, \
-							post_seqs_batch, post_lens, ques_seqs_batch, ques_lens, ques_out_file)
-		a_loss = run_decoder(q_data, a_data, a_encoder, a_decoder, \
-							ques_seqs_batch, ques_lens, ans_seqs_batch, ans_lens, ans_out_file)
+		q_loss = run_decoder(index2word, q_encoder, q_decoder, \
+							post_seqs_batch, post_lens_batch, \
+							ques_seqs_batch, ques_lens_batch, ques_out_file)
+		a_loss = run_decoder(index2word, a_encoder, a_decoder, \
+							ques_seqs_batch, ques_lens_batch, \
+							ans_seqs_batch, ans_lens_batch, ans_out_file)
 
 		print_loss_total += (q_loss + a_loss)
-		break
+		#break
 	print 'Test loss %.2f' % print_loss_total
 
-def run_decoder(input_data, output_data, encoder, decoder, input_batches, input_lens, target_batches, target_lens, out_file):
+def run_decoder(index2word, encoder, decoder, input_batches, input_lens, target_batches, target_lens, out_file):
+		input_batches = Variable(torch.LongTensor(np.array(input_batches)).cuda()).transpose(0, 1)
+		target_batches = Variable(torch.LongTensor(np.array(target_batches)).cuda()).transpose(0, 1)
+
 		# Run post words through encoder
 		encoder_outputs, encoder_hidden = encoder(input_batches, input_lens, None)
 
@@ -53,20 +54,20 @@ def run_decoder(input_data, output_data, encoder, decoder, input_batches, input_
 			# Choose top word from output
 			topv, topi = decoder_output.data.topk(1)
 			decoder_input = topi.squeeze(1) 
-		ct = 0		
+		#ct = 0
 		for b in range(batch_size):
-			input_words = []
-			output_words = []
+			#input_words = []
+			#output_words = []
 			decoded_words = []
-			for t in range(input_lens[b]):
-				input_words.append(input_data.index2word[input_batches[t][b].item()])
-			for t in range(target_lens[b]):
-				ni = target_batches[t][b].item()
-				if ni == EOS_token:
-					output_words.append('<EOS>')
-					break
-				else:
-					output_words.append(output_data.index2word[ni])
+			#for t in range(input_lens[b]):
+			#	input_words.append(index2word[input_batches[t][b].item()])
+			#for t in range(target_lens[b]):
+			#	ni = target_batches[t][b].item()
+			#	if ni == EOS_token:
+			#		output_words.append('<EOS>')
+			#		break
+			#	else:
+			#		output_words.append(index2word[ni])
 			for t in range(max_target_length):
 				topv, topi = all_decoder_outputs[t][b].data.topk(1)
 				ni = topi[0].item()
@@ -74,16 +75,17 @@ def run_decoder(input_data, output_data, encoder, decoder, input_batches, input_
 					decoded_words.append('<EOS>')
 					break
 				else:
-					decoded_words.append(output_data.index2word[ni])
-			print '> ' + ' '.join(input_words)
-			print '= ' + ' '.join(output_words)
-			print '< ' + ' '.join(decoded_words)
-			print 
+					decoded_words.append(index2word[ni])
+			#print '> ' + ' '.join(input_words)
+			#print '= ' + ' '.join(output_words)
+			#print '< ' + ' '.join(decoded_words)
+			#print 
 			if out_file:
 				out_file.write(' '.join(decoded_words)+'\n')
-			ct += 1
-			if ct > 10:
-				break
+
+			#ct += 1
+			#if ct > 10:
+			#	break
 
 		# Loss calculation
 		loss = masked_cross_entropy(

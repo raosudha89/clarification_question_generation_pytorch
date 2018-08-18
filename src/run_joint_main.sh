@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=joint_aus_onlycontext
-#SBATCH --output=joint_aus_onlycontext
+#SBATCH --job-name=joint_aus_emb100
+#SBATCH --output=joint_aus_emb100
 #SBATCH --qos=gpu-medium
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
@@ -12,6 +12,8 @@ SITENAME=askubuntu_unix_superuser
 
 CQ_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
+EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/100
+#EMB_DIR=/fs/clip-amr/ranking_clarification_questions/embeddings
 
 export PATH=/cliphomes/raosudha/anaconda2/bin:$PATH
 
@@ -26,4 +28,6 @@ python $SCRIPT_DIR/joint_main.py	--train_context $CQ_DATA_DIR/train_context.txt 
 									--test_answer $CQ_DATA_DIR/test_answer.txt \
 									--test_pred_question $CQ_DATA_DIR/test_pred_question.txt \
 									--test_pred_answer $CQ_DATA_DIR/test_pred_answer.txt \
+									--word_embeddings $EMB_DIR/word_embeddings.p \
+									--vocab $EMB_DIR/vocab.p \
 

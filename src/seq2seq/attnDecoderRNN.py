@@ -1,10 +1,9 @@
 import torch
 import torch.nn as nn
 from attn import *
-from constants import *
 
 class AttnDecoderRNN(nn.Module):
-	def __init__(self, attn_model, hidden_size, output_size, n_layers=1, dropout=0.1):
+	def __init__(self, attn_model, hidden_size, output_size, word_embeddings, n_layers=1, dropout=0.1):
 		super(AttnDecoderRNN, self).__init__()
 
 		# Keep for reference
@@ -16,6 +15,8 @@ class AttnDecoderRNN(nn.Module):
 
 		# Define layers
 		self.embedding = nn.Embedding(output_size, hidden_size)
+		self.embedding.weight.data.copy_(torch.from_numpy(word_embeddings))
+		self.embedding.weight.requires_grad = False
 		self.embedding_dropout = nn.Dropout(dropout)
 		self.gru = nn.GRU(hidden_size, hidden_size, n_layers, dropout=dropout)
 		self.concat = nn.Linear(hidden_size * 2, hidden_size)
@@ -29,7 +30,7 @@ class AttnDecoderRNN(nn.Module):
 		# Note: we run this one step at a time
 
 		# Get the embedding of the current input word (last output word)
-		batch_size = input_seq.size(0)
+		batch_size = len(input_seq)
 		embedded = self.embedding(input_seq)
 		embedded = self.embedding_dropout(embedded)
 		embedded = embedded.view(1, batch_size, self.hidden_size) # S=1 x B x N

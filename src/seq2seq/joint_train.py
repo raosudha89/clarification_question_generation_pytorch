@@ -2,14 +2,18 @@ import torch
 from torch.autograd import Variable
 from masked_cross_entropy import *
 import numpy as np
-from constants import *
+from joint_constants import *
 
 def train_seq2seq(input_batches, input_lens, target_batches, target_lens, \
-			encoder, decoder, encoder_optimizer, decoder_optimizer, criterion, USE_CUDA):
+			encoder, decoder, encoder_optimizer, decoder_optimizer, criterion, USE_CUDA=True):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()
 	decoder_optimizer.zero_grad()
+
+	if USE_CUDA:
+		input_batches = Variable(torch.LongTensor(np.array(input_batches)).cuda()).transpose(0, 1)
+		target_batches = Variable(torch.LongTensor(np.array(target_batches)).cuda()).transpose(0, 1)
 
 	# Run post words through encoder
 	encoder_outputs, encoder_hidden = encoder(input_batches, input_lens, None)

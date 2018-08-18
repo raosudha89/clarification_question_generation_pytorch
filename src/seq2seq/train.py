@@ -13,8 +13,6 @@ def train(input_batches, input_lengths, target_batches, target_lengths, \
 	loss = 0 # Added onto for each word
 
 	# Run post words through encoder
-	#import pdb
-	#pdb.set_trace()
 	encoder_outputs, encoder_hidden = encoder(input_batches, input_lengths, None)
 
 	# Prepare input and output variables

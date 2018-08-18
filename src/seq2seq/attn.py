@@ -3,8 +3,6 @@ import torch.nn as nn
 from torch.autograd import Variable
 import torch.nn.functional as F
 
-from constants import *
-
 class Attn(nn.Module):
 	def __init__(self, method, hidden_size):
 		super(Attn, self).__init__()
@@ -26,8 +24,7 @@ class Attn(nn.Module):
 		# Create variable to store attention energies
 		attn_energies = Variable(torch.zeros(this_batch_size, max_len)) # B x S
 
-		if USE_CUDA:
-			attn_energies = attn_energies.cuda()
+		attn_energies = attn_energies.cuda()
 
 		# For each batch of encoder outputs
 		#for b in range(this_batch_size):
