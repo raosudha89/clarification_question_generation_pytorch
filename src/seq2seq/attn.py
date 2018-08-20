@@ -36,7 +36,7 @@ class Attn(nn.Module):
 		#attn_energies = torch.baddbmm(torch.zeros(max_len,1), hidden, encoder_outputs).unsqueeze(1)
 		attn_energies = torch.bmm(hidden.transpose(0, 1), encoder_outputs.transpose(0,1).transpose(1,2)).squeeze(1)
 		# Normalize energies to weights in range 0 to 1, resize to 1 x B x S
-		return F.softmax(attn_energies).unsqueeze(1)
+		return F.softmax(attn_energies, dim=1).unsqueeze(1)
 	
 	def score(self, hidden, encoder_output):
 		

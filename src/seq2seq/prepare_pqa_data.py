@@ -4,28 +4,36 @@ import pdb
 from read_pqa_data import *
 import random
 import numpy as np
-from joint_constants import *
+from RL_constants import *
 
 # Return a list of indexes, one for each word in the sentence, plus EOS
-def prepare_sequence(seq, to_ix, max_len, cuda=False):
-	sequence = [to_ix[w] if w in to_ix else to_ix['<unk>'] for w in seq.split(' ')[:(max_len-1)]]
-	sequence.append(EOS_token)
+def prepare_sequence(seq, word2index, max_len):
+	sequence = [word2index[w] if w in word2index else word2index['<unk>'] for w in seq.split(' ')[:(max_len-1)]]
+	sequence.append(word2index[EOS_token])
 	length = len(sequence)
-	sequence += [PAD_token]*(max_len - len(sequence))
+	sequence += [word2index[PAD_token]]*(max_len - len(sequence))
 	return sequence, length
 
-def iterate_minibatches(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens, batch_size, shuffle=False):
+def prepare_pq_sequence(post_seq, ques_seq, word2index, post_max_len, ques_max_len):
+	sequence = [word2index[w] if w in word2index else word2index['<unk>'] for w in post_seq.split(' ')[:(post_max_len-1)]]
+	sequence.append(word2index[EOP_token])
+	sequence += [word2index[w] if w in word2index else word2index['<unk>'] for w in ques_seq.split(' ')[:(ques_max_len-1)]]
+	sequence.append(word2index[EOS_token])
+	length = len(sequence)
+	sequence += [word2index[PAD_token]]*(post_max_len + ques_max_len - len(sequence))	
+	return sequence, length
+
+def iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size, shuffle=False):
 	if shuffle:
-		indices = np.arange(len(post_seqs))
+		indices = np.arange(len(input_seqs))
 		np.random.shuffle(indices)
-	for start_idx in range(0, len(post_seqs) - batch_size + 1, batch_size):
+	for start_idx in range(0, len(input_seqs) - batch_size + 1, batch_size):
 		if shuffle:
 			excerpt = indices[start_idx:start_idx + batch_size]
 		else:
 			excerpt = slice(start_idx, start_idx + batch_size)
-		yield post_seqs[excerpt], post_lens[excerpt], \
-				ques_seqs[excerpt], ques_lens[excerpt], \
-				ans_seqs[excerpt], ans_lens[excerpt]
+		yield input_seqs[excerpt], input_lens[excerpt], \
+				output_seqs[excerpt], output_lens[excerpt] 
 
 def reverse_dict(word2index):
 	index2word = {}
@@ -38,6 +46,8 @@ def preprocess_data(triples, word2index):
 	post_lens = []
 	ques_seqs = []
 	ques_lens = []
+	post_ques_seqs = []
+	post_ques_lens = []
 	ans_seqs = []
 	ans_lens = []
 
@@ -50,12 +60,12 @@ def preprocess_data(triples, word2index):
 		ques_seq, ques_len = prepare_sequence(triple[1], word2index, MAX_QUES_LEN)
 		ques_seqs.append(ques_seq)
 		ques_lens.append(ques_len)
+		post_ques_seq, post_ques_len = prepare_pq_sequence(triple[0], triple[1], word2index, MAX_POST_LEN, MAX_QUES_LEN)
+		post_ques_seqs.append(post_ques_seq)
+		post_ques_lens.append(post_ques_len)
 		ans_seq, ans_len = prepare_sequence(triple[2], word2index, MAX_ANS_LEN)
 		ans_seqs.append(ans_seq)
 		ans_lens.append(ans_len)
 
-	#post_seqs = Variable(torch.LongTensor(np.array(post_seqs)).cuda())
-	#ques_seqs = Variable(torch.LongTensor(np.array(ques_seqs)).cuda())
-	#ans_seqs = Variable(torch.LongTensor(np.array(ans_seqs)).cuda())
-
-	return post_seqs,post_lens,ques_seqs,ques_lens,ans_seqs,ans_lens
+	return post_seqs, post_lens, ques_seqs, ques_lens, \
+			post_ques_seqs, post_ques_lens, ans_seqs, ans_lens

@@ -1,6 +1,6 @@
 import re
 import csv
-from joint_constants import *
+from RL_constants import *
 import unicodedata
 from collections import defaultdict
 import math
