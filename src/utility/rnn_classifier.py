@@ -134,17 +134,12 @@ def evaluate(context_model, question_model, answer_model, utility_model, dev_dat
 
 def prepare_sequence(seq, to_ix, max_len, cuda=False):
 	sequences = []
-	masks = []
-	#mask_idx = len(to_ix)
 	mask_idx = 0
 	for s in seq:
 		sequence = [to_ix[w] if w in to_ix else to_ix['<unk>'] for w in s.split(' ')[:max_len]]
-		mask = [1]*len(sequence) + [0]*(max_len - len(sequence))
-		masks.append(mask)
 		sequence += [mask_idx]*(max_len - len(sequence))
 		sequences.append(sequence)
 	sequences = torch.LongTensor(sequences).cuda()
-	masks = torch.FloatTensor(masks).cuda()
 	return sequences
 
 def prepare_data(input_data, vocab, split, cuda):
@@ -240,8 +235,10 @@ def main(args):
 	for epoch in range(N_EPOCHS):
 		train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model, \
 											train_data, optimizer, criterion, BATCH_SIZE)
+		#valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
+        #                                    dev_data, criterion, BATCH_SIZE)
 		valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
-                                            dev_data, criterion, BATCH_SIZE)
+                                            test_data, criterion, BATCH_SIZE)
 		print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % (epoch, train_loss, train_acc, valid_loss, valid_acc)   
 
 if __name__ == "__main__":

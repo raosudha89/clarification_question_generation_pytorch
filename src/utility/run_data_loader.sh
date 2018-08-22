@@ -6,7 +6,10 @@
 #SBATCH --mem=36g
 #SBATCH --time=24:00:00
 
-SITENAME=askubuntu_unix_superuser
+#SITENAME=askubuntu.com
+#SITENAME=unix.stackexchange.com
+SITENAME=superuser.com
+#SITENAME=askubuntu_unix_superuser
 #SITENAME=Home_and_Kitchen
 QA_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/question_answering/$SITENAME
 UTILITY_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/utility/$SITENAME

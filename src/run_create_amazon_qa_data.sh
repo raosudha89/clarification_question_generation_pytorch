@@ -8,13 +8,17 @@
 
 SITENAME=Home_and_Kitchen
 DATA_DIR=/fs/clip-corpora/amazon_qa
-SCRATCH_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/question_answering
-#SCRIPT_DIR=/fs/clip-amr/clarification_question_generation/src
-SCRIPT_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/clarification_question_generation_pytorch/src
+CQ_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/question_answering/$SITENAME
+SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
 
 export PATH="/fs/clip-amr/anaconda2/bin:$PATH"
 
 python $SCRIPT_DIR/create_amazon_qa_data.py 	--qa_data_fname $DATA_DIR/qa_${SITENAME}.json.gz \
 												--metadata_fname $DATA_DIR/meta_${SITENAME}.json.gz \
-												--contexts_fname $SCRATCH_DATA_DIR/$SITENAME/contexts.txt \
-												--answers_fname $SCRATCH_DATA_DIR/$SITENAME/answers.txt \
+												--train_src_fname $CQ_DATA_DIR/train_src \
+												--train_tgt_fname $CQ_DATA_DIR/train_tgt \
+												--tune_src_fname $CQ_DATA_DIR/tune_src \
+												--tune_tgt_fname $CQ_DATA_DIR/tune_tgt \
+												--test_src_fname $CQ_DATA_DIR/test_src \
+												--test_tgt_fname $CQ_DATA_DIR/test_tgt \
+

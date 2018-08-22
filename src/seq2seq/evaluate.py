@@ -1,6 +1,6 @@
 import random
 from RL_constants import *
-from prepare_pqa_data import *
+from prepare_data import *
 from masked_cross_entropy import *
 import torch
 import torch.nn as nn
