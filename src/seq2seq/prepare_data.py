@@ -3,7 +3,7 @@ from torch.autograd import Variable
 import pdb
 from read_data import *
 import numpy as np
-from RL_constants import *
+from constants import *
 
 # Return a list of indexes, one for each word in the sentence, plus EOS
 def prepare_sequence(seq, word2index, max_len):
@@ -14,12 +14,14 @@ def prepare_sequence(seq, word2index, max_len):
 	return sequence, length
 
 def prepare_pq_sequence(post_seq, ques_seq, word2index, post_max_len, ques_max_len):
-	sequence = [word2index[w] if w in word2index else word2index['<unk>'] for w in post_seq.split(' ')[:(post_max_len-1)]]
-	sequence.append(word2index[EOP_token])
-	sequence += [word2index[w] if w in word2index else word2index['<unk>'] for w in ques_seq.split(' ')[:(ques_max_len-1)]]
-	sequence.append(word2index[EOS_token])
-	length = len(sequence)
-	sequence += [word2index[PAD_token]]*(post_max_len + ques_max_len - len(sequence))	
+	p_sequence = [word2index[w] if w in word2index else word2index['<unk>'] for w in post_seq.split(' ')[:(post_max_len-1)]]
+	p_sequence.append(word2index[EOP_token])
+	p_sequence += [word2index[PAD_token]]*(post_max_len - len(p_sequence))	
+	q_sequence = [word2index[w] if w in word2index else word2index['<unk>'] for w in ques_seq.split(' ')[:(ques_max_len-1)]]
+	q_sequence.append(word2index[EOS_token])
+	q_sequence += [word2index[PAD_token]]*(ques_max_len - len(q_sequence))	
+	sequence = p_sequence + q_sequence
+	length = post_max_len, ques_max_len
 	return sequence, length
 
 def preprocess_data(triples, word2index):

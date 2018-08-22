@@ -13,6 +13,8 @@ def iterate_minibatches(contexts, questions, answers, labels, batch_size, shuffl
 			excerpt = slice(start_idx, start_idx + batch_size)
 		yield contexts[excerpt], questions[excerpt], answers[excerpt], labels[excerpt]
 
+import torch.nn.functional as F
+
 def binary_accuracy(preds, y):
 	"""
 	Returns accuracy per batch, i.e. if you get 8/10 right, this returns 0.8, NOT 8

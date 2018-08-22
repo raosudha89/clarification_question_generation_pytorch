@@ -1,18 +1,19 @@
 import random
-from RL_constants import *
+from constants import *
 from prepare_data import *
 from masked_cross_entropy import *
+from helper import *
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
-def evaluate(word2index, index2word, encoder, decoder, test_data, batch_size, out_file):
+def evaluate(word2index, index2word, encoder, decoder, test_data, BATCH_SIZE, out_file):
 	input_seqs, input_lens, output_seqs, output_lens = test_data
 	total_loss = 0.
-	n_batches = len(input_seqs) / batch_size
+	n_batches = len(input_seqs) / BATCH_SIZE
 	
 	for input_seqs_batch, input_lens_batch, output_seqs_batch, output_lens_batch in \
-                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size):
+                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, BATCH_SIZE):
 		input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch)).cuda()).transpose(0, 1)
 		output_seqs_batch = Variable(torch.LongTensor(np.array(output_seqs_batch)).cuda()).transpose(0, 1)
 
@@ -21,9 +22,9 @@ def evaluate(word2index, index2word, encoder, decoder, test_data, batch_size, ou
 
 		max_output_length = 50
 		# Create starting vectors for decoder
-		decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * batch_size), volatile=True)	
+		decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * BATCH_SIZE), volatile=True)	
 		decoder_hidden = encoder_hidden[:decoder.n_layers] + encoder_hidden[decoder.n_layers:]
-		all_decoder_outputs = Variable(torch.zeros(max_output_length, batch_size, decoder.output_size))
+		all_decoder_outputs = Variable(torch.zeros(max_output_length, BATCH_SIZE, decoder.output_size))
 	
 		if USE_CUDA:
 			decoder_input = decoder_input.cuda()
@@ -36,7 +37,7 @@ def evaluate(word2index, index2word, encoder, decoder, test_data, batch_size, ou
 			# Choose top word from output
 			topv, topi = decoder_output.data.topk(1)
 			decoder_input = topi.squeeze(1) 
-		for b in range(batch_size):
+		for b in range(BATCH_SIZE):
 			#input_words = []
 			#output_words = []
 			decoded_words = []

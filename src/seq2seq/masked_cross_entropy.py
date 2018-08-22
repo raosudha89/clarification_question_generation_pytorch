@@ -16,6 +16,13 @@ def sequence_mask(sequence_length, max_len=None):
     return seq_range_expand < seq_length_expand
 
 
+def calculate_log_probs(logits, length):
+	log_probs = functional.log_softmax(logits, dim=2)
+	max_log_probs = torch.topk(log_probs, 1, dim=2)[0]
+	max_log_probs = max_log_probs[:,:,0]
+	sum_log_probs = max_log_probs.sum(dim=1)
+	return sum_log_probs
+
 def masked_cross_entropy(logits, target, length):
     length = Variable(torch.LongTensor(length)).cuda()
 

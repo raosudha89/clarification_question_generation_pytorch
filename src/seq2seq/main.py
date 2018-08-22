@@ -1,17 +1,18 @@
 from attn import *
-from encoderRNN import *
 from attnDecoderRNN import *
+from constants import *
+from encoderRNN import *
+from evaluate import *
 from helper import *
 from train import *
-from evaluate import *
+import torch
+import torch.optim as optim
 from prepare_data import *
-from RL_constants import *
 
-def run_seq2seq(train_data, test_data, word2index, index2word, \
-			word_embeddings, out_file, encoder_params_file, decoder_params_file):
+def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, out_fname, encoder_params_file, decoder_params_file):
 	# Initialize q models
-	encoder = EncoderRNN(len(word2index), hidden_size, word_embeddings, n_layers, dropout=dropout)
-	decoder = AttnDecoderRNN(attn_model, hidden_size, len(word2index), word_embeddings, n_layers)
+	encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, N_LAYERS, dropout=DROPOUT)
+	decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, N_LAYERS)
 
 	#if os.path.isfile(encoder_params_file):
 	#	print 'Loading saved params...'
@@ -20,8 +21,8 @@ def run_seq2seq(train_data, test_data, word2index, index2word, \
 	#	print 'Done!'
 
 	# Initialize optimizers
-	encoder_optimizer = optim.Adam([par for par in encoder.parameters() if par.requires_grad], lr=learning_rate)
-	decoder_optimizer = optim.Adam([par for par in decoder.parameters() if par.requires_grad], lr=learning_rate * decoder_learning_ratio)
+	encoder_optimizer = optim.Adam([par for par in encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
+	decoder_optimizer = optim.Adam([par for par in decoder.parameters() if par.requires_grad], lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
 
 	# Move models to GPU
 	if USE_CUDA:
@@ -35,12 +36,12 @@ def run_seq2seq(train_data, test_data, word2index, index2word, \
 
 	input_seqs, input_lens, output_seqs, output_lens = train_data
 	
-	n_batches = len(input_seqs) / batch_size
-	while epoch < n_epochs:
+	n_batches = len(input_seqs) / BATCH_SIZE
+	while epoch < N_EPOCHS:
 		epoch += 1
 		for input_seqs_batch, input_lens_batch, \
 			output_seqs_batch, output_lens_batch in \
-                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size):
+                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, BATCH_SIZE):
 
 			start_time = time.time()
 			# Run the train function
@@ -56,15 +57,15 @@ def run_seq2seq(train_data, test_data, word2index, index2word, \
 		
 		print_loss_avg = print_loss_total / n_batches
 		print_loss_total = 0
-		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
+		print_summary = '%s %d %.4f' % (time_since(start, epoch / N_EPOCHS), epoch, print_loss_avg)
 		print(print_summary)
 		print 'Epoch: %d' % epoch
-		if epoch == n_epochs-1:
+		if epoch == N_EPOCHS-1:
 			print 'Saving model params'
 			torch.save(encoder.state_dict(), encoder_params_file)
 			torch.save(decoder.state_dict(), decoder_params_file)
-		if epoch > n_epochs - 10:
-			out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
-			evaluate(word2index, index2word, encoder, decoder, test_data, batch_size, out_file)
+		if epoch > N_EPOCHS - 10:
+			out_file = open(out_fname+'.epoch%d' % int(epoch), 'w')	
+			evaluate(word2index, index2word, encoder, decoder, test_data, BATCH_SIZE, out_file)
 
 

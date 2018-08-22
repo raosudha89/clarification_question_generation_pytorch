@@ -1,7 +1,7 @@
 from helper import *
 import numpy as np
 import torch
-from RL_constants import *
+from constants import *
 
 def train_fn(context_model, question_model, answer_model, utility_model, train_data, optimizer, criterion):
 	epoch_loss = 0
@@ -19,7 +19,7 @@ def train_fn(context_model, question_model, answer_model, utility_model, train_d
 	labels = np.array(labels)
 
 	num_batches = 0
-	for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, batch_size):
+	for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, BATCH_SIZE):
 		optimizer.zero_grad()
 		c_out = context_model(torch.transpose(torch.tensor(c).cuda(), 0, 1)).squeeze(1)
 		q_out = question_model(torch.transpose(torch.tensor(q).cuda(), 0, 1)).squeeze(1)

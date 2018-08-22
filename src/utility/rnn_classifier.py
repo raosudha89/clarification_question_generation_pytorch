@@ -39,17 +39,14 @@ class RNN(nn.Module):
 class FeedForward(nn.Module):
 	def __init__(self, input_dim, hidden_dim, output_dim):
 		super(FeedForward, self).__init__()
-
 		self.layer1 = nn.Linear(input_dim, hidden_dim)
 		self.relu = nn.ReLU()
 		self.layer2 = nn.Linear(hidden_dim, output_dim)
 
 	def forward(self, x):
-
 		x = self.layer1(x)
 		x = self.relu(x)
 		x = self.layer2(x)
-
 		return x
 
 import torch.nn.functional as F
@@ -58,7 +55,6 @@ def binary_accuracy(preds, y):
 	"""
 	Returns accuracy per batch, i.e. if you get 8/10 right, this returns 0.8, NOT 8
 	"""
-
 	#round predictions to the closest integer
 	rounded_preds = torch.round(F.sigmoid(preds))
 	correct = (rounded_preds == y).float() #convert into float for division 
@@ -191,7 +187,7 @@ def main(args):
 
 	BATCH_SIZE = 64
 	INPUT_DIM = len(vocab)
-	EMBEDDING_DIM = 200
+	EMBEDDING_DIM = len(word_embeddings[0])
 	HIDDEN_DIM = 100
 	OUTPUT_DIM = 1
 	N_LAYERS = 1
@@ -235,10 +231,10 @@ def main(args):
 	for epoch in range(N_EPOCHS):
 		train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model, \
 											train_data, optimizer, criterion, BATCH_SIZE)
-		#valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
-        #                                    dev_data, criterion, BATCH_SIZE)
 		valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
-                                            test_data, criterion, BATCH_SIZE)
+                                            dev_data, criterion, BATCH_SIZE)
+		#valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
+        #                                    test_data, criterion, BATCH_SIZE)
 		print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % (epoch, train_loss, train_acc, valid_loss, valid_acc)   
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from FeedForward import *
 from RNN import *
-from RL_constants import *
+from constants import *
 from evaluate import *
 from train import *
 import random
@@ -29,11 +29,11 @@ def update_neg_data(train_data):
 	train_data = new_post_seqs, new_ques_seqs, new_ans_seqs, labels
 	return train_data
 
-def run_utility(train_data, test_data, word_embeddings, params_file):
+def run_utility(train_data, test_data, word_embeddings, context_params, question_params, answer_params, utility_params):
 	context_model = RNN(len(word_embeddings), len(word_embeddings[0]))
 	question_model = RNN(len(word_embeddings), len(word_embeddings[0]))
 	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]))
-	utility_model = FeedForward(hidden_size*3)
+	utility_model = FeedForward(HIDDEN_SIZE*3)
 
 	word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings).cuda())
 	context_model.embedding.weight.data.copy_(word_embeddings)
@@ -61,17 +61,17 @@ def run_utility(train_data, test_data, word_embeddings, params_file):
 	train_data = update_neg_data(train_data)
 	test_data = update_neg_data(test_data)
 
-	for epoch in range(n_epochs):
+	for epoch in range(U_N_EPOCHS):
 		train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model, \
 																train_data, optimizer, criterion)
 		valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
                                             					test_data, criterion)
 		print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % \
 				(epoch, train_loss, train_acc, valid_loss, valid_acc)   
-		if epoch == n_epochs-1:
+		if epoch == U_N_EPOCHS-1:
 			print 'Saving model params'
-			torch.save(context_model.state_dict(), params_file+'.context')
-			torch.save(question_model.state_dict(), params_file+'.question')
-			torch.save(answer_model.state_dict(), params_file+'.answer')
-			torch.save(utility_model.state_dict(), params_file+'.utility')
+			torch.save(context_model.state_dict(), context_params)
+			torch.save(question_model.state_dict(), question_params)
+			torch.save(answer_model.state_dict(), answer_params)
+			torch.save(utility_model.state_dict(), utility_params)
 

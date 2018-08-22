@@ -1,15 +1,15 @@
 import torch
 import torch.nn as nn
-from RL_constants import *
+from constants import *
 
 class RNN(nn.Module):
 	def __init__(self, vocab_size, embedding_dim):
 		super(RNN, self).__init__()
 		
 		self.embedding = nn.Embedding(vocab_size, embedding_dim)
-		self.rnn = nn.LSTM(embedding_dim, hidden_size, num_layers=n_layers, bidirectional=True, dropout=dropout)
-		self.fc = nn.Linear(hidden_size*2, hidden_size)
-		self.dropout = nn.Dropout(dropout)
+		self.rnn = nn.LSTM(embedding_dim, HIDDEN_SIZE, num_layers=U_N_LAYERS, bidirectional=True)
+		self.fc = nn.Linear(HIDDEN_SIZE*2, HIDDEN_SIZE)
+		self.dropout = nn.Dropout(DROPOUT)
 		
 	def forward(self, x):
 
