@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=RL_HK_emb100
-#SBATCH --output=RL_HK_emb100
+#SBATCH --job-name=RL_aus_emb200_5Kvocab
+#SBATCH --output=RL_aus_emb200_5Kvocab
 #SBATCH --qos=gpu-medium
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
@@ -13,8 +13,8 @@ SITENAME=askubuntu_unix_superuser
 
 CQ_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200_10Kvocab
 #EMB_DIR=/fs/clip-amr/ranking_clarification_questions/embeddings
+EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200_5Kvocab
 
 export PATH=/cliphomes/raosudha/anaconda2/bin:$PATH
 
@@ -39,4 +39,6 @@ python $SCRIPT_DIR/RL_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--utility_params $CQ_DATA_DIR/utility_params \
 									--word_embeddings $EMB_DIR/word_embeddings.p \
 									--vocab $EMB_DIR/vocab.p \
-
+									--max_post_len 50 \
+									--batch_size 256
+									--n_epochs 1 \

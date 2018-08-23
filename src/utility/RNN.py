@@ -3,11 +3,11 @@ import torch.nn as nn
 from constants import *
 
 class RNN(nn.Module):
-	def __init__(self, vocab_size, embedding_dim):
+	def __init__(self, vocab_size, embedding_dim, n_layers):
 		super(RNN, self).__init__()
 		
 		self.embedding = nn.Embedding(vocab_size, embedding_dim)
-		self.rnn = nn.LSTM(embedding_dim, HIDDEN_SIZE, num_layers=U_N_LAYERS, bidirectional=True)
+		self.rnn = nn.LSTM(embedding_dim, HIDDEN_SIZE, num_layers=n_layers, bidirectional=True)
 		self.fc = nn.Linear(HIDDEN_SIZE*2, HIDDEN_SIZE)
 		self.dropout = nn.Dropout(DROPOUT)
 		

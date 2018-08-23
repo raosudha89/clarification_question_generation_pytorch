@@ -10,10 +10,10 @@ import torch.optim as optim
 from prepare_data import *
 
 def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, \
-				out_fname, encoder_params_file, decoder_params_file, max_target_length):
+				out_fname, encoder_params_file, decoder_params_file, max_target_length, n_epochs, batch_size, n_layers):
 	# Initialize q models
-	encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, N_LAYERS, dropout=DROPOUT)
-	decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, N_LAYERS)
+	encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers, dropout=DROPOUT)
+	decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, n_layers)
 
 	#if os.path.isfile(encoder_params_file):
 	#	print 'Loading saved params...'
@@ -37,12 +37,12 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 
 	input_seqs, input_lens, output_seqs, output_lens = train_data
 	
-	n_batches = len(input_seqs) / BATCH_SIZE
-	while epoch < N_EPOCHS:
+	n_batches = len(input_seqs) / batch_size
+	while epoch < n_epochs:
 		epoch += 1
 		for input_seqs_batch, input_lens_batch, \
 			output_seqs_batch, output_lens_batch in \
-                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, BATCH_SIZE):
+                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size):
 
 			start_time = time.time()
 			# Run the train function
@@ -51,7 +51,7 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 				output_seqs_batch, output_lens_batch,
 				encoder, decoder,
 				encoder_optimizer, decoder_optimizer, 
-				word2index[SOS_token], max_target_length 
+				word2index[SOS_token], max_target_length, batch_size 
 			)
 	
 			# Keep track of loss
@@ -59,15 +59,15 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 		
 		print_loss_avg = print_loss_total / n_batches
 		print_loss_total = 0
-		print_summary = '%s %d %.4f' % (time_since(start, epoch / N_EPOCHS), epoch, print_loss_avg)
+		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
 		print(print_summary)
 		print 'Epoch: %d' % epoch
-		if epoch == N_EPOCHS-1:
+		if epoch == n_epochs-1:
 			print 'Saving model params'
 			torch.save(encoder.state_dict(), encoder_params_file)
 			torch.save(decoder.state_dict(), decoder_params_file)
-		if epoch > N_EPOCHS - 10:
+		if epoch > n_epochs - 10:
 			out_file = open(out_fname+'.epoch%d' % int(epoch), 'w')	
-			evaluate(word2index, index2word, encoder, decoder, test_data, BATCH_SIZE, out_file)
+			evaluate(word2index, index2word, encoder, decoder, test_data, batch_size, out_file)
 
 

@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from constants import *
 
-def evaluate(context_model, question_model, answer_model, utility_model, dev_data, criterion):
+def evaluate(context_model, question_model, answer_model, utility_model, dev_data, criterion, batch_size):
 	epoch_loss = 0
 	epoch_acc = 0
 	num_batches = 0	
@@ -20,7 +20,7 @@ def evaluate(context_model, question_model, answer_model, utility_model, dev_dat
 		questions = np.array(questions)
 		answers = np.array(answers)
 		labels = np.array(labels)
-		for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, BATCH_SIZE):
+		for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, batch_size):
 			c_out = context_model(torch.transpose(torch.tensor(c).cuda(), 0, 1)).squeeze(1)
 			q_out = question_model(torch.transpose(torch.tensor(q).cuda(), 0, 1)).squeeze(1)
 			a_out = answer_model(torch.transpose(torch.tensor(a).cuda(), 0, 1)).squeeze(1)

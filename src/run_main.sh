@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=pretrain_ques_HK_emb200
-#SBATCH --output=pretrain_ques_HK_emb200
+#SBATCH --job-name=pretrain_ans_HK_emb200
+#SBATCH --output=pretrain_ans_HK_emb200
 #SBATCH --qos=gpu-medium
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
@@ -40,7 +40,9 @@ python $SCRIPT_DIR/main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--utility_params $CQ_DATA_DIR/utility_params \
 									--word_embeddings $EMB_DIR/word_embeddings.p \
 									--vocab $EMB_DIR/vocab.p \
-									--pretrain_ques True \
-									#--pretrain_ans	True \
+									--n_epochs 1 \
+									--max_post_len 50 \
+									--pretrain_ans	True \
+									#--pretrain_ques True \
 									#--pretrain_util	True \
 

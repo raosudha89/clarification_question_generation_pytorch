@@ -29,10 +29,11 @@ def update_neg_data(train_data):
 	train_data = new_post_seqs, new_ques_seqs, new_ans_seqs, labels
 	return train_data
 
-def run_utility(train_data, test_data, word_embeddings, context_params, question_params, answer_params, utility_params):
-	context_model = RNN(len(word_embeddings), len(word_embeddings[0]))
-	question_model = RNN(len(word_embeddings), len(word_embeddings[0]))
-	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]))
+def run_utility(train_data, test_data, word_embeddings, context_params, question_params, answer_params, utility_params, \
+				n_epochs, batch_size, n_layers):
+	context_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers)
+	question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers)
+	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers)
 	utility_model = FeedForward(HIDDEN_SIZE*3)
 
 	word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings).cuda())
@@ -61,14 +62,14 @@ def run_utility(train_data, test_data, word_embeddings, context_params, question
 	train_data = update_neg_data(train_data)
 	test_data = update_neg_data(test_data)
 
-	for epoch in range(U_N_EPOCHS):
+	for epoch in range(n_epochs):
 		train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model, \
-																train_data, optimizer, criterion)
+																train_data, optimizer, criterion, batch_size)
 		valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
-                                            					test_data, criterion)
+                                            					test_data, criterion, batch_size)
 		print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % \
 				(epoch, train_loss, train_acc, valid_loss, valid_acc)   
-		if epoch == U_N_EPOCHS-1:
+		if epoch == n_epochs-1:
 			print 'Saving model params'
 			torch.save(context_model.state_dict(), context_params)
 			torch.save(question_model.state_dict(), question_params)

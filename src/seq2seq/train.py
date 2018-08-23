@@ -5,7 +5,8 @@ import numpy as np
 from constants import *
 
 def train(input_batches, input_lens, target_batches, target_lens, \
-			encoder, decoder, encoder_optimizer, decoder_optimizer, SOS_idx, max_target_length):
+			encoder, decoder, encoder_optimizer, decoder_optimizer, \
+			SOS_idx, max_target_length, batch_size):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()
@@ -21,14 +22,13 @@ def train(input_batches, input_lens, target_batches, target_lens, \
 	# Prepare input and output variables
 	decoder_hidden = encoder_hidden[:decoder.n_layers] + encoder_hidden[decoder.n_layers:]
 
-	decoder_input = Variable(torch.LongTensor([SOS_idx] * BATCH_SIZE).cuda())
-	all_decoder_outputs = Variable(torch.zeros(max_target_length, BATCH_SIZE, decoder.output_size).cuda())
+	decoder_input = Variable(torch.LongTensor([SOS_idx] * batch_size).cuda())
+	all_decoder_outputs = Variable(torch.zeros(max_target_length, batch_size, decoder.output_size).cuda())
 
 	# Run through decoder one time step at a time
 	for t in range(max_target_length):
 		decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
 		all_decoder_outputs[t] = decoder_output
-
 		# Teacher Forcing
 		decoder_input = target_batches[t] # Next input is current target
 

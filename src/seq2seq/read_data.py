@@ -19,35 +19,35 @@ def normalize_string(s, max_len):
 	s = ' '.join(words[:max_len])
 	return s
 
-def get_context(line):
+def get_context(line, max_post_len, max_ques_len):
 	splits = line.split('<EOP>')
 	context = splits[0]
-	context = normalize_string(context, MAX_POST_LEN) + ' <EOP>'
+	context = normalize_string(context, max_post_len) + ' <EOP>'
 	if len(splits) > 1:
 		sim_ques = splits[1].split('<EOQ>')
 		for ques in sim_ques:
-			ques = normalize_string(context, MAX_QUES_LEN)
+			ques = normalize_string(context, max_ques_len)
 			context += ques + ' <EOQ>'
 	return context
 
-def read_data(context, question, answer, split):
+def read_data(context, question, answer, max_post_len, max_ques_len, max_ans_len, split):
 	print("Reading lines...")
 	data = []
 
 	for line in open(context, 'r').readlines():
-		context = get_context(line)
+		context = get_context(line, max_post_len, max_ques_len)
 		data.append([context, None, None])
 
 	i = 0
 	for line in open(question, 'r').readlines():
-		question = normalize_string(line, MAX_QUES_LEN)
+		question = normalize_string(line, max_ques_len)
 		data[i][1] = question
 		i += 1
 	assert(i == len(data))
 
 	i = 0
 	for line in open(answer, 'r').readlines():
-		answer = normalize_string(line, MAX_ANS_LEN)
+		answer = normalize_string(line, max_ans_len)
 		data[i][2] = answer
 		i += 1
 	assert(i == len(data))

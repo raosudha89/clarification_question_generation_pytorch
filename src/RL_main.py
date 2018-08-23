@@ -42,33 +42,37 @@ def main(args):
 	#word_embeddings = update_embs(word2index, word_embeddings) --> updating embs gives poor utility results (0.5 acc)
 	index2word = reverse_dict(word2index)
 
-	train_data = read_data(args.train_context, args.train_question, args.train_answer, split='train')
-	test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, split='test')
-	#test_data = read_data(args.test_context, args.test_question, args.test_answer, split='test')
+	train_data = read_data(args.train_context, args.train_question, args.train_answer, \
+							args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
+	test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, \
+							args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
+	#test_data = read_data(args.test_context, args.test_question, args.test_answer, \
+	#						args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
 
 	print 'No. of train_data %d' % len(train_data)
 	print 'No. of test_data %d' % len(test_data)
+	run_model(train_data, test_data, word_embeddings, word2index, args)
 
-	run_model(train_data, test_data, word2index, word_embeddings)
-
-def run_model(train_data, test_data, word2index, word_embeddings):
+def run_model(train_data, test_data, word_embeddings, word2index, args):
 	tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
-    tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens = preprocess_data(train_data, word2index)
+    tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens = preprocess_data(train_data, word2index, \
+																				args.max_post_len, args.max_ques_len, args.max_ans_len)
 
 	te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
-    te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index)
+    te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index, \
+																				args.max_post_len, args.max_ques_len, args.max_ans_len)
 
-	q_encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, N_LAYERS, dropout=dropout)
-	q_decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, N_LAYERS)
+	q_encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers=2, dropout=DROPOUT).cuda()
+	q_decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, n_layers=2).cuda()
 
-	a_encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, N_LAYERS, dropout=dropout)
-	a_decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, N_LAYERS)
+	a_encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers=2, dropout=DROPOUT).cuda()
+	a_decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, n_layers=2).cuda()
 
 	# Load encoder, decoder params
-	q_encoder.load_state_dict(torch.load(args.q_encoder_params))
-	q_decoder.load_state_dict(torch.load(args.q_decoder_params))
-	a_encoder.load_state_dict(torch.load(args.a_encoder_params))
-	a_decoder.load_state_dict(torch.load(args.a_decoder_params))
+	#q_encoder.load_state_dict(torch.load(args.q_encoder_params))
+	#q_decoder.load_state_dict(torch.load(args.q_decoder_params))
+	#a_encoder.load_state_dict(torch.load(args.a_encoder_params))
+	#a_decoder.load_state_dict(torch.load(args.a_decoder_params))
 
 	q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
 	q_decoder_optimizer = optim.Adam([par for par in q_decoder.parameters() if par.requires_grad], lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
@@ -76,21 +80,10 @@ def run_model(train_data, test_data, word2index, word_embeddings):
 	a_encoder_optimizer = optim.Adam([par for par in a_encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
 	a_decoder_optimizer = optim.Adam([par for par in a_decoder.parameters() if par.requires_grad], lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
 
-	if USE_CUDA:
-		q_encoder.cuda()
-		q_decoder.cuda()
-		a_encoder.cuda()
-		a_decoder.cuda()
-
-	context_model = RNN(len(word_embeddings), len(word_embeddings[0]))
-	question_model = RNN(len(word_embeddings), len(word_embeddings[0]))
-	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]))
-	utility_model = FeedForward(HIDDEN_SIZE*3)
-	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-	context_model = context_model.to(device)
-	question_model = question_model.to(device)
-	answer_model = answer_model.to(device)
-	utility_model = utility_model.to(device)
+	context_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1).cuda()
+	question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1).cuda()
+	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1).cuda()
+	utility_model = FeedForward(HIDDEN_SIZE*3).cuda()
 
 	# Load utility calculator model params
 	context_model.load_state_dict(torch.load(args.context_params))
@@ -98,35 +91,40 @@ def run_model(train_data, test_data, word2index, word_embeddings):
 	answer_model.load_state_dict(torch.load(args.answer_params))
 	utility_model.load_state_dict(torch.load(args.utility_params))
 
-	epoch = 0
-	n_batches = len(tr_post_seqs)/BATCH_SIZE
-	while epoch < n_epochs:
+	epoch = 0.
+	start = time.time()
+	n_batches = len(tr_post_seqs)/args.batch_size
+	while epoch < args.n_epochs:
 		epoch += 1
-		for p, pl, q, ql, pq, pql, a, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
-													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, BATCH_SIZE):
+		total_loss = 0.
+		for post, pl, ques, ql, pq, pql, a, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
+													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
 
-			q_loss, q_log_probs, q_pred, ql_pred = train(p, pl, q, ql, q_encoder, q_decoder, \
-													q_encoder_optimizer, q_decoder_optimizer, word2index, MAX_QUES_LEN)	
-			pq_pred = np.concatenate((p, q_pred), axis=1)
-			pql_pred = np.full((BATCH_SIZE), MAX_POST_LEN+MAX_QUES_LEN)
-			#a_loss, a_pred_seqs, a_pred_lens = train(pq, pql, a, al, a_encoder, a_decoder, \
-			#										a_encoder_optimizer, a_decoder_optimizer, word2index, MAX_ANS_LEN)
+			q_loss, q_log_probs, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, \
+															q_encoder_optimizer, q_decoder_optimizer, \
+															word2index, args.max_ques_len, args.batch_size)
+			pq_pred = np.concatenate((post, q_pred), axis=1)
+			pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
 			a_loss, a_log_probs, a_pred, al_pred = train(pq_pred, pql_pred, a, al, a_encoder, a_decoder, \
-													a_encoder_optimizer, a_decoder_optimizer, word2index, MAX_ANS_LEN)
+															a_encoder_optimizer, a_decoder_optimizer, \
+															word2index, args.max_ans_len, args.batch_size)
 
-			u_preds = evaluate(context_model, question_model, answer_model, utility_model, p, q_pred, a_pred)	
+			u_preds = evaluate(context_model, question_model, answer_model, utility_model, post, q_pred, a_pred)	
 			log_probs = torch.add(q_log_probs, a_log_probs)
 			loss = 0.
-			for b in range(BATCH_SIZE):
+			for b in range(args.batch_size):
 				loss += log_probs[b]*u_preds[b].item()
 			loss = -1.0*loss
-			#loss = q_loss + a_loss
-			print loss
+			total_loss += loss
 			loss.backward()
 			q_encoder_optimizer.step()
 			q_decoder_optimizer.step()
 			a_encoder_optimizer.step()
 			a_decoder_optimizer.step()
+		print_loss_avg = total_loss / n_batches
+		print_summary = '%s %d %.4f' % (time_since(start, epoch / args.n_epochs), epoch, print_loss_avg)
+		print(print_summary)
+		
 
 if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])
@@ -152,6 +150,11 @@ if __name__ == "__main__":
 	argparser.add_argument("--vocab", type = str)
 	argparser.add_argument("--word_embeddings", type = str)
 	argparser.add_argument("--cuda", type = bool, default=True)
+	argparser.add_argument("--max_post_len", type = int, default=300)
+	argparser.add_argument("--max_ques_len", type = int, default=50)
+	argparser.add_argument("--max_ans_len", type = int, default=50)
+	argparser.add_argument("--n_epochs", type = int, default=20)
+	argparser.add_argument("--batch_size", type = int, default=128)
 	args = argparser.parse_args()
 	print args
 	print ""

@@ -2,23 +2,14 @@ USE_CUDA = True
 
 # Configure models
 HIDDEN_SIZE = 100
-N_LAYERS = 2
-U_N_LAYERS = 1
 DROPOUT = 0.5
-BATCH_SIZE = 128
 
 # Configure training/optimization
 LEARNING_RATE = 0.0001
 DECODER_LEARNING_RATIO = 5.0
-N_EPOCHS = 100
-U_N_EPOCHS = 30
 
 PAD_token = '<PAD>'
 SOS_token = '<SOS>'
 EOP_token = '<EOP>'
 EOS_token = '<EOS>'
-MAX_POST_LEN=100
-MAX_QUES_LEN=40
-MAX_ANS_LEN=40
-MIN_TFIDF=30
 
