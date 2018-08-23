@@ -20,7 +20,7 @@ from seq2seq.prepare_data import *
 from seq2seq.masked_cross_entropy import *
 from seq2seq.main import * 
 from utility.main import *
-from RL_constants import *
+from constants import *
 
 def update_embs(word2index, word_embeddings):
 	word_embeddings[word2index[PAD_token]] = nn.init.normal_(torch.empty(1, len(word_embeddings[0])))
@@ -57,13 +57,18 @@ def main(args):
 	a_test_data = post_ques_seqs, post_ques_lens, ans_seqs, ans_lens
 	u_test_data = post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens
 
-	#run_seq2seq(q_train_data, q_test_data, word2index, index2word, \
-	#		word_embeddings, args.test_pred_question, args.q_encoder_params, args.q_decoder_params)
-
-	#run_seq2seq(a_train_data, a_test_data, word2index, index2word, \
-	#		word_embeddings, args.test_pred_question, args.a_encoder_params, args.a_decoder_params)
-
-	run_utility(u_train_data, u_test_data, word_embeddings, args.utility_params)
+	if args.pretrain_ques:
+		run_seq2seq(q_train_data, q_test_data, word2index, index2word, word_embeddings, \
+					args.test_pred_question, args.q_encoder_params, args.q_decoder_params, MAX_QUES_LEN)
+	elif args.pretrain_ans:
+		run_seq2seq(a_train_data, a_test_data, word2index, index2word, word_embeddings, \
+					args.test_pred_question, args.a_encoder_params, args.a_decoder_params, MAX_ANS_LEN)
+	elif args.pretrain_util:
+		run_utility(u_train_data, u_test_data, word_embeddings, args.context_params, \
+					args.question_params, args.answer_params, args.utility_params)
+	else:
+		print 'Please specify model to pretrain'
+		return
 
 if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])
@@ -82,10 +87,16 @@ if __name__ == "__main__":
 	argparser.add_argument("--q_decoder_params", type = str)
 	argparser.add_argument("--a_encoder_params", type = str)
 	argparser.add_argument("--a_decoder_params", type = str)
+	argparser.add_argument("--context_params", type = str)
+	argparser.add_argument("--question_params", type = str)
+	argparser.add_argument("--answer_params", type = str)
 	argparser.add_argument("--utility_params", type = str)
 	argparser.add_argument("--vocab", type = str)
 	argparser.add_argument("--word_embeddings", type = str)
-	argparser.add_argument("--cuda", type = bool)
+	argparser.add_argument("--cuda", type = bool, default=True)
+	argparser.add_argument("--pretrain_ques", type = bool)
+	argparser.add_argument("--pretrain_ans", type = bool)
+	argparser.add_argument("--pretrain_util", type = bool)
 	args = argparser.parse_args()
 	print args
 	print ""

@@ -1,28 +1,24 @@
 USE_CUDA = True
 
 # Configure models
-attn_model = 'dot'
-hidden_size = 100
-n_layers = 1
-dropout = 0.5
-batch_size = 64
-word_emb_size = 200
+HIDDEN_SIZE = 100
+N_LAYERS = 2
+U_N_LAYERS = 1
+DROPOUT = 0.5
+BATCH_SIZE = 128
 
 # Configure training/optimization
-clip = 50.0
-teacher_forcing_ratio = 0.5
-learning_rate = 0.0001
-decoder_learning_ratio = 5.0
-n_epochs = 20
-epoch = 0.
+LEARNING_RATE = 0.0001
+DECODER_LEARNING_RATIO = 5.0
+N_EPOCHS = 100
+U_N_EPOCHS = 30
 
 PAD_token = '<PAD>'
 SOS_token = '<SOS>'
 EOP_token = '<EOP>'
 EOS_token = '<EOS>'
-MAX_POST_LEN=300
-MAX_QUES_LEN=50
-MAX_ANS_LEN=50
+MAX_POST_LEN=100
+MAX_QUES_LEN=40
+MAX_ANS_LEN=40
 MIN_TFIDF=30
-clip = 50.0
 
