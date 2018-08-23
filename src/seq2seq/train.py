@@ -5,7 +5,7 @@ import numpy as np
 from constants import *
 
 def train(input_batches, input_lens, target_batches, target_lens, \
-			encoder, decoder, encoder_optimizer, decoder_optimizer, SOS_idx):
+			encoder, decoder, encoder_optimizer, decoder_optimizer, SOS_idx, max_target_length):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()
@@ -20,7 +20,6 @@ def train(input_batches, input_lens, target_batches, target_lens, \
 
 	# Prepare input and output variables
 	decoder_hidden = encoder_hidden[:decoder.n_layers] + encoder_hidden[decoder.n_layers:]
-	max_target_length = 50
 
 	decoder_input = Variable(torch.LongTensor([SOS_idx] * BATCH_SIZE).cuda())
 	all_decoder_outputs = Variable(torch.zeros(max_target_length, BATCH_SIZE, decoder.output_size).cuda())

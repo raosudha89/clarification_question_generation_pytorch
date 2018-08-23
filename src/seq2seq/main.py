@@ -9,7 +9,8 @@ import torch
 import torch.optim as optim
 from prepare_data import *
 
-def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, out_fname, encoder_params_file, decoder_params_file):
+def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, \
+				out_fname, encoder_params_file, decoder_params_file, max_target_length):
 	# Initialize q models
 	encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, N_LAYERS, dropout=DROPOUT)
 	decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, N_LAYERS)
@@ -49,7 +50,8 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 				input_seqs_batch, input_lens_batch,
 				output_seqs_batch, output_lens_batch,
 				encoder, decoder,
-				encoder_optimizer, decoder_optimizer, word2index[SOS_token]
+				encoder_optimizer, decoder_optimizer, 
+				word2index[SOS_token], max_target_length 
 			)
 	
 			# Keep track of loss
