@@ -1,3 +1,5 @@
+from constants import *
+import numpy as np
 import torch
 from torch.nn import functional
 from torch.autograd import Variable
@@ -6,25 +8,31 @@ def sequence_mask(sequence_length, max_len=None):
     if max_len is None:
         max_len = sequence_length.data.max()
     batch_size = sequence_length.size(0)
-    seq_range = torch.range(0, max_len - 1).long()
+    seq_range = torch.arange(0, max_len).long()
     seq_range_expand = seq_range.unsqueeze(0).expand(batch_size, max_len)
     seq_range_expand = Variable(seq_range_expand)
-    if sequence_length.is_cuda:
-        seq_range_expand = seq_range_expand.cuda()
+    if USE_CUDA:
+        if sequence_length.is_cuda:
+            seq_range_expand = seq_range_expand.cuda()
     seq_length_expand = (sequence_length.unsqueeze(1)
                          .expand_as(seq_range_expand))
     return seq_range_expand < seq_length_expand
 
 
-def calculate_log_probs(logits, length):
-	log_probs = functional.log_softmax(logits, dim=2)
-	max_log_probs = torch.topk(log_probs, 1, dim=2)[0]
-	max_log_probs = max_log_probs[:,:,0]
-	sum_log_probs = max_log_probs.sum(dim=1)
-	return sum_log_probs
+def calculate_log_probs(logits, masks, idx=0):
+    log_probs = functional.log_softmax(logits, dim=2)
+    max_log_probs = torch.topk(log_probs, idx+1, dim=2)[0][:,:,idx]
+    masks = torch.FloatTensor(masks)
+    if USE_CUDA:
+        masks = masks.cuda()
+    max_log_probs = max_log_probs * masks
+    sum_log_probs = max_log_probs.sum(dim=1)
+    return sum_log_probs
 
 def masked_cross_entropy(logits, target, length):
-    length = Variable(torch.LongTensor(length)).cuda()
+    length = Variable(torch.LongTensor(length))
+    if USE_CUDA:
+        length = length.cuda()
 
     """
     Args:
@@ -45,6 +53,7 @@ def masked_cross_entropy(logits, target, length):
     logits_flat = logits.view(-1, logits.size(-1))
     # log_probs_flat: (batch * max_len, num_classes)
     log_probs_flat = functional.log_softmax(logits_flat, dim=1)
+    #sum_log_probs = sum_log_probs.sum()
     # target_flat: (batch * max_len, 1)
     target_flat = target.view(-1, 1)
     # losses_flat: (batch * max_len, 1)
