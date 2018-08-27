@@ -47,9 +47,9 @@ def main(args):
 	index2word = reverse_dict(word2index)
 
 	train_data = read_data(args.train_context, args.train_question, args.train_answer, \
-							args.max_post_len, args.max_ques_len, args.max_ans_len, split='train', count=2)
+							args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
 	test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, \
-							args.max_post_len, args.max_ques_len, args.max_ans_len, split='test', count=2)
+							args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
 	#test_data = read_data(args.test_context, args.test_question, args.test_answer, \
 	#						args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
 
@@ -126,11 +126,11 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 
 	epoch = 0.
 	start = time.time()
-	#out_file = open(args.test_pred_question+'.pretrained', 'w')	
-	out_file = None
+	out_file = open(args.test_pred_question+'.pretrained', 'w')	
+	#out_file = None
 	evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
-					#te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, out_file)
-					tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
+					te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, out_file)
+					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
 
 	n_batches = len(tr_post_seqs)/args.batch_size
 	while epoch < args.n_epochs:
@@ -141,58 +141,37 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 		for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
 													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
 			q_log_probs, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer, \
-												word2index, args.max_ques_len, args.batch_size)
-			#q_encoder.eval()
-			#q_decoder.eval()
+														word2index, args.max_ques_len, args.batch_size)
 			g_q_log_probs, g_q_pred, g_ql_pred = inference(post, pl, ques, ql, q_encoder, q_decoder, \
 															word2index, args.max_ques_len, args.batch_size)
 
-			#q_encoder.train()
-			#q_decoder.train()
-			#pq_pred = np.concatenate((post, q_pred), axis=1)
-			#pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
-			#a_log_probs, a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
-			#												a_encoder_optimizer, a_decoder_optimizer, \
-			#												word2index, args.max_ans_len, args.batch_size)
-			#log_probs = torch.add(q_log_probs, a_log_probs)
+			pq_pred = np.concatenate((post, q_pred), axis=1)
+			pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
+			a_log_probs, a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
+															a_encoder_optimizer, a_decoder_optimizer, \
+															word2index, args.max_ans_len, args.batch_size)
+			g_pq_pred = np.concatenate((post, g_q_pred), axis=1)
+			g_pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
+			g_a_log_probs, g_a_pred, g_al_pred = inference(g_pq_pred, g_pql_pred, ans, al, a_encoder, a_decoder, \
+															word2index, args.max_ans_len, args.batch_size)
+			log_probs = torch.add(q_log_probs, a_log_probs)
 
 			#u_loss, u_true_preds = train_utility(context_model, question_model, answer_model, utility_model, u_optimizer, post, ques, ans)
-			#u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, q_pred, ans)	
-			#g_u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, g_q_pred, ans)	
-			#total_u_pred += u_preds.data.sum() / args.batch_size
-			#total_u_true_pred += g_u_preds.data.sum() / args.batch_size
+			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, q_pred, a_pred)	
+			g_u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, g_q_pred, g_a_pred)	
+			total_u_pred += u_preds.data.sum() / args.batch_size
+			total_u_true_pred += g_u_preds.data.sum() / args.batch_size
+			reward = u_preds
+			g_reward = g_u_preds
 
-			#reward = 1000*(u_preds.data - 0.50)
-			#reward = 1000*u_preds
-			#g_reward = 1000*g_u_preds
-
-			g_reward = calculate_bleu(ques, ql, g_q_pred, g_ql_pred, index2word)
-			total_u_true_pred += g_reward.sum() / args.batch_size 
-			g_reward = 1000*g_reward
-			N_loss = 0.
-			N_reward = 0.
-			N = 10
-			for i in range(N):
-				reward = calculate_bleu(ques, ql, q_pred[i], ql_pred[i], index2word)
-				N_reward += reward.sum()/args.batch_size 
-				#reward = 1000*(reward-0.25)
-				reward = 1000*reward
-				import pdb
-				pdb.set_trace()
-				N_loss += -1.0*torch.sum(q_log_probs[i] * (reward.data-g_reward.data))
-			total_u_pred += N_reward / 10
-			loss = N_loss / 10
-
+			#reward = calculate_bleu(ques, ql, q_pred, ql_pred, index2word)
+			#g_reward = calculate_bleu(ques, ql, g_q_pred, g_ql_pred, index2word)
 			#total_u_pred += reward.sum() / args.batch_size 
-			#reward = reward - 0.25
-			#g_reward = g_reward-0.25
-			#reward = 1000*reward
-			#g_reward = 1000*g_reward
+			#total_u_true_pred += g_reward.sum() / args.batch_size 
 
-			#loss = -1.0*torch.sum(q_log_probs * reward.data)
-			#loss = -1.0*torch.sum(q_log_probs * (reward.data-g_reward.data))
-			#import pdb
-			#pdb.set_trace()
+			loss = torch.sum(-1.0*log_probs * (reward.data-g_reward.data))
+			#loss += u_loss
+			#loss += q_loss
 			#print g_q_log_probs
 			#print g_reward.data
 			#loss = -1.0*torch.sum(g_q_log_probs * g_reward.data)
@@ -201,8 +180,8 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 			loss.backward()
 			q_encoder_optimizer.step()
 			q_decoder_optimizer.step()
-			#a_encoder_optimizer.step()
-			#a_decoder_optimizer.step()
+			a_encoder_optimizer.step()
+			a_decoder_optimizer.step()
 			#u_optimizer.step()
 		print_loss_avg = total_loss / n_batches
 		print_u_pred_avg = total_u_pred / n_batches
@@ -212,11 +191,11 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 		print(print_summary)
 		if epoch > args.n_epochs - 10:
 			print 'Running evaluation...'
-			#out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
-			out_file = None
+			out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
+			#out_file = None
 			evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
-							#te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, out_file)
-							tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
+							te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, out_file)
+							#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
 		
 
 if __name__ == "__main__":

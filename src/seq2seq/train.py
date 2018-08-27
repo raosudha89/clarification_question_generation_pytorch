@@ -15,6 +15,9 @@ def train(input_batches, input_lens, target_batches, target_lens, \
 	if USE_CUDA:
 		input_batches = Variable(torch.LongTensor(np.array(input_batches)).cuda()).transpose(0, 1)
 		target_batches = Variable(torch.LongTensor(np.array(target_batches)).cuda()).transpose(0, 1)
+	else:
+		input_batches = Variable(torch.LongTensor(np.array(input_batches))).transpose(0, 1)
+		target_batches = Variable(torch.LongTensor(np.array(target_batches))).transpose(0, 1)
 
 	# Run post words through encoder
 	encoder_outputs, encoder_hidden = encoder(input_batches, input_lens, None)
@@ -22,8 +25,12 @@ def train(input_batches, input_lens, target_batches, target_lens, \
 	# Prepare input and output variables
 	decoder_hidden = encoder_hidden[:decoder.n_layers] + encoder_hidden[decoder.n_layers:]
 
-	decoder_input = Variable(torch.LongTensor([SOS_idx] * batch_size).cuda())
-	all_decoder_outputs = Variable(torch.zeros(max_target_length, batch_size, decoder.output_size).cuda())
+	if USE_CUDA:
+		decoder_input = Variable(torch.LongTensor([SOS_idx] * batch_size).cuda())
+		all_decoder_outputs = Variable(torch.zeros(max_target_length, batch_size, decoder.output_size).cuda())
+	else:
+		decoder_input = Variable(torch.LongTensor([SOS_idx] * batch_size))
+		all_decoder_outputs = Variable(torch.zeros(max_target_length, batch_size, decoder.output_size))
 
 	# Run through decoder one time step at a time
 	for t in range(max_target_length):

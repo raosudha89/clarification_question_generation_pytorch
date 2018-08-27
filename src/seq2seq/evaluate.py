@@ -14,8 +14,13 @@ def evaluate(word2index, index2word, encoder, decoder, test_data, BATCH_SIZE, ou
 	
 	for input_seqs_batch, input_lens_batch, output_seqs_batch, output_lens_batch in \
                 iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, BATCH_SIZE):
-		input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch)).cuda()).transpose(0, 1)
-		output_seqs_batch = Variable(torch.LongTensor(np.array(output_seqs_batch)).cuda()).transpose(0, 1)
+		
+		if USE_CUDA:
+			input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch)).cuda()).transpose(0, 1)
+			output_seqs_batch = Variable(torch.LongTensor(np.array(output_seqs_batch)).cuda()).transpose(0, 1)
+		else:
+			input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch))).transpose(0, 1)
+			output_seqs_batch = Variable(torch.LongTensor(np.array(output_seqs_batch))).transpose(0, 1)
 
 		# Run post words through encoder
 		encoder_outputs, encoder_hidden = encoder(input_seqs_batch, input_lens_batch, None)

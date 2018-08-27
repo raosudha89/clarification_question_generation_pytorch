@@ -14,18 +14,26 @@ def evaluate(context_model, question_model, answer_model, utility_model, dev_dat
 	utility_model.eval()
 	
 	with torch.no_grad():
-	
 		contexts, questions, answers, labels = dev_data
 		contexts = np.array(contexts)
 		questions = np.array(questions)
 		answers = np.array(answers)
 		labels = np.array(labels)
 		for c, q, a, l in iterate_minibatches(contexts, questions, answers, labels, batch_size):
-			c_out = context_model(torch.transpose(torch.tensor(c).cuda(), 0, 1)).squeeze(1)
-			q_out = question_model(torch.transpose(torch.tensor(q).cuda(), 0, 1)).squeeze(1)
-			a_out = answer_model(torch.transpose(torch.tensor(a).cuda(), 0, 1)).squeeze(1)
+			if USE_CUDA:
+				c_out = context_model(torch.transpose(torch.tensor(c).cuda(), 0, 1)).squeeze(1)
+				q_out = question_model(torch.transpose(torch.tensor(q).cuda(), 0, 1)).squeeze(1)
+				a_out = answer_model(torch.transpose(torch.tensor(a).cuda(), 0, 1)).squeeze(1)
+			else:
+				c_out = context_model(torch.transpose(torch.tensor(c), 0, 1)).squeeze(1)
+				q_out = question_model(torch.transpose(torch.tensor(q), 0, 1)).squeeze(1)
+				a_out = answer_model(torch.transpose(torch.tensor(a), 0, 1)).squeeze(1)
 			predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
-			l = torch.FloatTensor([float(lab) for lab in l]).cuda()
+			import pdb
+			pdb.set_trace()
+			l = torch.FloatTensor([float(lab) for lab in l])
+			if USE_CUDA:
+				l = l.cuda()
 			loss = criterion(predictions, l)
 			acc = binary_accuracy(predictions, l)
 			epoch_loss += loss.item()

@@ -45,17 +45,17 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input
 			decoder_input = topi.squeeze(1) 
 		for b in range(batch_size):
 			#input_words = []
-			output_words = []
+			#output_words = []
 			decoded_words = []
 			#for t in range(input_lens_batch[b]):
 			#	input_words.append(index2word[input_seqs_batch[t][b].item()])
-			for t in range(output_lens_batch[b]):
-				ni = output_seqs_batch[t][b].item()
-				if ni == word2index[EOS_token]:
-					output_words.append(EOS_token)
-					break
-				else:
-					output_words.append(index2word[ni])
+			#for t in range(output_lens_batch[b]):
+			#	ni = output_seqs_batch[t][b].item()
+			#	if ni == word2index[EOS_token]:
+			#		output_words.append(EOS_token)
+			#		break
+			#	else:
+			#		output_words.append(index2word[ni])
 			for t in range(max_output_length):
 				topv, topi = all_decoder_outputs[t][b].data.topk(1)
 				ni = topi[0].item()
@@ -65,8 +65,8 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input
 				else:
 					decoded_words.append(index2word[ni])
 			#print '> ' + ' '.join(input_words)
-			print '= ' + ' '.join(output_words)
-			print '< ' + ' '.join(decoded_words)
+			#print '= ' + ' '.join(output_words)
+			#print '< ' + ' '.join(decoded_words)
 			#print 
 			if out_file:
 				out_file.write(' '.join(decoded_words)+'\n')

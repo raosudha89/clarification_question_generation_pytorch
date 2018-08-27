@@ -12,14 +12,9 @@ from prepare_data import *
 def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, \
 				out_fname, encoder_params_file, decoder_params_file, max_target_length, n_epochs, batch_size, n_layers):
 	# Initialize q models
+	print 'Initializing models'
 	encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers, dropout=DROPOUT)
 	decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, n_layers)
-
-	#if os.path.isfile(encoder_params_file):
-	#	print 'Loading saved params...'
-	#	encoder.load_state_dict(torch.load(encoder_params_file))
-	#	decoder.load_state_dict(torch.load(decoder_params_file))
-	#	print 'Done!'
 
 	# Initialize optimizers
 	encoder_optimizer = optim.Adam([par for par in encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
@@ -62,11 +57,11 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
 		print(print_summary)
 		print 'Epoch: %d' % epoch
-		if epoch == n_epochs-1:
+		if epoch%10 == 0:
 			print 'Saving model params'
-			torch.save(encoder.state_dict(), encoder_params_file)
-			torch.save(decoder.state_dict(), decoder_params_file)
-		if epoch > n_epochs - 10:
+			torch.save(encoder.state_dict(), encoder_params_file+'.epoch%d' % epoch)
+			torch.save(decoder.state_dict(), decoder_params_file+'.epoch%d' % epoch)
+		if (epoch > n_epochs - 10) or (epoch%10 == 0):
 			out_file = open(out_fname+'.epoch%d' % int(epoch), 'w')	
 			evaluate(word2index, index2word, encoder, decoder, test_data, batch_size, out_file)
 

@@ -200,6 +200,14 @@ def main(args):
 
 	utility_model = FeedForward(HIDDEN_DIM*3, HIDDEN_DIM, OUTPUT_DIM)
 
+	criterion = nn.BCEWithLogitsLoss()
+	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+	utility_model = utility_model.to(device)
+	context_model = context_model.to(device)
+	question_model = question_model.to(device)
+	answer_model = answer_model.to(device)
+	criterion = criterion.to(device)
+
 	word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings).cuda())
 	context_model.embedding.weight.data.copy_(word_embeddings)
 	question_model.embedding.weight.data.copy_(word_embeddings)
@@ -215,13 +223,6 @@ def main(args):
 							list([par for par in answer_model.parameters() if par.requires_grad]) + \
 							list([par for par in utility_model.parameters() if par.requires_grad]))
 
-	criterion = nn.BCEWithLogitsLoss()
-	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-	context_model = context_model.to(device)
-	question_model = question_model.to(device)
-	answer_model = answer_model.to(device)
-	utility_model = utility_model.to(device)
-	criterion = criterion.to(device)
 
 	N_EPOCHS = 300
 	train_data = prepare_data(train_data, vocab, 'train', args.cuda)

@@ -30,19 +30,24 @@ def get_context(line, max_post_len, max_ques_len):
 			context += ques + ' <EOQ>'
 	return context
 
-def read_data(context, question, answer, max_post_len, max_ques_len, max_ans_len, split):
+def read_data(context, question, answer, max_post_len, max_ques_len, max_ans_len, split, count=None):
 	print("Reading lines...")
 	data = []
-
+	i = 0
 	for line in open(context, 'r').readlines():
 		context = get_context(line, max_post_len, max_ques_len)
 		data.append([context, None, None])
+		i += 1
+		if count and i == count:
+			break
 
 	i = 0
 	for line in open(question, 'r').readlines():
 		question = normalize_string(line, max_ques_len)
 		data[i][1] = question
 		i += 1
+		if count and i == count:
+			break
 	assert(i == len(data))
 
 	i = 0
@@ -50,6 +55,8 @@ def read_data(context, question, answer, max_post_len, max_ques_len, max_ans_len
 		answer = normalize_string(line, max_ans_len)
 		data[i][2] = answer
 		i += 1
+		if count and i == count:
+			break
 	assert(i == len(data))
 
 	return data

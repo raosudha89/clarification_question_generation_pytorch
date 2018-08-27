@@ -101,7 +101,6 @@ if __name__ == "__main__":
 	argparser.add_argument("--utility_params", type = str)
 	argparser.add_argument("--vocab", type = str)
 	argparser.add_argument("--word_embeddings", type = str)
-	argparser.add_argument("--cuda", type = bool, default=True)
 	argparser.add_argument("--pretrain_ques", type = bool)
 	argparser.add_argument("--pretrain_ans", type = bool)
 	argparser.add_argument("--pretrain_util", type = bool)

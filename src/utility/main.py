@@ -1,13 +1,14 @@
-from FeedForward import *
-from RNN import *
 from constants import *
+from FeedForward import *
 from evaluate import *
-from train import *
 import random
+from RNN import *
+import time
 import torch
 from torch import optim
 import torch.nn as nn
 import torch.autograd as autograd
+from train import *
 
 def update_neg_data(train_data):
 	post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens = train_data
@@ -36,7 +37,11 @@ def run_utility(train_data, test_data, word_embeddings, context_params, question
 	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers)
 	utility_model = FeedForward(HIDDEN_SIZE*3)
 
-	word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings).cuda())
+	if USE_CUDA:
+		word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings).cuda())
+	else:
+		word_embeddings = autograd.Variable(torch.FloatTensor(word_embeddings))
+
 	context_model.embedding.weight.data.copy_(word_embeddings)
 	question_model.embedding.weight.data.copy_(word_embeddings)
 	answer_model.embedding.weight.data.copy_(word_embeddings)
@@ -52,27 +57,36 @@ def run_utility(train_data, test_data, word_embeddings, context_params, question
 							list([par for par in utility_model.parameters() if par.requires_grad]))
 
 	criterion = nn.BCEWithLogitsLoss()
-	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-	context_model = context_model.to(device)
-	question_model = question_model.to(device)
-	answer_model = answer_model.to(device)
-	utility_model = utility_model.to(device)
-	criterion = criterion.to(device)
+	if USE_CUDA:
+		device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+		context_model = context_model.to(device)
+		question_model = question_model.to(device)
+		answer_model = answer_model.to(device)
+		utility_model = utility_model.to(device)
+		criterion = criterion.to(device)
+
+	print 'Loading utility model params'
+	context_model.load_state_dict(torch.load(context_params))
+	question_model.load_state_dict(torch.load(question_params))
+	answer_model.load_state_dict(torch.load(answer_params))
+	utility_model.load_state_dict(torch.load(utility_params))
 
 	train_data = update_neg_data(train_data)
 	test_data = update_neg_data(test_data)
 
 	for epoch in range(n_epochs):
+		start_time = time.time()
 		train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model, \
 																train_data, optimizer, criterion, batch_size)
 		valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model, \
                                             					test_data, criterion, batch_size)
 		print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % \
 				(epoch, train_loss, train_acc, valid_loss, valid_acc)   
-		if epoch == n_epochs-1:
+		print 'Time taken: ', time.time()-start_time
+		if epoch%5 == 0:
 			print 'Saving model params'
-			torch.save(context_model.state_dict(), context_params)
-			torch.save(question_model.state_dict(), question_params)
-			torch.save(answer_model.state_dict(), answer_params)
-			torch.save(utility_model.state_dict(), utility_params)
+			torch.save(context_model.state_dict(), context_params+'.epoch%d' % epoch)
+			torch.save(question_model.state_dict(), question_params+'.epoch%d' % epoch)
+			torch.save(answer_model.state_dict(), answer_params+'.epoch%d' % epoch)
+			torch.save(utility_model.state_dict(), utility_params+'.epoch%d' % epoch)
 

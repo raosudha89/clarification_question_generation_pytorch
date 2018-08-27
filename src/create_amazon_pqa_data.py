@@ -35,16 +35,20 @@ def main(args):
 		product = title + ' . ' + description
 		products[asin] = product
 
+	train_asin_file = open(args.train_asin_fname, 'w')
 	train_context_file = open(args.train_context_fname, 'w')
 	train_ques_file = open(args.train_ques_fname, 'w')
 	train_ans_file = open(args.train_ans_fname, 'w')
+	tune_asin_file = open(args.tune_asin_fname, 'w')
 	tune_context_file = open(args.tune_context_fname, 'w')
 	tune_ques_file = open(args.tune_ques_fname, 'w')
 	tune_ans_file = open(args.tune_ans_fname, 'w')
+	test_asin_file = open(args.test_asin_fname, 'w')
 	test_context_file = open(args.test_context_fname, 'w')
 	test_ques_file = open(args.test_ques_fname, 'w')
 	test_ans_file = open(args.test_ans_fname, 'w')
 	
+	asins = []
 	contexts = []
 	questions = []
 	answers = []
@@ -56,29 +60,36 @@ def main(args):
 		answer = preprocess(v['answer'])
 		if not answer:
 			continue
+		asins.append(asin)
 		contexts.append(products[asin])
 		questions.append(question)
 		answers.append(answer)
 	N = len(contexts)
 	for i in range(int(N*0.8)):
+		train_asin_file.write(asins[i]+'\n')
 		train_context_file.write(contexts[i]+'\n')
 		train_ques_file.write(questions[i]+'\n')
 		train_ans_file.write(answers[i]+'\n')
 	for i in range(int(N*0.8), int(N*0.9)):
+		tune_asin_file.write(asins[i]+'\n')
 		tune_context_file.write(contexts[i]+'\n')
 		tune_ques_file.write(questions[i]+'\n')
 		tune_ans_file.write(answers[i]+'\n')
 	for i in range(int(N*0.9), N):
+		test_asin_file.write(asins[i]+'\n')
 		test_context_file.write(contexts[i]+'\n')
 		test_ques_file.write(questions[i]+'\n')
 		test_ans_file.write(answers[i]+'\n')
 
+	train_asin_file.close()
 	train_context_file.close()
 	train_ques_file.close()
 	train_ans_file.close()
+	tune_asin_file.close()
 	tune_context_file.close()
 	tune_ques_file.close()
 	tune_ans_file.close()
+	test_asin_file.close()
 	test_context_file.close()
 	test_ques_file.close()
 	test_ans_file.close()
@@ -87,12 +98,15 @@ if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])
 	argparser.add_argument("--qa_data_fname", type = str)
 	argparser.add_argument("--metadata_fname", type = str)
+	argparser.add_argument("--train_asin_fname", type = str)
 	argparser.add_argument("--train_context_fname", type = str)
 	argparser.add_argument("--train_ques_fname", type = str)
 	argparser.add_argument("--train_ans_fname", type = str)
+	argparser.add_argument("--tune_asin_fname", type = str)
 	argparser.add_argument("--tune_context_fname", type = str)
 	argparser.add_argument("--tune_ques_fname", type = str)
 	argparser.add_argument("--tune_ans_fname", type = str)
+	argparser.add_argument("--test_asin_fname", type = str)
 	argparser.add_argument("--test_context_fname", type = str)
 	argparser.add_argument("--test_ques_fname", type = str)
 	argparser.add_argument("--test_ans_fname", type = str)
