@@ -33,7 +33,7 @@ def get_decoded_seqs(decoder_outputs, word2index, max_len, batch_size):
 	return decoded_seqs, decoded_lens, decoded_seq_masks
 
 def train(input_batches, input_lens, target_batches, target_lens, encoder, decoder, encoder_optimizer, decoder_optimizer, \
-			baseline_model, baseline_optimizer, word2index, max_len, batch_size, ret_loss=True):
+			baseline_model, baseline_optimizer, word2index, max_len, batch_size, mixer_delta, ret_loss=True):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()
@@ -70,13 +70,14 @@ def train(input_batches, input_lens, target_batches, target_lens, encoder, decod
 		decoder_outputs[t] = decoder_output
 		decoder_hiddens[t] = torch.sum(decoder_hidden, dim=0)
 
-		# Teacher Forcing
-		#decoder_input = target_batches[t] # Next input is current target
-
-		# Sampling
-		for b in range(batch_size):
-			m = torch.distributions.categorical.Categorical(torch.nn.functional.softmax(decoder_output[b]))
-			decoder_input[b] = m.sample().detach()
+		if t < mixer_delta:
+			# Teacher Forcing
+			decoder_input = target_batches[t] # Next input is current target
+		else:
+			# Sampling
+			for b in range(batch_size):
+				m = torch.distributions.categorical.Categorical(torch.nn.functional.softmax(decoder_output[b]))
+				decoder_input[b] = m.sample().detach()
 
 	decoded_seqs, decoded_lens, decoded_seq_masks = get_decoded_seqs(decoder_outputs, word2index, max_len, batch_size) 
 
@@ -85,7 +86,7 @@ def train(input_batches, input_lens, target_batches, target_lens, encoder, decod
 
 	decoder_hiddens = torch.sum(decoder_hiddens, dim=0)
 
-	b_reward = baseline_model(decoder_hiddens).squeeze(1)
+	b_reward = baseline_model(decoder_hiddens.detach()).squeeze(1)
 
 	# Loss calculation and backpropagation
 	loss = masked_cross_entropy(

@@ -5,11 +5,9 @@ import random
 import torch
 from torch.autograd import Variable
 
-teacher_forcing_ratio = 0.5
-
 def train(input_batches, input_lens, target_batches, target_lens, \
 			encoder, decoder, encoder_optimizer, decoder_optimizer, \
-			SOS_idx, max_target_length, batch_size):
+			SOS_idx, max_target_length, batch_size, teacher_forcing_ratio):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()

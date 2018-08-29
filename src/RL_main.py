@@ -25,6 +25,7 @@ from seq2seq.masked_cross_entropy import *
 from seq2seq.RL_train import *
 from seq2seq.RL_evaluate import *
 from seq2seq.RL_inference import *
+from seq2seq.baselineFF import *
 from utility.RNN import *
 from utility.FeedForward import *
 from utility.RL_evaluate import *
@@ -100,7 +101,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
 	utility_model = FeedForward(HIDDEN_SIZE*3*2)
 
-	baseline_model = FeedForward(HIDDEN_SIZE)
+	baseline_model = BaselineFF(HIDDEN_SIZE)
 
 	if USE_CUDA:
 		device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -121,10 +122,6 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 	for param in question_model.parameters(): param.requires_grad = False
 	for param in answer_model.parameters(): param.requires_grad = False
 	for param in utility_model.parameters(): param.requires_grad = False
-	#u_optimizer = optim.Adam(list([par for par in context_model.parameters() if par.requires_grad]) + \
-	#						list([par for par in question_model.parameters() if par.requires_grad]) + \
-	#						list([par for par in answer_model.parameters() if par.requires_grad]) + \
-	#						list([par for par in utility_model.parameters() if par.requires_grad]))
 
 	baseline_optimizer = optim.Adam(baseline_model.parameters())
 	baseline_criterion = torch.nn.MSELoss()
@@ -134,45 +131,52 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 	out_file = open(args.test_pred_question+'.pretrained', 'w')	
 	#out_file = None
 	evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
-					te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, out_file)
-					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
+					te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_file)
+					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_file)
 
 	n_batches = len(tr_post_seqs)/args.batch_size
-	#_lambda = 0.01
+	_lambda = 0.0
+	mixer_delta = args.max_ques_len
 	while epoch < args.n_epochs:
 		epoch += 1
 		total_loss = 0.
 		total_u_pred = 0.
 		total_u_b_pred = 0.
-		#if _lambda < 1.:
-		#	_lambda += 0.01
+		if _lambda < 1.:
+			_lambda += 0.01
+		mixer_delta = mixer_delta - 2	
 		for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
 													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
-			q_loss, q_log_probs, b_reward, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer, \
-																 baseline_model, baseline_optimizer, word2index, args.max_ques_len, args.batch_size)
+			q_loss, q_log_probs, b_reward, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, \
+																	q_encoder_optimizer, q_decoder_optimizer, \
+																 	baseline_model, baseline_optimizer, \
+																	word2index, args.max_ques_len, \
+																	args.batch_size, mixer_delta)
 			pq_pred = np.concatenate((post, q_pred), axis=1)
 			pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
-			a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, a_encoder_optimizer, a_decoder_optimizer, \
-									baseline_model, baseline_optimizer, word2index, args.max_ans_len, args.batch_size, ret_loss=False)
+			a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
+										a_encoder_optimizer, a_decoder_optimizer, \
+										baseline_model, baseline_optimizer, \
+										word2index, args.max_ans_len, \
+										args.batch_size, args.max_ans_len, ret_loss=False)
+
+			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, \
+										post, pl, q_pred, ql_pred, a_pred, al_pred, args)	
+			reward = u_preds
+
 			log_probs = q_log_probs
 
-			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, pl, q_pred, ql_pred, a_pred, al_pred, args)	
-			#u_true_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, pl, ques, ql, ans, al, args)	
-
-			reward = u_preds
-			b_loss = baseline_criterion(b_reward, u_preds) 
-			b_loss.backward(retain_graph=True)
+			#reward  = calculate_bleu(ques, ql, q_pred, ql_pred, index2word, args.max_ques_len)
+			
+			b_loss = baseline_criterion(b_reward, reward) 
+			b_loss.backward()
 			baseline_optimizer.step()
 			total_u_pred += reward.data.sum() / args.batch_size
 			total_u_b_pred += b_reward.data.sum() / args.batch_size
 
-			#loss = -1.0*torch.sum(q_log_probs * (reward.data))
-			loss = -1.0*torch.sum(q_log_probs * (reward.data-b_reward.data))
-					# + _lambda*pos_u_loss + (1-_lambda)*neg_u_loss + q_loss
-
 			#reward, avg_bleu_score = calculate_bleu(ques, ql, q_pred, ql_pred, index2word)
 			#total_u_pred += avg_bleu_score 
-
+		
 			#loss = 0.0
 			#for i in range(len(q_pred)):
 			#	for j in range(ql_pred[i]):
@@ -181,19 +185,13 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 			#		else:
 			#			loss += log_probs[i][j] * (reward[i][j] - reward[i][j-1])
 
-			#loss = _lambda * torch.sum(-1.0*log_probs * (reward.data - g_reward.data)) + \
-			#		(1 - _lambda) * q_loss
-			#loss += u_loss
-			#loss += q_loss
+			loss = -1.0*torch.sum(q_log_probs * (reward.data-b_reward.data))
 
-			#loss = _lambda * loss + (1-_lambda) * q_loss
+			loss = _lambda * loss + (1-_lambda) * q_loss
 			total_loss += loss
 			loss.backward()
 			q_encoder_optimizer.step()
 			q_decoder_optimizer.step()
-			#a_encoder_optimizer.step()
-			#a_decoder_optimizer.step()
-			#u_optimizer.step()
 		print_loss_avg = total_loss / n_batches
 		print_u_pred_avg = total_u_pred / n_batches
 		print_u_b_pred_avg = total_u_b_pred / n_batches
@@ -206,8 +204,8 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 			out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
 			#out_file = None
 			evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
-							te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, out_file)
-							#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
+							te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_file)
+							#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_file)
 		
 
 if __name__ == "__main__":

@@ -7,7 +7,8 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
-def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input_lens, output_seqs, output_lens, batch_size, out_file):
+def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input_lens, output_seqs, output_lens, \
+					batch_size, max_out_len, out_file):
 	total_loss = 0.
 	n_batches = len(input_seqs) / batch_size
 
@@ -26,18 +27,17 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input
 		# Run post words through encoder
 		encoder_outputs, encoder_hidden = encoder(input_seqs_batch, input_lens_batch, None)
 
-		max_output_length = 50
 		# Create starting vectors for decoder
 		decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * batch_size))	
 		decoder_hidden = encoder_hidden[:decoder.n_layers] + encoder_hidden[decoder.n_layers:]
-		all_decoder_outputs = Variable(torch.zeros(max_output_length, batch_size, decoder.output_size))
+		all_decoder_outputs = Variable(torch.zeros(max_out_len, batch_size, decoder.output_size))
 	
 		if USE_CUDA:
 			decoder_input = decoder_input.cuda()
 			all_decoder_outputs = all_decoder_outputs.cuda()
 	
 		# Run through decoder one time step at a time
-		for t in range(max_output_length):
+		for t in range(max_out_len):
 			decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
 			all_decoder_outputs[t] = decoder_output
 			# Choose top word from output
@@ -56,7 +56,7 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input
 			#		break
 			#	else:
 			#		output_words.append(index2word[ni])
-			for t in range(max_output_length):
+			for t in range(max_out_len):
 				topv, topi = all_decoder_outputs[t][b].data.topk(1)
 				ni = topi[0].item()
 				if ni == word2index[EOS_token]:

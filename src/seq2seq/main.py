@@ -33,6 +33,8 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 	input_seqs, input_lens, output_seqs, output_lens = train_data
 	
 	n_batches = len(input_seqs) / batch_size
+	teacher_forcing_ratio = 1.0
+	#decr = teacher_forcing_ratio/n_epochs
 	while epoch < n_epochs:
 		epoch += 1
 		for input_seqs_batch, input_lens_batch, \
@@ -46,12 +48,14 @@ def run_seq2seq(train_data, test_data, word2index, index2word, word_embeddings, 
 				output_seqs_batch, output_lens_batch,
 				encoder, decoder,
 				encoder_optimizer, decoder_optimizer, 
-				word2index[SOS_token], max_target_length, batch_size 
+				word2index[SOS_token], max_target_length, 
+				batch_size, teacher_forcing_ratio 
 			)
 	
 			# Keep track of loss
 			print_loss_total += loss
-		
+	
+		#teacher_forcing_ratio = teacher_forcing_ratio - decr	
 		print_loss_avg = print_loss_total / n_batches
 		print_loss_total = 0
 		print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
