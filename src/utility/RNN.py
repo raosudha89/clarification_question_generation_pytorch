@@ -29,5 +29,5 @@ class RNN(nn.Module):
 				
 		#hidden [batch size, hid. dim * num directions]
 			
-		return self.fc(hidden.squeeze(0))		
+		return self.fc(hidden.squeeze(0)), output	
 

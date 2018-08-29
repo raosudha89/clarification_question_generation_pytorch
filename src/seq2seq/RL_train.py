@@ -32,27 +32,31 @@ def get_decoded_seqs(decoder_outputs, word2index, max_len, batch_size):
 	decoded_seq_masks = np.array(decoded_seq_masks)
 	return decoded_seqs, decoded_lens, decoded_seq_masks
 
-def train(input_batches, input_lens, target_batches, target_lens, \
-			encoder, decoder, encoder_optimizer, decoder_optimizer, word2index, max_len, batch_size):
+def train(input_batches, input_lens, target_batches, target_lens, encoder, decoder, encoder_optimizer, decoder_optimizer, \
+			baseline_model, baseline_optimizer, word2index, max_len, batch_size, ret_loss=True):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()
 	decoder_optimizer.zero_grad()
+	baseline_optimizer.zero_grad()
 
 	encoder.train()
 	decoder.train()
+	baseline_model.train()
 
 	input_batches = Variable(torch.LongTensor(np.array(input_batches))).transpose(0, 1)
 	target_batches = Variable(torch.LongTensor(np.array(target_batches))).transpose(0, 1)
 
 	decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * batch_size))
 	decoder_outputs = Variable(torch.zeros(max_len, batch_size, decoder.output_size))
+	decoder_hiddens = Variable(torch.zeros(max_len, batch_size, decoder.hidden_size)) 
 
 	if USE_CUDA:
 		input_batches = input_batches.cuda()
 		target_batches = target_batches.cuda()
 		decoder_input = decoder_input.cuda()
 		decoder_outputs = decoder_outputs.cuda()
+		decoder_hiddens = decoder_hiddens.cuda()
 
 	# Run post words through encoder
 	encoder_outputs, encoder_hidden = encoder(input_batches, input_lens, None)
@@ -64,27 +68,35 @@ def train(input_batches, input_lens, target_batches, target_lens, \
 	for t in range(max_len):
 		decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
 		decoder_outputs[t] = decoder_output
+		decoder_hiddens[t] = torch.sum(decoder_hidden, dim=0)
 
 		# Teacher Forcing
-		decoder_input = target_batches[t] # Next input is current target
+		#decoder_input = target_batches[t] # Next input is current target
 
-		# Greeding decoding
-		#for b in range(batch_size):
-		#	topi = decoder_output[b].topk(1)[1][0]	
-		#	decoder_input[b] = topi.squeeze().detach()
+		# Sampling
+		for b in range(batch_size):
+			m = torch.distributions.categorical.Categorical(torch.nn.functional.softmax(decoder_output[b]))
+			decoder_input[b] = m.sample().detach()
 
 	decoded_seqs, decoded_lens, decoded_seq_masks = get_decoded_seqs(decoder_outputs, word2index, max_len, batch_size) 
 
+	if not ret_loss:
+		return decoded_seqs, decoded_lens
+
+	decoder_hiddens = torch.sum(decoder_hiddens, dim=0)
+
+	b_reward = baseline_model(decoder_hiddens).squeeze(1)
+
 	# Loss calculation and backpropagation
-	#loss = masked_cross_entropy(
-	#	decoder_outputs.transpose(0, 1).contiguous(), # -> batch x seq
-	#	target_batches.transpose(0, 1).contiguous(), # -> batch x seq
-	#	target_lens
-	#)
+	loss = masked_cross_entropy(
+		decoder_outputs.transpose(0, 1).contiguous(), # -> batch x seq
+		target_batches.transpose(0, 1).contiguous(), # -> batch x seq
+		target_lens
+	)
 
 	log_probs = calculate_log_probs(
 		decoder_outputs.transpose(0, 1).contiguous(), # -> batch x seq
 		decoded_seq_masks
 	)
 
-	return log_probs, decoded_seqs, decoded_lens
+	return loss, log_probs, b_reward, decoded_seqs, decoded_lens

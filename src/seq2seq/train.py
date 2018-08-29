@@ -1,8 +1,11 @@
-import torch
-from torch.autograd import Variable
+from constants import *
 from masked_cross_entropy import *
 import numpy as np
-from constants import *
+import random
+import torch
+from torch.autograd import Variable
+
+teacher_forcing_ratio = 0.5
 
 def train(input_batches, input_lens, target_batches, target_lens, \
 			encoder, decoder, encoder_optimizer, decoder_optimizer, \
@@ -32,12 +35,21 @@ def train(input_batches, input_lens, target_batches, target_lens, \
 		decoder_input = Variable(torch.LongTensor([SOS_idx] * batch_size))
 		all_decoder_outputs = Variable(torch.zeros(max_target_length, batch_size, decoder.output_size))
 
+	use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
+
 	# Run through decoder one time step at a time
 	for t in range(max_target_length):
 		decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
 		all_decoder_outputs[t] = decoder_output
-		# Teacher Forcing
-		decoder_input = target_batches[t] # Next input is current target
+
+		if use_teacher_forcing:
+			# Teacher Forcing
+			decoder_input = target_batches[t] # Next input is current target
+		else:
+			# Greeding decoding
+			for b in range(batch_size):
+				topi = decoder_output[b].topk(1)[1][0]	
+				decoder_input[b] = topi.squeeze().detach()
 
 	# Loss calculation and backpropagation
 	loss = masked_cross_entropy(

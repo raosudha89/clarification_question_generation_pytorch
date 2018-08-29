@@ -71,9 +71,7 @@ def main(args):
 					args.test_pred_answer, args.a_encoder_params, args.a_decoder_params, \
 					args.max_ans_len, args.n_epochs, args.batch_size, n_layers=2)
 	elif args.pretrain_util:
-		run_utility(u_train_data, u_test_data, word_embeddings, args.context_params, \
-					args.question_params, args.answer_params, args.utility_params, \
-					args.n_epochs, args.batch_size, n_layers=1)
+		run_utility(u_train_data, u_test_data, word_embeddings, index2word, args, n_layers=1)
 	else:
 		print 'Please specify model to pretrain'
 		return

@@ -98,12 +98,9 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 	context_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
 	question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
 	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
-	utility_model = FeedForward(HIDDEN_SIZE*3)
+	utility_model = FeedForward(HIDDEN_SIZE*3*2)
 
-	#u_optimizer = optim.Adam(list([par for par in context_model.parameters() if par.requires_grad]) + \
-	#						list([par for par in question_model.parameters() if par.requires_grad]) + \
-	#						list([par for par in answer_model.parameters() if par.requires_grad]) + \
-	#						list([par for par in utility_model.parameters() if par.requires_grad]))
+	baseline_model = FeedForward(HIDDEN_SIZE)
 
 	if USE_CUDA:
 		device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -111,6 +108,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 		question_model.to(device)
 		answer_model.to(device)
 		utility_model.to(device)	
+		baseline_model.to(device)
 
 	# Load utility calculator model params
 	print 'Loading utility model params'
@@ -123,6 +121,13 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 	for param in question_model.parameters(): param.requires_grad = False
 	for param in answer_model.parameters(): param.requires_grad = False
 	for param in utility_model.parameters(): param.requires_grad = False
+	#u_optimizer = optim.Adam(list([par for par in context_model.parameters() if par.requires_grad]) + \
+	#						list([par for par in question_model.parameters() if par.requires_grad]) + \
+	#						list([par for par in answer_model.parameters() if par.requires_grad]) + \
+	#						list([par for par in utility_model.parameters() if par.requires_grad]))
+
+	baseline_optimizer = optim.Adam(baseline_model.parameters())
+	baseline_criterion = torch.nn.MSELoss()
 
 	epoch = 0.
 	start = time.time()
@@ -133,63 +138,70 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, out_file)
 
 	n_batches = len(tr_post_seqs)/args.batch_size
+	#_lambda = 0.01
 	while epoch < args.n_epochs:
 		epoch += 1
 		total_loss = 0.
 		total_u_pred = 0.
-		total_u_true_pred = 0.
+		total_u_b_pred = 0.
+		#if _lambda < 1.:
+		#	_lambda += 0.01
 		for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
 													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
-			q_log_probs, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer, \
-														word2index, args.max_ques_len, args.batch_size)
-			g_q_log_probs, g_q_pred, g_ql_pred = inference(post, pl, ques, ql, q_encoder, q_decoder, \
-															word2index, args.max_ques_len, args.batch_size)
-
+			q_loss, q_log_probs, b_reward, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer, \
+																 baseline_model, baseline_optimizer, word2index, args.max_ques_len, args.batch_size)
 			pq_pred = np.concatenate((post, q_pred), axis=1)
 			pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
-			a_log_probs, a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
-															a_encoder_optimizer, a_decoder_optimizer, \
-															word2index, args.max_ans_len, args.batch_size)
-			g_pq_pred = np.concatenate((post, g_q_pred), axis=1)
-			g_pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
-			g_a_log_probs, g_a_pred, g_al_pred = inference(g_pq_pred, g_pql_pred, ans, al, a_encoder, a_decoder, \
-															word2index, args.max_ans_len, args.batch_size)
-			log_probs = torch.add(q_log_probs, a_log_probs)
+			a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, a_encoder_optimizer, a_decoder_optimizer, \
+									baseline_model, baseline_optimizer, word2index, args.max_ans_len, args.batch_size, ret_loss=False)
+			log_probs = q_log_probs
 
-			#u_loss, u_true_preds = train_utility(context_model, question_model, answer_model, utility_model, u_optimizer, post, ques, ans)
-			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, q_pred, a_pred)	
-			g_u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, g_q_pred, g_a_pred)	
-			total_u_pred += u_preds.data.sum() / args.batch_size
-			total_u_true_pred += g_u_preds.data.sum() / args.batch_size
+			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, pl, q_pred, ql_pred, a_pred, al_pred, args)	
+			#u_true_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, post, pl, ques, ql, ans, al, args)	
+
 			reward = u_preds
-			g_reward = g_u_preds
+			b_loss = baseline_criterion(b_reward, u_preds) 
+			b_loss.backward(retain_graph=True)
+			baseline_optimizer.step()
+			total_u_pred += reward.data.sum() / args.batch_size
+			total_u_b_pred += b_reward.data.sum() / args.batch_size
 
-			#reward = calculate_bleu(ques, ql, q_pred, ql_pred, index2word)
-			#g_reward = calculate_bleu(ques, ql, g_q_pred, g_ql_pred, index2word)
-			#total_u_pred += reward.sum() / args.batch_size 
-			#total_u_true_pred += g_reward.sum() / args.batch_size 
+			#loss = -1.0*torch.sum(q_log_probs * (reward.data))
+			loss = -1.0*torch.sum(q_log_probs * (reward.data-b_reward.data))
+					# + _lambda*pos_u_loss + (1-_lambda)*neg_u_loss + q_loss
 
-			loss = torch.sum(-1.0*log_probs * (reward.data-g_reward.data))
+			#reward, avg_bleu_score = calculate_bleu(ques, ql, q_pred, ql_pred, index2word)
+			#total_u_pred += avg_bleu_score 
+
+			#loss = 0.0
+			#for i in range(len(q_pred)):
+			#	for j in range(ql_pred[i]):
+			#		if j == 0:
+			#			loss += log_probs[i][j] * reward[i][j]
+			#		else:
+			#			loss += log_probs[i][j] * (reward[i][j] - reward[i][j-1])
+
+			#loss = _lambda * torch.sum(-1.0*log_probs * (reward.data - g_reward.data)) + \
+			#		(1 - _lambda) * q_loss
 			#loss += u_loss
 			#loss += q_loss
-			#print g_q_log_probs
-			#print g_reward.data
-			#loss = -1.0*torch.sum(g_q_log_probs * g_reward.data)
 
+			#loss = _lambda * loss + (1-_lambda) * q_loss
 			total_loss += loss
 			loss.backward()
 			q_encoder_optimizer.step()
 			q_decoder_optimizer.step()
-			a_encoder_optimizer.step()
-			a_decoder_optimizer.step()
+			#a_encoder_optimizer.step()
+			#a_decoder_optimizer.step()
 			#u_optimizer.step()
 		print_loss_avg = total_loss / n_batches
 		print_u_pred_avg = total_u_pred / n_batches
-		print_u_true_pred_avg = total_u_true_pred / n_batches
-		print_summary = '%s %d RL_loss: %.4f U_pred: %.4f U_true_pred: %.4f' % \
-						(time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_u_pred_avg, print_u_true_pred_avg)
+		print_u_b_pred_avg = total_u_b_pred / n_batches
+		print_summary = '%s %d RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
+						(time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
 		print(print_summary)
-		if epoch > args.n_epochs - 10:
+		#if epoch > args.n_epochs - 10:
+		if epoch > 0:
 			print 'Running evaluation...'
 			out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
 			#out_file = None

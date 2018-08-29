@@ -37,14 +37,18 @@ def reverse_dict(word2index):
 
 def calculate_bleu(true, true_lens, pred, pred_lens, index2word):
 	bleu_scores = [None]*len(pred)
+	bleu_scores = torch.zeros(len(pred), 50)
+	sum_bleu_scores = 0.
 	for i in range(len(pred)):
 		true_sent = [index2word[idx] for idx in true[i][:true_lens[i]]]
 		pred_sent = [index2word[idx] for idx in pred[i][:pred_lens[i]]]
-		bleu_scores[i] = nltk.translate.bleu_score.sentence_bleu(true_sent, pred_sent)
-		#brevity_penalty = nltk.translate.bleu_score.brevity_penalty(len(true_sent), len(pred_sent))
-		#bleu_scores[i] = bleu_scores[i] * brevity_penalty
+		for j in range(1, pred_lens[i]):
+			bleu_scores[i][j] = nltk.translate.bleu_score.sentence_bleu(true_sent, pred_sent[:j])
+		brevity_penalty = nltk.translate.bleu_score.brevity_penalty(len(true_sent), len(pred_sent))
+		bleu_scores[i][pred_lens[i]-1] = bleu_scores[i][pred_lens[i]-1] * brevity_penalty
+		sum_bleu_scores += bleu_scores[i][pred_lens[i]-1]
 		#bleu_scores[i] = len(list(set(true_sent).intersection(pred_sent)))*1.0/len(true_sent)
-	bleu_scores = torch.FloatTensor(np.array(bleu_scores))
 	if USE_CUDA:
 		bleu_scores = bleu_scores.cuda()
-	return bleu_scores
+	avg_bleu_score = sum_bleu_scores / len(pred)
+	return bleu_scores, avg_bleu_score

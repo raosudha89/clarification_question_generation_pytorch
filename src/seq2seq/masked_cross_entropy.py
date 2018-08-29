@@ -27,6 +27,7 @@ def calculate_log_probs(logits, masks):
 	if USE_CUDA:
 		masks = masks.cuda()
 	max_log_probs = max_log_probs * masks
+	#return max_log_probs
 	avg_log_probs = Variable(torch.zeros(max_log_probs.shape[0]))
 	if USE_CUDA:
 		avg_log_probs = avg_log_probs.cuda()
