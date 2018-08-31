@@ -93,9 +93,6 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 	q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
 	q_decoder_optimizer = optim.Adam([par for par in q_decoder.parameters() if par.requires_grad], lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
 
-	a_encoder_optimizer = optim.Adam([par for par in a_encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
-	a_decoder_optimizer = optim.Adam([par for par in a_decoder.parameters() if par.requires_grad], lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
-
 	context_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
 	question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
 	answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
@@ -135,35 +132,33 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_file)
 
 	n_batches = len(tr_post_seqs)/args.batch_size
-	_lambda = 0.0
-	mixer_delta = args.max_ques_len
+	#_lambda = 0.0
+	mixer_delta = args.max_ques_len-10
 	while epoch < args.n_epochs:
 		epoch += 1
 		total_loss = 0.
 		total_u_pred = 0.
 		total_u_b_pred = 0.
-		if _lambda < 1.:
-			_lambda += 0.01
-		mixer_delta = mixer_delta - 2	
+		#if _lambda < 1.:
+		#	_lambda += 0.01
+		if mixer_delta >= 2:
+			mixer_delta = mixer_delta - 2	
 		for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
 													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
-			q_loss, q_log_probs, b_reward, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, \
+			xe_loss, q_log_probs, b_reward, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, \
 																	q_encoder_optimizer, q_decoder_optimizer, \
 																 	baseline_model, baseline_optimizer, \
 																	word2index, args.max_ques_len, \
 																	args.batch_size, mixer_delta)
 			pq_pred = np.concatenate((post, q_pred), axis=1)
 			pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
-			a_pred, al_pred = train(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
-										a_encoder_optimizer, a_decoder_optimizer, \
-										baseline_model, baseline_optimizer, \
-										word2index, args.max_ans_len, \
-										args.batch_size, args.max_ans_len, ret_loss=False)
+			a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
+												word2index, args.max_ans_len, args.batch_size)
 
 			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, \
 										post, pl, q_pred, ql_pred, a_pred, al_pred, args)	
-			reward = u_preds
 
+			reward = u_preds
 			log_probs = q_log_probs
 
 			#reward  = calculate_bleu(ques, ql, q_pred, ql_pred, index2word, args.max_ques_len)
@@ -174,20 +169,10 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 			total_u_pred += reward.data.sum() / args.batch_size
 			total_u_b_pred += b_reward.data.sum() / args.batch_size
 
-			#reward, avg_bleu_score = calculate_bleu(ques, ql, q_pred, ql_pred, index2word)
-			#total_u_pred += avg_bleu_score 
-		
-			#loss = 0.0
-			#for i in range(len(q_pred)):
-			#	for j in range(ql_pred[i]):
-			#		if j == 0:
-			#			loss += log_probs[i][j] * reward[i][j]
-			#		else:
-			#			loss += log_probs[i][j] * (reward[i][j] - reward[i][j-1])
+			rl_loss = -1.0*torch.sum(log_probs * (reward.data-b_reward.data)) / args.batch_size
 
-			loss = -1.0*torch.sum(q_log_probs * (reward.data-b_reward.data))
-
-			loss = _lambda * loss + (1-_lambda) * q_loss
+			loss = xe_loss + rl_loss
+			#loss = _lambda * loss + (1-_lambda) * q_loss
 			total_loss += loss
 			loss.backward()
 			q_encoder_optimizer.step()

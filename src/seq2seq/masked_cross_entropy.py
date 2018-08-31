@@ -18,24 +18,30 @@ def sequence_mask(sequence_length, max_len=None):
 						 .expand_as(seq_range_expand))
 	return seq_range_expand < seq_length_expand
 
-def calculate_log_probs(logits, masks):
-	# log_probs: (batch * max_len * num_classes)
-	log_probs = functional.log_softmax(logits, dim=2)
-	# max_log_probs: (batch * max_len)
-	max_log_probs = torch.topk(log_probs, 1, dim=2)[0][:,:,0]
+def calculate_log_probs(logits, masks, mixer_delta=None):
+	# log_probs: (batch * max_len)
+	max_len = logits.shape[1]
+	log_probs = torch.log(logits)
 	masks = torch.FloatTensor(masks)
 	if USE_CUDA:
+		log_probs = log_probs.cuda()
 		masks = masks.cuda()
-	max_log_probs = max_log_probs * masks
-	#return max_log_probs
-	avg_log_probs = Variable(torch.zeros(max_log_probs.shape[0]))
+	log_probs = log_probs * masks
+	avg_log_probs = Variable(torch.zeros(log_probs.shape[0]))
 	if USE_CUDA:
 		avg_log_probs = avg_log_probs.cuda()
-	for i in range(max_log_probs.shape[0]):
-		avg_log_probs[i] = max_log_probs[i].sum() / masks[i].sum()
+	if not mixer_delta or mixer_delta == max_len:
+		for b in range(log_probs.shape[0]):
+			avg_log_probs[b] = log_probs[b].sum() / masks[b].sum()
+	else:
+		for b in range(log_probs.shape[0]):
+			if masks[b][mixer_delta:].sum() > 0:
+				avg_log_probs[b] = log_probs[b][mixer_delta:].sum() / masks[b][mixer_delta:].sum()
+			else:
+				avg_log_probs[b] = 0
 	return avg_log_probs
 
-def masked_cross_entropy(logits, target, length):
+def masked_cross_entropy(logits, target, length, mixer_delta=None):
 	length = Variable(torch.LongTensor(length))
 	if USE_CUDA:
 		length = length.cuda()
@@ -54,7 +60,7 @@ def masked_cross_entropy(logits, target, length):
 	Returns:
 		loss: An average loss value masked by the length.
 	"""
-
+	max_len = logits.shape[1]
 	# logits_flat: (batch * max_len, num_classes)
 	logits_flat = logits.view(-1, logits.size(-1))
 	# log_probs_flat: (batch * max_len, num_classes)
@@ -68,5 +74,17 @@ def masked_cross_entropy(logits, target, length):
 	# mask: (batch, max_len)
 	mask = sequence_mask(sequence_length=length, max_len=target.size(1))
 	losses = losses * mask.float()
-	loss = losses.sum() / length.float().sum()
-	return loss
+	if not mixer_delta:
+		loss = losses.sum() / length.float().sum()
+		return loss
+	if mixer_delta < max_len: 
+		loss = 0.
+		for b in range(losses.shape[0]):
+			loss += losses[b][:min(length[b], mixer_delta)].sum()*1.0 / float(min(length[b], mixer_delta))
+		loss = loss / losses.shape[0]
+	else:
+		loss = 0.
+		for b in range(losses.shape[0]):
+			loss += losses[b].sum()*1.0 / float(length[b])
+		loss = loss / losses.shape[0]
+	return loss 
