@@ -1,0 +1,106 @@
+import random
+from constants import *
+from prepare_data import *
+from masked_cross_entropy import *
+from helper import *
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+
+def evaluate_beam(word2index, index2word, encoder, decoder, input_seqs, input_lens, output_seqs, output_lens, \
+					batch_size, max_out_len, out_fname):
+	total_loss = 0.
+	n_batches = len(input_seqs) / batch_size
+
+	encoder.eval()
+	decoder.eval()
+	out_files = [None]*BEAM_SIZE
+	for k in range(BEAM_SIZE):
+		out_files[k] = open(out_fname+'.beam%d'%k, 'w')	
+	for input_seqs_batch, input_lens_batch, output_seqs_batch, output_lens_batch in \
+                iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size):
+
+		if USE_CUDA:
+			input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch)).cuda()).transpose(0, 1)
+			output_seqs_batch = Variable(torch.LongTensor(np.array(output_seqs_batch)).cuda()).transpose(0, 1)
+		else:
+			input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch))).transpose(0, 1)
+			output_seqs_batch = Variable(torch.LongTensor(np.array(output_seqs_batch))).transpose(0, 1)
+
+		# Run post words through encoder
+		encoder_outputs, encoder_hidden = encoder(input_seqs_batch, input_lens_batch, None)
+
+		# Create starting vectors for decoder
+		decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * batch_size))	
+		decoder_hidden = encoder_hidden[:decoder.n_layers] + encoder_hidden[decoder.n_layers:]
+		all_decoder_outputs = Variable(torch.zeros(max_out_len, batch_size, decoder.output_size))
+	
+		if USE_CUDA:
+			decoder_input = decoder_input.cuda()
+			all_decoder_outputs = all_decoder_outputs.cuda()
+	
+		# Run through decoder one time step at a time
+		decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
+		decoder_out_probs = torch.nn.functional.softmax(decoder_output, dim=1) 
+		probs, indices = decoder_out_probs.data.topk(BEAM_SIZE)
+		prev_decoder_hiddens = [decoder_hidden]*BEAM_SIZE
+		prev_backtrack_seqs = torch.zeros(batch_size, BEAM_SIZE, 1)
+		for k in range(BEAM_SIZE):
+			prev_backtrack_seqs[:,k,0] = indices[:,k]
+		for t in range(1, max_out_len):
+			beam_vocab_probs = None
+			beam_vocab_idx = None
+			decoder_hiddens = [None]*BEAM_SIZE
+			for k in range(BEAM_SIZE):
+				decoder_input = indices[:,k]
+				decoder_output, decoder_hiddens[k] = decoder(decoder_input, prev_decoder_hiddens[k], encoder_outputs)	
+				decoder_out_probs = torch.nn.functional.softmax(decoder_output, dim=1) 
+				vocab_probs = probs[:,k].unsqueeze(1) * decoder_out_probs
+				topv, topi = vocab_probs.data.topk(BEAM_SIZE)	
+				if k == 0:
+					beam_vocab_probs = topv
+					beam_vocab_idx = topi
+				else:
+					beam_vocab_probs = torch.cat((beam_vocab_probs, topv), dim=1)	
+					beam_vocab_idx = torch.cat((beam_vocab_idx, topi), dim=1)	
+			topv, topi = beam_vocab_probs.data.topk(BEAM_SIZE)
+			probs = topv
+			indices = Variable(torch.zeros(batch_size, BEAM_SIZE, dtype=torch.long)) 
+			prev_decoder_hiddens = Variable(torch.zeros(BEAM_SIZE, decoder_hiddens[0].shape[0], batch_size, decoder_hiddens[0].shape[2]))
+			if USE_CUDA:
+				indices = indices.cuda()
+				prev_decoder_hiddens = prev_decoder_hiddens.cuda()
+			backtrack_seqs = torch.zeros(batch_size, BEAM_SIZE, t+1)
+			for b in range(batch_size):
+				indices[b] = torch.index_select(beam_vocab_idx[b], 0, topi[b])
+				backtrack_seqs[b,:,t] = indices[b]
+				for k in range(BEAM_SIZE):
+					prev_decoder_hiddens[k,:,b,:] = decoder_hiddens[topi[b][k]/BEAM_SIZE][:,b,:]
+					backtrack_seqs[b,k,:t] = prev_backtrack_seqs[b,topi[b][k]/BEAM_SIZE,:t] 
+			prev_backtrack_seqs = None
+			prev_backtrack_seqs = backtrack_seqs
+
+		for b in range(batch_size):
+			for k in range(BEAM_SIZE):
+				decoded_words = []
+				for t in range(max_out_len):
+					idx = int(backtrack_seqs[b,k,t])	
+					if idx == word2index[EOS_token]: 
+						decoded_words.append(EOS_token)
+						break
+					else:
+						decoded_words.append(index2word[idx])
+				if out_fname:
+					out_files[k].write(' '.join(decoded_words)+'\n')
+	
+		# Loss calculation
+		loss = masked_cross_entropy(
+			all_decoder_outputs.transpose(0, 1).contiguous(), # -> batch x seq
+			output_seqs_batch.transpose(0, 1).contiguous(), # -> batch x seq
+			output_lens_batch, max_out_len
+			)
+		total_loss += loss.item()
+
+	for k in range(BEAM_SIZE):
+		out_files[k].close()
+	print 'Loss: %.2f' % (total_loss/n_batches)
