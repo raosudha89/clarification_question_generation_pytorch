@@ -5,7 +5,7 @@ import random
 import torch
 from torch.autograd import Variable
 
-def get_decoded_seqs(sampled_output, word2index, max_len, batch_size):
+def get_decoded_seqs(output_seqs, word2index, max_len, batch_size):
 	decoded_seqs = []
 	decoded_lens = []
 	decoded_seq_masks = []
@@ -14,7 +14,7 @@ def get_decoded_seqs(sampled_output, word2index, max_len, batch_size):
 		decoded_seq_mask = [0]*max_len
 		log_prob = 0.
 		for t in range(max_len):
-			idx = int(sampled_output[t][b])
+			idx = int(output_seqs[t][b])
 			if idx == word2index[EOS_token]:
 				decoded_seq.append(idx)
 				break
@@ -32,7 +32,7 @@ def get_decoded_seqs(sampled_output, word2index, max_len, batch_size):
 	return decoded_seqs, decoded_lens, decoded_seq_masks
 
 def train(input_batches, input_lens, target_batches, target_lens, encoder, decoder, encoder_optimizer, decoder_optimizer, \
-			baseline_model, baseline_optimizer, word2index, max_len, batch_size, mixer_delta):
+			baseline_model, baseline_optimizer, word2index, index2word, max_len, batch_size, mixer_delta):
 	
 	# Zero gradients of both optimizers
 	encoder_optimizer.zero_grad()
@@ -49,7 +49,8 @@ def train(input_batches, input_lens, target_batches, target_lens, encoder, decod
 	decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * batch_size))
 	decoder_outputs = Variable(torch.zeros(max_len, batch_size, decoder.output_size))
 	decoder_hiddens = Variable(torch.zeros(max_len, batch_size, decoder.hidden_size)) 
-	sampled_output = Variable(torch.zeros(max_len, batch_size))
+	sampled_output_probs = Variable(torch.zeros(max_len-mixer_delta, batch_size))
+	output_seqs = Variable(torch.zeros(max_len, batch_size))
 
 	if USE_CUDA:
 		input_batches = input_batches.cuda()
@@ -70,22 +71,23 @@ def train(input_batches, input_lens, target_batches, target_lens, encoder, decod
 		decoder_outputs[t] = decoder_output
 		decoder_hiddens[t] = torch.sum(decoder_hidden, dim=0)
 
-		# Sampling
-		for b in range(batch_size):
-			m = torch.distributions.categorical.Categorical(torch.nn.functional.softmax(decoder_output[b], dim=0))
-			sampled_output[t][b] = int(m.sample().detach().item())
-
 		if t < mixer_delta:
 			# Teacher Forcing
 			decoder_input = target_batches[t] # Next input is current target
+			output_seqs[t] = target_batches[t]
 		else:
+			# Sampling
 			for b in range(batch_size):
-				decoder_input[b] = sampled_output[t][b]			
+				token_dist = torch.nn.functional.softmax(decoder_output[b], dim=0)
+				#m = torch.distributions.categorical.Categorical(token_dist)
+				#idx = m.sample()
+				idx = token_dist.multinomial(1, replacement=False).view(-1).data[0]
+				decoder_input[b] = idx	
+				output_seqs[t][b] = idx
+				sampled_output_probs[t-mixer_delta][b] = torch.log(token_dist[idx])
 
-	decoded_seqs, decoded_lens, decoded_seq_masks = get_decoded_seqs(sampled_output, word2index, max_len, batch_size) 
-
+	decoded_seqs, decoded_lens, decoded_seq_masks = get_decoded_seqs(output_seqs, word2index, max_len, batch_size) 
 	decoder_hiddens = torch.sum(decoder_hiddens, dim=0)
-
 	b_reward = baseline_model(decoder_hiddens.detach()).squeeze(1)
 
 	# Loss calculation and backpropagation
@@ -96,8 +98,8 @@ def train(input_batches, input_lens, target_batches, target_lens, encoder, decod
 	)
 
 	log_probs = calculate_log_probs(
-		sampled_output.transpose(0, 1).contiguous(), # -> batch x seq
-		decoded_seq_masks, mixer_delta
+		sampled_output_probs.transpose(0, 1).contiguous(), # -> batch x seq
+		decoded_seq_masks[:,mixer_delta:]
 	)
 
 	return loss, log_probs, b_reward, decoded_seqs, decoded_lens

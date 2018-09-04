@@ -108,12 +108,14 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input
 				ni = topi[0].item()
 				if ni == word2index[EOS_token]:
 					decoded_words.append(EOS_token)
-					break
+					#break
 				else:
 					decoded_words.append(index2word[ni])
 			#print '> ' + ' '.join(input_words)
 			#print '= ' + ' '.join(output_words)
 			#print '< ' + ' '.join(decoded_words)
+			#import pdb
+			#pdb.set_trace()
 			#print 
 			if out_file:
 				out_file.write(' '.join(decoded_words)+'\n')

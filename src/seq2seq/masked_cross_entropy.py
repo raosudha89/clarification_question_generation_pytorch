@@ -1,4 +1,5 @@
 from constants import *
+import math
 import numpy as np
 import torch
 from torch.nn import functional
@@ -18,27 +19,19 @@ def sequence_mask(sequence_length, max_len=None):
 						 .expand_as(seq_range_expand))
 	return seq_range_expand < seq_length_expand
 
-def calculate_log_probs(logits, masks, mixer_delta=None):
+def calculate_log_probs(logits, masks):
 	# log_probs: (batch * max_len)
-	max_len = logits.shape[1]
-	log_probs = torch.log(logits)
-	masks = torch.FloatTensor(masks)
+	masks = Variable(torch.FloatTensor(masks))
 	if USE_CUDA:
-		log_probs = log_probs.cuda()
 		masks = masks.cuda()
-	log_probs = log_probs * masks
-	avg_log_probs = Variable(torch.zeros(log_probs.shape[0]))
+		logits = logits.cuda()
+	logits = logits * masks
+	avg_log_probs = Variable(torch.zeros(logits.shape[0]))
 	if USE_CUDA:
 		avg_log_probs = avg_log_probs.cuda()
-	if not mixer_delta or mixer_delta == max_len:
-		for b in range(log_probs.shape[0]):
-			avg_log_probs[b] = log_probs[b].sum() / masks[b].sum()
-	else:
-		for b in range(log_probs.shape[0]):
-			if masks[b][mixer_delta:].sum() > 0:
-				avg_log_probs[b] = log_probs[b][mixer_delta:].sum() / masks[b][mixer_delta:].sum()
-			else:
-				avg_log_probs[b] = 0
+	for b in range(logits.shape[0]):
+		if  masks[b].float().sum() > 0:
+			avg_log_probs[b] = logits[b].sum() / masks[b].float().sum()
 	return avg_log_probs
 
 def masked_cross_entropy(logits, target, length, mixer_delta=None):
@@ -61,6 +54,7 @@ def masked_cross_entropy(logits, target, length, mixer_delta=None):
 		loss: An average loss value masked by the length.
 	"""
 	max_len = logits.shape[1]
+	batch_size = logits.shape[0]
 	# logits_flat: (batch * max_len, num_classes)
 	logits_flat = logits.view(-1, logits.size(-1))
 	# log_probs_flat: (batch * max_len, num_classes)
@@ -74,17 +68,16 @@ def masked_cross_entropy(logits, target, length, mixer_delta=None):
 	# mask: (batch, max_len)
 	mask = sequence_mask(sequence_length=length, max_len=target.size(1))
 	losses = losses * mask.float()
-	if not mixer_delta:
-		loss = losses.sum() / length.float().sum()
-		return loss
-	if mixer_delta < max_len: 
+	if mixer_delta and mixer_delta < max_len: 
 		loss = 0.
-		for b in range(losses.shape[0]):
-			loss += losses[b][:min(length[b], mixer_delta)].sum()*1.0 / float(min(length[b], mixer_delta))
-		loss = loss / losses.shape[0]
+		le = 0.
+		for b in range(batch_size):
+			sent_loss = losses[b][:min(length[b], mixer_delta)].sum()
+			sent_loss = sent_loss/float(min(length[b], mixer_delta))
+			#sent_loss = losses[b][:mixer_delta].sum()
+			#sent_loss = sent_loss/mixer_delta
+			loss += sent_loss
+		loss = loss / batch_size
 	else:
-		loss = 0.
-		for b in range(losses.shape[0]):
-			loss += losses[b].sum()*1.0 / float(length[b])
-		loss = loss / losses.shape[0]
+		loss = losses.sum() / length.float().sum() 
 	return loss 

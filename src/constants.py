@@ -13,3 +13,4 @@ SOS_token = '<SOS>'
 EOP_token = '<EOP>'
 EOS_token = '<EOS>'
 
+BEAM_SIZE = 2

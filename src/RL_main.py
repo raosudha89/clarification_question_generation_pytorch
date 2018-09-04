@@ -25,6 +25,7 @@ from seq2seq.masked_cross_entropy import *
 from seq2seq.RL_train import *
 from seq2seq.RL_evaluate import *
 from seq2seq.RL_inference import *
+from seq2seq.RL_beam_decoder import *
 from seq2seq.baselineFF import *
 from utility.RNN import *
 from utility.FeedForward import *
@@ -125,38 +126,43 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 
 	epoch = 0.
 	start = time.time()
-	out_file = open(args.test_pred_question+'.pretrained', 'w')	
+	#out_file = open(args.test_pred_question+'.pretrained', 'w')	
 	#out_file = None
-	evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
-					te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_file)
-					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_file)
+	#out_fname = args.test_pred_question+'.pretrained'
+	#evaluate_beam(word2index, index2word, q_encoder, q_decoder, \
+	#				te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_fname)
+					#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_fname)
 
 	n_batches = len(tr_post_seqs)/args.batch_size
 	#_lambda = 0.0
-	mixer_delta = args.max_ques_len-10
+	mixer_delta = args.max_ques_len-4
 	while epoch < args.n_epochs:
 		epoch += 1
 		total_loss = 0.
+		total_xe_loss = 0.
+		total_rl_loss = 0.
 		total_u_pred = 0.
 		total_u_b_pred = 0.
 		#if _lambda < 1.:
-		#	_lambda += 0.01
+		#	_lambda += 0.05
 		if mixer_delta >= 2:
 			mixer_delta = mixer_delta - 2	
+		batch_num = 0
 		for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
-													tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
+										tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
+			batch_num += 1
 			xe_loss, q_log_probs, b_reward, q_pred, ql_pred = train(post, pl, ques, ql, q_encoder, q_decoder, \
-																	q_encoder_optimizer, q_decoder_optimizer, \
-																 	baseline_model, baseline_optimizer, \
-																	word2index, args.max_ques_len, \
-																	args.batch_size, mixer_delta)
+										q_encoder_optimizer, q_decoder_optimizer, \
+										baseline_model, baseline_optimizer, \
+										word2index, index2word, args.max_ques_len, \
+										args.batch_size, mixer_delta)
 			pq_pred = np.concatenate((post, q_pred), axis=1)
 			pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
 			a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, ans, al, a_encoder, a_decoder, \
-												word2index, args.max_ans_len, args.batch_size)
+							word2index, args.max_ans_len, args.batch_size)
 
 			u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model, \
-										post, pl, q_pred, ql_pred, a_pred, al_pred, args)	
+							post, pl, q_pred, ql_pred, a_pred, al_pred, args)	
 
 			reward = u_preds
 			log_probs = q_log_probs
@@ -170,27 +176,39 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 			total_u_b_pred += b_reward.data.sum() / args.batch_size
 
 			rl_loss = -1.0*torch.sum(log_probs * (reward.data-b_reward.data)) / args.batch_size
+			#rl_loss = -1.0*torch.sum(log_probs * (reward.data)) / args.batch_size
 
-			loss = xe_loss + rl_loss
-			#loss = _lambda * loss + (1-_lambda) * q_loss
+			#loss = (1-_lambda) * xe_loss + _lambda * rl_loss
+			#print xe_loss
+			#print rl_loss
+			loss = xe_loss + 4*rl_loss
+			total_xe_loss += xe_loss
+			total_rl_loss += rl_loss
 			total_loss += loss
 			loss.backward()
 			q_encoder_optimizer.step()
 			q_decoder_optimizer.step()
+			#if batch_num > 0:
+			#	out_file = None
+			#	evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
+			#				te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_file)
 		print_loss_avg = total_loss / n_batches
+		print_xe_loss_avg = total_xe_loss / n_batches
+		print_rl_loss_avg = total_rl_loss / n_batches
 		print_u_pred_avg = total_u_pred / n_batches
 		print_u_b_pred_avg = total_u_b_pred / n_batches
-		print_summary = '%s %d RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
-						(time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
+		print_summary = '%s %d Loss: %.4f XE_loss: %.4f RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
+						(time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_xe_loss_avg, print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
 		print(print_summary)
 		#if epoch > args.n_epochs - 10:
 		if epoch > 0:
 			print 'Running evaluation...'
-			out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
+			#out_file = open(args.test_pred_question+'.epoch%d' % int(epoch), 'w')	
 			#out_file = None
-			evaluate_seq2seq(word2index, index2word, q_encoder, q_decoder, \
-							te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_file)
-							#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_file)
+			out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
+			evaluate_beam(word2index, index2word, q_encoder, q_decoder, \
+							te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_fname)
+							#tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_fname)
 		
 
 if __name__ == "__main__":
