@@ -67,8 +67,11 @@ def evaluate_beam(word2index, index2word, encoder, decoder, input_seqs, input_le
                          vocab_log_probs[b] = log_probs[b, k]
                      else:
                          all_EOS = False
-                         vocab_log_probs[b] = log_probs[b, k] + decoder_out_log_probs[b]
-                         # vocab_log_probs[b] = (log_probs[b, k]*(t-1) + decoder_out_log_probs[b])/t
+                         # vocab_log_probs[b] = log_probs[b, k] + decoder_out_log_probs[b]
+                         vocab_log_probs[b] = (log_probs[b, k]*t + decoder_out_log_probs[b])/(t+1)
+                         # vocab_log_probs[b] = (log_probs[b, k] * pow(6, 0.7)/pow(t, 0.7) +
+                         #                         decoder_out_log_probs[b]) / pow(t+1, 0.7)/pow(6, 0.7)
+
                 if all_EOS:
                     break
                 topv, topi = vocab_log_probs.data.topk(BEAM_SIZE)
