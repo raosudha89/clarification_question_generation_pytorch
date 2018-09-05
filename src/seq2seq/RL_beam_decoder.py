@@ -47,25 +47,30 @@ def evaluate_beam(word2index, index2word, encoder, decoder, input_seqs, input_le
         prev_backtrack_seqs = torch.zeros(batch_size, BEAM_SIZE, 1)
         for k in range(BEAM_SIZE):
             prev_backtrack_seqs[:, k, 0] = indices[:, k]
+        all_EOS = False
         for t in range(1, max_out_len):
             beam_vocab_log_probs = None
             beam_vocab_idx = None
             decoder_hiddens = [None]*BEAM_SIZE
-
             for k in range(BEAM_SIZE):
                 decoder_input = indices[:, k]
                 decoder_output, decoder_hiddens[k] = decoder(decoder_input, prev_decoder_hiddens[k], encoder_outputs)    
                 decoder_out_log_probs = torch.nn.functional.log_softmax(decoder_output, dim=1)
+                # vocab_log_probs = log_probs[:, k].unsqueeze(1) + decoder_out_log_probs
                 vocab_log_probs = Variable(torch.zeros(batch_size, decoder.output_size))
                 if USE_CUDA:
                     vocab_log_probs = vocab_log_probs.cuda()
-                #vocab_log_probs = log_probs[:, k].unsqueeze(1) + decoder_out_log_probs
                 # make sure EOS has no children
+                all_EOS = True
                 for b in range(batch_size):
                      if word2index[EOS_token] in prev_backtrack_seqs[b, k, :t]:
                          vocab_log_probs[b] = log_probs[b, k]
                      else:
-                         vocab_log_probs[b] = (log_probs[b, k]*(t-1) + decoder_out_log_probs[b])/t
+                         all_EOS = False
+                         vocab_log_probs[b] = log_probs[b, k] + decoder_out_log_probs[b]
+                         # vocab_log_probs[b] = (log_probs[b, k]*(t-1) + decoder_out_log_probs[b])/t
+                if all_EOS:
+                    break
                 topv, topi = vocab_log_probs.data.topk(BEAM_SIZE)
                 if k == 0:
                     beam_vocab_log_probs = topv
@@ -73,6 +78,8 @@ def evaluate_beam(word2index, index2word, encoder, decoder, input_seqs, input_le
                 else:
                     beam_vocab_log_probs = torch.cat((beam_vocab_log_probs, topv), dim=1)
                     beam_vocab_idx = torch.cat((beam_vocab_idx, topi), dim=1)
+            if all_EOS:
+                break
             topv, topi = beam_vocab_log_probs.data.topk(BEAM_SIZE)
             log_probs = topv
             indices = Variable(torch.zeros(batch_size, BEAM_SIZE, dtype=torch.long)) 
@@ -93,7 +100,7 @@ def evaluate_beam(word2index, index2word, encoder, decoder, input_seqs, input_le
         for b in range(batch_size):
             for k in range(BEAM_SIZE):
                 decoded_words = []
-                for t in range(max_out_len):
+                for t in range(backtrack_seqs.shape[2]):
                     idx = int(backtrack_seqs[b, k, t])
                     if idx == word2index[EOS_token]: 
                         decoded_words.append(EOS_token)
