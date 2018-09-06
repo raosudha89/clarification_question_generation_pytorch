@@ -1,83 +1,31 @@
 from constants import *
-import math
-import numpy as np
 import torch
 from torch.nn import functional
 from torch.autograd import Variable
 
-def sequence_mask(sequence_length, max_len=None):
-	if max_len is None:
-		max_len = sequence_length.data.max()
-	batch_size = sequence_length.size(0)
-	seq_range = torch.arange(0, max_len).long()
-	seq_range_expand = seq_range.unsqueeze(0).expand(batch_size, max_len)
-	seq_range_expand = Variable(seq_range_expand)
-	if USE_CUDA:
-		if sequence_length.is_cuda:
-			seq_range_expand = seq_range_expand.cuda()
-	seq_length_expand = (sequence_length.unsqueeze(1)
-						 .expand_as(seq_range_expand))
-	return seq_range_expand < seq_length_expand
 
-def calculate_log_probs(logits, masks):
-	# log_probs: (batch * max_len)
-	masks = Variable(torch.FloatTensor(masks))
-	if USE_CUDA:
-		masks = masks.cuda()
-		logits = logits.cuda()
-	logits = logits * masks
-	avg_log_probs = Variable(torch.zeros(logits.shape[0]))
-	if USE_CUDA:
-		avg_log_probs = avg_log_probs.cuda()
-	for b in range(logits.shape[0]):
-		if  masks[b].float().sum() > 0:
-			avg_log_probs[b] = logits[b].sum() / masks[b].float().sum()
-	return avg_log_probs
+def calculate_log_probs(logits, output, length, loss_fn, mixer_delta=None):
+    max_len = logits.shape[1]
+    batch_size = logits.shape[0]
+    log_probs = functional.log_softmax(logits, dim=2)
+    avg_log_probs = Variable(torch.zeros(batch_size))
+    if USE_CUDA:
+        avg_log_probs = avg_log_probs.cuda()
+    for b in range(batch_size):
+        # avg_log_probs[b] = loss_fn(log_probs[b][mixer_delta:], output[b][mixer_delta:]) / (max_len - mixer_delta)
+        if mixer_delta < length[b]:
+            avg_log_probs[b] = loss_fn(log_probs[b][mixer_delta:], output[b][mixer_delta:]) / (length[b] - mixer_delta)
+    return avg_log_probs
 
-def masked_cross_entropy(logits, target, length, mixer_delta=None):
-	length = Variable(torch.LongTensor(length))
-	if USE_CUDA:
-		length = length.cuda()
 
-	"""
-	Args:
-		logits: A Variable containing a FloatTensor of size
-			(batch, max_len, num_classes) which contains the
-			unnormalized probability for each class.
-		target: A Variable containing a LongTensor of size
-			(batch, max_len) which contains the index of the true
-			class for each corresponding step.
-		length: A Variable containing a LongTensor of size (batch,)
-			which contains the length of each data in a batch.
-
-	Returns:
-		loss: An average loss value masked by the length.
-	"""
-	max_len = logits.shape[1]
-	batch_size = logits.shape[0]
-	# logits_flat: (batch * max_len, num_classes)
-	logits_flat = logits.view(-1, logits.size(-1))
-	# log_probs_flat: (batch * max_len, num_classes)
-	log_probs_flat = functional.log_softmax(logits_flat, dim=1)
-	# target_flat: (batch * max_len, 1)
-	target_flat = target.view(-1, 1)
-	# losses_flat: (batch * max_len, 1)
-	losses_flat = -torch.gather(log_probs_flat, dim=1, index=target_flat)
-	# losses: (batch, max_len)
-	losses = losses_flat.view(*target.size())
-	# mask: (batch, max_len)
-	mask = sequence_mask(sequence_length=length, max_len=target.size(1))
-	losses = losses * mask.float()
-	if mixer_delta and mixer_delta < max_len: 
-		loss = 0.
-		le = 0.
-		for b in range(batch_size):
-			sent_loss = losses[b][:min(length[b], mixer_delta)].sum()
-			sent_loss = sent_loss/float(min(length[b], mixer_delta))
-			#sent_loss = losses[b][:mixer_delta].sum()
-			#sent_loss = sent_loss/mixer_delta
-			loss += sent_loss
-		loss = loss / batch_size
-	else:
-		loss = losses.sum() / length.float().sum() 
-	return loss 
+def masked_cross_entropy(logits, target, length, loss_fn, mixer_delta=None):
+    batch_size = logits.shape[0]
+    # log_probs: (batch, max_len, num_classes)
+    log_probs = functional.log_softmax(logits, dim=2) 
+    loss = 0.
+    for b in range(batch_size):
+        # sent_loss = loss_fn(log_probs[b][:mixer_delta], target[b][:mixer_delta]) / mixer_delta
+        sent_loss = loss_fn(log_probs[b][:min(mixer_delta, length[b])], target[b][:min(mixer_delta, length[b])]) / min(mixer_delta, length[b])
+        loss += sent_loss
+    loss = loss / batch_size
+    return loss
