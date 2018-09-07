@@ -11,39 +11,25 @@ from seq2seq.attnDecoderRNN import *
 from seq2seq.read_data import *
 from seq2seq.prepare_data import *
 from seq2seq.RL_train import *
-from seq2seq.RL_evaluate import *
-from seq2seq.RL_inference import *
 from seq2seq.RL_beam_decoder import *
 from seq2seq.baselineFF import *
 from utility.RNN import *
 from utility.FeedForward import *
-from utility.RL_evaluate import *
 from utility.RL_train import *
 from RL_helper import *
 from constants import *
-
-
-def update_embs(word2index, word_embeddings):
-    word_embeddings[word2index[PAD_token]] = nn.init.normal_(torch.empty(1, len(word_embeddings[0])))
-    word_embeddings[word2index[SOS_token]] = nn.init.normal_(torch.empty(1, len(word_embeddings[0])))
-    word_embeddings[word2index[EOP_token]] = nn.init.normal_(torch.empty(1, len(word_embeddings[0])))
-    word_embeddings[word2index[EOS_token]] = nn.init.normal_(torch.empty(1, len(word_embeddings[0])))
-    return word_embeddings
 
 
 def main(args):
     word_embeddings = p.load(open(args.word_embeddings, 'rb'))
     word_embeddings = np.array(word_embeddings)
     word2index = p.load(open(args.vocab, 'rb'))
-    #word_embeddings = update_embs(word2index, word_embeddings) --> updating embs gives poor utility results (0.5 acc)
     index2word = reverse_dict(word2index)
 
-    train_data = read_data(args.train_context, args.train_question, args.train_answer, \
+    train_data = read_data(args.train_context, args.train_question, args.train_answer,
                             args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
-    test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, \
+    test_data = read_data(args.tune_context, args.tune_question, args.tune_answer,
                             args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
-    #test_data = read_data(args.test_context, args.test_question, args.test_answer, \
-    #                        args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -54,12 +40,16 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     print 'Preprocessing train data..'
     tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
     tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens = preprocess_data(train_data, word2index,
-                                                                        args.max_post_len, args.max_ques_len, args.max_ans_len)
+                                                                                     args.max_post_len,
+                                                                                     args.max_ques_len,
+                                                                                     args.max_ans_len)
 
     print 'Preprocessing test data..'
     te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
     te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index,
-                                                                                args.max_post_len, args.max_ques_len, args.max_ans_len)
+                                                                                     args.max_post_len,
+                                                                                     args.max_ques_len,
+                                                                                     args.max_ans_len)
 
     print 'Defining encoder decoder models'
     q_encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers=2, dropout=DROPOUT)
@@ -125,9 +115,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     #return
 
     n_batches = len(tr_post_seqs)/args.batch_size
-    #_lambda = 0.0
     mixer_delta = args.max_ques_len
-    #mixer_delta = 0
     while epoch < args.n_epochs:
         epoch += 1
         total_loss = 0.
@@ -135,28 +123,28 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         total_rl_loss = 0.
         total_u_pred = 0.
         total_u_b_pred = 0.
-        #if _lambda < 1.:
-        #    _lambda += 0.05
         if mixer_delta >= 2:
             mixer_delta = mixer_delta - 2
         batch_num = 0
-        for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
-                                        tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens, args.batch_size):
+        for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
+                                                                        tr_ques_seqs, tr_ques_lens,
+                                                                        tr_post_ques_seqs, tr_post_ques_lens,
+                                                                        tr_ans_seqs, tr_ans_lens, args.batch_size):
             batch_num += 1
-            xe_loss, rl_loss, reward, b_reward = train(post, pl, ques, ql, q_encoder, q_decoder,
-                                                        q_encoder_optimizer, q_decoder_optimizer,
-                                                        baseline_model, baseline_optimizer, baseline_criterion,
-                                                        word2index, index2word, args.max_ques_len,
-                                                        args.batch_size, mixer_delta)
-            # pq_pred = np.concatenate((post, q_pred), axis=1)
-            # pql_pred = np.full((args.batch_size), args.max_post_len+args.max_ques_len)
-            # a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, ans, al, a_encoder, a_decoder,
-            #                 word2index, args.max_ans_len, args.batch_size)
-            #
-            # u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model,
-            #                 post, pl, q_pred, ql_pred, a_pred, al_pred, args)
-            #
-            # reward = u_preds
+            xe_loss, rl_loss, reward, b_reward = train(post, pl, ques, ql, ans, al,
+                                                       q_encoder, q_decoder,
+                                                       q_encoder_optimizer, q_decoder_optimizer,
+                                                       a_encoder, a_decoder,
+                                                       baseline_model, baseline_optimizer, baseline_criterion,
+                                                       context_model, question_model, answer_model, utility_model,
+                                                       word2index, mixer_delta, args)
+
+            # if batch_num % 50 == 0:
+            #     out_fname = args.test_pred_question+'.epoch%d.batch%d' % (int(epoch), batch_num)
+            #     # out_fname = None
+            #     evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+            #                   te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+            #                   args.batch_size, args.max_ques_len, out_fname)
 
             total_u_pred += reward.data.sum() / args.batch_size
             total_u_b_pred += b_reward.data.sum() / args.batch_size
@@ -169,15 +157,15 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         print_u_pred_avg = total_u_pred / n_batches
         print_u_b_pred_avg = total_u_b_pred / n_batches
         print_summary = '%s %d Loss: %.4f XE_loss: %.4f RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
-                        (time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_xe_loss_avg, print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
+                        (time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_xe_loss_avg,
+                         print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
         print(print_summary)
         if epoch > 0:
             print 'Running evaluation...'
-            #out_file = None
             out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
             evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                            te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, args.batch_size, args.max_ques_len, out_fname)
-                            #tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, args.batch_size, args.max_ques_len, out_fname)
+                          te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+                          args.batch_size, args.max_ques_len, out_fname)
         
 
 if __name__ == "__main__":

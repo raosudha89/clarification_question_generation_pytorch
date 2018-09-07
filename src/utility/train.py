@@ -42,25 +42,22 @@ def train_fn(context_model, question_model, answer_model, utility_model, train_d
 
 		# c_out: (sent_len, batch_size, num_directions*HIDDEN_DIM)
 		c_hid, c_out = context_model(torch.transpose(c, 0, 1))
-		c_hid = c_hid.squeeze(1)
 		cm = torch.transpose(cm, 0, 1).unsqueeze(2)
 		cm = cm.expand(cm.shape[0], cm.shape[1], 2*HIDDEN_SIZE)
 		c_out = torch.sum(c_out * cm, dim=0)
 
 		q_hid, q_out = question_model(torch.transpose(q, 0, 1))
-		q_hid = q_hid.squeeze(1)
 		qm = torch.transpose(qm, 0, 1).unsqueeze(2)
 		qm = qm.expand(qm.shape[0], qm.shape[1], 2*HIDDEN_SIZE)
 		q_out = torch.sum(q_out * qm, dim=0)
 
-		a_hid, a_out = answer_model(torch.transpose(q, 0, 1))
-		a_hid = a_hid.squeeze(1)
+		a_hid, a_out = answer_model(torch.transpose(a, 0, 1))
 		am = torch.transpose(am, 0, 1).unsqueeze(2)
 		am = am.expand(am.shape[0], am.shape[1], 2*HIDDEN_SIZE)
 		a_out = torch.sum(a_out * am, dim=0)
 
 		predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
-		#predictions = utility_model(torch.cat((c_hid, q_hid, a_hid), 1)).squeeze(1) <-- this gives poor results, perhaps wrong
+
 		l = torch.FloatTensor([float(lab) for lab in l])
 		if USE_CUDA:
 			l = l.cuda()

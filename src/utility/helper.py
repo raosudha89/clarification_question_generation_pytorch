@@ -2,6 +2,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+
 def iterate_minibatches(c, cm, q, qm, a, am, l, batch_size, shuffle=True):
 	if shuffle:
 		indices = np.arange(len(c))
@@ -13,13 +14,13 @@ def iterate_minibatches(c, cm, q, qm, a, am, l, batch_size, shuffle=True):
 			excerpt = slice(start_idx, start_idx + batch_size)
 		yield c[excerpt], cm[excerpt], q[excerpt], qm[excerpt], a[excerpt], am[excerpt], l[excerpt]
 
+
 def get_masks(lens, max_len):
 	masks = []
 	for i in range(len(lens)):
 		masks.append([1]*lens[i]+[0]*(max_len-lens[i]))
 	return np.array(masks)
 
-import torch.nn.functional as F
 
 def binary_accuracy(preds, y):
 	"""

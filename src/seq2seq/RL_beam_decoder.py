@@ -14,9 +14,10 @@ def evaluate_beam(word2index, index2word, encoder, decoder, input_seqs, input_le
 
     encoder.eval()
     decoder.eval()
-    out_files = [None]*BEAM_SIZE
-    for k in range(BEAM_SIZE):
-        out_files[k] = open(out_fname+'.beam%d' % k, 'w')
+    if out_fname:
+        out_files = [None] * BEAM_SIZE
+        for k in range(BEAM_SIZE):
+            out_files[k] = open(out_fname+'.beam%d' % k, 'w')
     for input_seqs_batch, input_lens_batch, output_seqs_batch, output_lens_batch in \
                 iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size):
 
