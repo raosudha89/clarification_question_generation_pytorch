@@ -27,9 +27,9 @@ def main(args):
     index2word = reverse_dict(word2index)
 
     train_data = read_data(args.train_context, args.train_question, args.train_answer,
-                            args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
+                           args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
     test_data = read_data(args.tune_context, args.tune_question, args.tune_answer,
-                            args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
+                          args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -137,15 +137,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                                                        a_encoder, a_decoder,
                                                        baseline_model, baseline_optimizer, baseline_criterion,
                                                        context_model, question_model, answer_model, utility_model,
-                                                       word2index, mixer_delta, args)
-
-            # if batch_num % 50 == 0:
-            #     out_fname = args.test_pred_question+'.epoch%d.batch%d' % (int(epoch), batch_num)
-            #     # out_fname = None
-            #     evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-            #                   te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-            #                   args.batch_size, args.max_ques_len, out_fname)
-
+                                                       word2index, index2word, mixer_delta, args)
             total_u_pred += reward.data.sum() / args.batch_size
             total_u_b_pred += b_reward.data.sum() / args.batch_size
             total_xe_loss += xe_loss
@@ -160,12 +152,11 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                         (time_since(start, epoch / args.n_epochs), epoch, print_loss_avg, print_xe_loss_avg,
                          print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
         print(print_summary)
-        if epoch > 0:
-            print 'Running evaluation...'
-            out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
-            evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                          te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                          args.batch_size, args.max_ques_len, out_fname)
+        print 'Running evaluation...'
+        out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
+        evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+                      te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+                      args.batch_size, args.max_ques_len, out_fname)
         
 
 if __name__ == "__main__":

@@ -5,11 +5,13 @@ import unicodedata
 from collections import defaultdict
 import math
 
+
 def unicode_to_ascii(s):
 	return ''.join(
 		c for c in unicodedata.normalize('NFD', s)
 		if unicodedata.category(c) != 'Mn'
 	)
+
 
 # Lowercase, trim, and remove non-letter characters
 def normalize_string(s, max_len):
@@ -18,6 +20,7 @@ def normalize_string(s, max_len):
 	words = s.split()
 	s = ' '.join(words[:max_len])
 	return s
+
 
 def get_context(line, max_post_len, max_ques_len):
 	splits = line.split('<EOP>')
@@ -29,6 +32,7 @@ def get_context(line, max_post_len, max_ques_len):
 			ques = normalize_string(context, max_ques_len)
 			context += ques + ' <EOQ>'
 	return context
+
 
 def read_data(context, question, answer, max_post_len, max_ques_len, max_ans_len, split, count=None):
 	print("Reading lines...")

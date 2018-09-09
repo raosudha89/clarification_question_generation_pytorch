@@ -32,6 +32,7 @@ from utility.RNN import *
 from utility.FeedForward import *
 from utility.RL_evaluate import *
 from utility.RL_train import *
+from utility.train import *
 from RL_helper import *
 from constants import *
 
@@ -97,6 +98,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     utility_model = FeedForward(HIDDEN_SIZE*3*2)
+    utility_criterion = torch.nn.BCEWithLogitsLoss()
 
     baseline_model = BaselineFF(HIDDEN_SIZE)
 
@@ -131,7 +133,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     while epoch < args.n_epochs:
         epoch += 1
         if epoch < 10:
-            g_n_epochs = 1
+            g_n_epochs = 5
             total_loss = run_generator(tr_post_seqs, tr_post_lens,
                                        tr_ques_seqs, tr_ques_lens,
                                        tr_post_ques_seqs, tr_post_ques_lens,
@@ -139,14 +141,14 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                                        q_encoder, q_decoder,
                                        q_encoder_optimizer, q_decoder_optimizer,
                                        word2index, g_n_epochs, args)
-            print_loss_avg = total_loss / n_batches
-            print_summary = '%s %d Loss: %.4f' % \
+            print_loss_avg = total_loss
+            print_summary = 'Generator: %s %d Loss: %.4f' % \
                             (time_since(start, epoch / args.n_epochs), epoch, print_loss_avg)
             print(print_summary)
         else:
             if mixer_delta >= 2:
                 mixer_delta = mixer_delta - 2
-            g_n_epochs = 1
+            g_n_epochs = 5
             total_xe_loss, total_rl_loss, total_u_pred, total_u_b_pred = \
                 run_RL_generator(tr_post_seqs, tr_post_lens,
                                  tr_ques_seqs, tr_ques_lens,
@@ -159,43 +161,42 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                                  baseline_criterion,
                                  context_model, question_model,
                                  answer_model, utility_model,
-                                 word2index, g_n_epochs, mixer_delta, args)
+                                 word2index, index2word, g_n_epochs, mixer_delta, args)
 
-            print_xe_loss_avg = total_xe_loss / n_batches
-            print_rl_loss_avg = total_rl_loss / n_batches
-            print_u_pred_avg = total_u_pred / n_batches
-            print_u_b_pred_avg = total_u_b_pred / n_batches
+            print_xe_loss_avg = total_xe_loss
+            print_rl_loss_avg = total_rl_loss
+            print_u_pred_avg = total_u_pred
+            print_u_b_pred_avg = total_u_b_pred
 
-            print_summary = '%s %d XE_loss: %.4f RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
+            print_summary = 'Generator (RL) %s %d XE_loss: %.4f RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
                             (time_since(start, epoch / args.n_epochs), epoch,
                              print_xe_loss_avg, print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
             print(print_summary)
 
         a_n_epochs = 1
-        total_u_loss, total_u_pos_acc, total_u_neg_acc = run_discriminator(tr_post_seqs, tr_post_lens,
-                                                                           tr_ques_seqs, tr_ques_lens,
-                                                                           tr_post_ques_seqs, tr_post_ques_lens,
-                                                                           tr_ans_seqs, tr_ans_lens,
-                                                                           q_encoder, q_decoder,
-                                                                           a_encoder, a_decoder,
-                                                                           context_model, question_model,
-                                                                           answer_model, utility_model,
-                                                                           u_optimizer, word2index, a_n_epochs, args)
+        total_u_loss, total_u_acc = run_discriminator(tr_post_seqs, tr_post_lens,
+                                                      tr_ques_seqs, tr_ques_lens,
+                                                      tr_post_ques_seqs, tr_post_ques_lens,
+                                                      tr_ans_seqs, tr_ans_lens,
+                                                      q_encoder, q_decoder,
+                                                      a_encoder, a_decoder,
+                                                      context_model, question_model,
+                                                      answer_model, utility_model,
+                                                      u_optimizer, utility_criterion,
+                                                      word2index, a_n_epochs, args)
 
-        print_u_loss_avg = total_u_loss / n_batches
-        print_u_pos_acc_avg = total_u_pos_acc / n_batches
-        print_u_neg_acc_avg = total_u_neg_acc / n_batches
+        print_u_loss_avg = total_u_loss
+        print_u_acc_avg = total_u_acc
 
-        print_summary = '%s %d U_loss: %.4f U_pos_acc: %.4f U_neg_acc: %.4f' % \
-                        (time_since(start, epoch / args.n_epochs), epoch, print_u_loss_avg, print_u_pos_acc_avg, print_u_neg_acc_avg)
+        print_summary = 'Discriminator: %s %d U_loss: %.4f U_acc: %.4f ' % \
+                        (time_since(start, epoch / args.n_epochs), epoch, print_u_loss_avg, print_u_acc_avg)
         print(print_summary)
 
-        if epoch > 0:
-            print 'Running evaluation...'
-            out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
-            evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                          te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                          args.batch_size, args.max_ques_len, out_fname)
+        print 'Running evaluation...'
+        out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
+        evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+                      te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+                      args.batch_size, args.max_ques_len, out_fname)
 
 
 def run_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
@@ -225,12 +226,13 @@ def run_RL_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                      q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer,
                      a_encoder, a_decoder, baseline_model, baseline_optimizer, baseline_criterion,
                      context_model, question_model, answer_model, utility_model,
-                     word2index, n_epochs, mixer_delta, args):
+                     word2index, index2word, n_epochs, mixer_delta, args):
     epoch = 0.
     total_xe_loss = 0.
     total_rl_loss = 0.
     total_u_pred = 0.
     total_u_b_pred = 0.
+
     while epoch < n_epochs:    
         epoch += 1
         for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
@@ -243,7 +245,7 @@ def run_RL_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                                                        a_encoder, a_decoder,
                                                        baseline_model, baseline_optimizer, baseline_criterion,
                                                        context_model, question_model, answer_model, utility_model,
-                                                       word2index, mixer_delta, args)
+                                                       word2index, index2word, mixer_delta, args)
 
             total_u_pred += reward.data.sum() / args.batch_size
             total_u_b_pred += b_reward.data.sum() / args.batch_size
@@ -261,38 +263,90 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                       tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens,
                       q_encoder, q_decoder, a_encoder, a_decoder,
                       context_model, question_model, answer_model, utility_model,
-                      optimizer, word2index, n_epochs, args):
+                      optimizer, utility_criterion, word2index, n_epochs, args):
     epoch = 0.
     total_loss = 0
-    total_pos_acc = 0
-    total_neg_acc = 0
+    total_acc = 0
+    context_model.train()
+    question_model.train()
+    answer_model.train()
+    utility_model.train()
+    q_encoder.eval()
+    q_decoder.eval()
+    a_encoder.eval()
+    a_decoder.eval()
+
     while epoch < n_epochs:
         epoch += 1
+        data_size = (len(tr_post_seqs)/args.batch_size)*args.batch_size*2
+        post_data = [None]*data_size
+        post_len_data = [None]*data_size
+        ques_data = [None]*data_size
+        ques_len_data = [None]*data_size
+        ans_data = [None]*data_size
+        ans_len_data = [None]*data_size
+        labels_data = [None]*data_size
+        batch_num = 0
         for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
                                                                         tr_ques_seqs, tr_ques_lens,
                                                                         tr_post_ques_seqs, tr_post_ques_lens,
                                                                         tr_ans_seqs, tr_ans_lens, args.batch_size):
-            q_pred, ql_pred = evaluate_batch(post, pl, ques, ql, q_encoder, q_decoder,
+            q_pred, ql_pred = evaluate_batch(post, pl, q_encoder, q_decoder,
                                              word2index, args.max_ques_len, args.batch_size)
+            # q_pred = ques
+            # ql_pred = ql
             pq_pred = np.concatenate((post, q_pred), axis=1)
             pql_pred = np.full(args.batch_size, args.max_post_len+args.max_ques_len)
-            a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, ans, al, a_encoder, a_decoder,
+            a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
                                              word2index, args.max_ans_len, args.batch_size)
-            q_pos_loss, pos_preds, pos_acc = train_utility(context_model, question_model, answer_model, utility_model,
-                                                           optimizer, post, pl, ques, ql, ans, al, args, all_pos=True)
-            q_neg_loss, neg_preds, neg_acc = train_utility(context_model, question_model, answer_model, utility_model,
-                                                           optimizer, post, pl, q_pred, ql_pred, a_pred, al_pred,
-                                                           args, all_pos=False)
-            loss = q_pos_loss + q_neg_loss
-            total_loss += loss
-            total_pos_acc += pos_acc
-            total_neg_acc += neg_acc
-            loss.backward()
-            optimizer.step()
+            # a_pred = ans
+            # al_pred = al
+            post_data[batch_num*2*args.batch_size:
+                      batch_num*2*args.batch_size + args.batch_size] = post
+            post_data[batch_num*2*args.batch_size + args.batch_size:
+                      batch_num*2*args.batch_size + 2*args.batch_size] = post
+            post_len_data[batch_num*2*args.batch_size:
+                          batch_num*2*args.batch_size + args.batch_size] = pl
+            post_len_data[batch_num*2*args.batch_size + args.batch_size:
+                          batch_num*2*args.batch_size + 2*args.batch_size] = pl
+            ques_data[batch_num*2*args.batch_size:
+                      batch_num*2*args.batch_size + args.batch_size] = ques
+            ques_data[batch_num*2*args.batch_size + args.batch_size:
+                      batch_num*2*args.batch_size + 2*args.batch_size] = q_pred
+            ques_len_data[batch_num*2*args.batch_size:
+                          batch_num*2*args.batch_size + args.batch_size] = ql
+            ques_len_data[batch_num*2*args.batch_size + args.batch_size:
+                          batch_num*2*args.batch_size + 2*args.batch_size] = ql_pred
+            ans_data[batch_num*2*args.batch_size:
+                     batch_num*2*args.batch_size + args.batch_size] = ans
+            ans_data[batch_num*2*args.batch_size + args.batch_size:
+                     batch_num*2*args.batch_size + 2*args.batch_size] = a_pred
+            ans_len_data[batch_num*2*args.batch_size:
+                         batch_num*2*args.batch_size + args.batch_size] = al
+            ans_len_data[batch_num*2*args.batch_size + args.batch_size:
+                         batch_num*2*args.batch_size + 2*args.batch_size] = al_pred
+            labels_data[batch_num*2*args.batch_size:
+                        batch_num*2*args.batch_size + 2*args.batch_size] = \
+                np.concatenate((np.ones(len(post)), np.zeros(len(post))), axis=0)
+            batch_num += 1
+
+        permutation = np.random.permutation(len(post_data))
+        post_data = np.array(post_data)[permutation]
+        post_len_data = np.array(post_len_data)[permutation]
+        ques_data = np.array(ques_data)[permutation]
+        ques_len_data = np.array(ques_len_data)[permutation]
+        ans_data = np.array(ans_data)[permutation]
+        ans_len_data = np.array(ans_len_data)[permutation]
+        labels_data = np.array(labels_data)[permutation]
+
+        train_data = post_data, post_len_data, ques_data, ques_len_data, ans_data, ans_len_data, labels_data
+        train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model,
+                                         train_data, optimizer, utility_criterion, args)
+        total_loss += train_loss
+        total_acc += train_acc
     total_loss = total_loss / n_epochs
-    total_pos_acc = total_pos_acc / n_epochs
-    total_neg_acc = total_neg_acc / n_epochs
-    return total_loss, total_pos_acc, total_neg_acc
+    total_acc = total_acc / n_epochs
+    return total_loss, total_acc
 
 
 if __name__ == "__main__":

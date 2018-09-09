@@ -35,7 +35,7 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
           q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer,
           a_encoder, a_decoder, baseline_model, baseline_optimizer, baseline_criterion,
           context_model, question_model, answer_model, utility_model,
-          word2index, mixer_delta, args):
+          word2index, index2word, mixer_delta, args):
     
     # Zero gradients of both optimizers
     q_encoder_optimizer.zero_grad()
@@ -64,36 +64,38 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
         rl_decoder_outputs = rl_decoder_outputs.cuda()
         decoder_hiddens = decoder_hiddens.cuda()
 
-    # Run post words through encoder
-    encoder_outputs, encoder_hidden = q_encoder(input_batches, post_lens, None)
-
-    # Prepare input and output variables
-    decoder_hidden = encoder_hidden[:q_decoder.n_layers] + encoder_hidden[q_decoder.n_layers:]
-
-    # Run through decoder one time step at a time
-    for t in range(mixer_delta):
-        decoder_output, decoder_hidden = q_decoder(decoder_input, decoder_hidden, encoder_outputs)
-        xe_decoder_outputs[t] = decoder_output
-        decoder_hiddens[t] = torch.sum(decoder_hidden, dim=0)
-
-        # Teacher Forcing
-        decoder_input = target_batches[t]  # Next input is current target
-        output_seqs[t] = target_batches[t]
-
     loss_fn = torch.nn.NLLLoss()
 
-    # # Loss calculation and backpropagation
-    xe_loss = masked_cross_entropy(
-        xe_decoder_outputs.transpose(0, 1).contiguous(),  # -> batch x seq
-        target_batches[:mixer_delta].transpose(0, 1).contiguous(),  # -> batch x seq
-        ques_lens, loss_fn, mixer_delta
-    )
-    xe_loss.backward()
+    if mixer_delta != 0:
+        # Run post words through encoder
+        encoder_outputs, encoder_hidden = q_encoder(input_batches, post_lens, None)
+        # Prepare input and output variables
+        decoder_hidden = encoder_hidden[:q_decoder.n_layers] + encoder_hidden[q_decoder.n_layers:]
 
-    # Prepare input and output variables
+        # Run through decoder one time step at a time
+        for t in range(mixer_delta):
+            decoder_output, decoder_hidden = q_decoder(decoder_input, decoder_hidden, encoder_outputs)
+            xe_decoder_outputs[t] = decoder_output
+            decoder_hiddens[t] = torch.sum(decoder_hidden, dim=0)
+
+            # Teacher Forcing
+            decoder_input = target_batches[t]  # Next input is current target
+            output_seqs[t] = target_batches[t]
+
+        # # Loss calculation and backpropagation
+        xe_loss = masked_cross_entropy(
+            xe_decoder_outputs.transpose(0, 1).contiguous(),  # -> batch x seq
+            target_batches[:mixer_delta].transpose(0, 1).contiguous(),  # -> batch x seq
+            ques_lens, loss_fn, mixer_delta
+        )
+        xe_loss.backward()
+    else:
+        xe_loss = 0.
+
+    # Run post words through encoder
     encoder_outputs, encoder_hidden = q_encoder(input_batches, post_lens, None)
+    # Prepare input and output variables
     decoder_hidden = encoder_hidden[:q_decoder.n_layers] + encoder_hidden[q_decoder.n_layers:]
-    # decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * batch_size)).cuda()
 
     for t in range(args.max_ques_len-mixer_delta):
         decoder_output, decoder_hidden = q_decoder(decoder_input, decoder_hidden, encoder_outputs)
@@ -109,12 +111,11 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
 
     decoded_seqs, decoded_lens, decoded_seq_masks = get_decoded_seqs(output_seqs, word2index,
                                                                      args.max_ques_len, args.batch_size)
-
     # Calculate reward
     # reward = calculate_bleu(ques_seqs, ques_lens, decoded_seqs, decoded_lens, index2word, args.max_ques_len)
     pq_pred = np.concatenate((post_seqs, decoded_seqs), axis=1)
     pql_pred = np.full(args.batch_size, args.max_post_len+args.max_ques_len)
-    a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, ans_seqs, ans_lens, a_encoder, a_decoder,
+    a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
                                      word2index, args.max_ans_len, args.batch_size)
 
     u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model,
@@ -135,10 +136,12 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
     log_probs = calculate_log_probs(
         rl_decoder_outputs.transpose(0, 1).contiguous(),  # -> batch x seq
         output_seqs[mixer_delta:].transpose(0, 1).contiguous(),  # -> batch x seq
-        decoded_lens, loss_fn
+        decoded_lens, loss_fn, mixer_delta
     )
     rl_loss = torch.sum(log_probs * (reward.data - b_reward.data)) / args.batch_size
-    rl_loss.backward()
+
+    if rl_loss != 0:
+        rl_loss.backward()
 
     q_encoder_optimizer.step()
     q_decoder_optimizer.step()
