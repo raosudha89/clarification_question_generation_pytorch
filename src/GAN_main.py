@@ -43,10 +43,14 @@ def main(args):
     word2index = p.load(open(args.vocab, 'rb'))
     index2word = reverse_dict(word2index)
 
-    train_data = read_data(args.train_context, args.train_question, args.train_answer,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
-    test_data = read_data(args.tune_context, args.tune_question, args.tune_answer,
-                          args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
+    train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
+                           args.max_post_len, args.max_ques_len, args.max_ans_len)
+    if args.tune_ids is not None:
+        test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
+                              args.max_post_len, args.max_ques_len, args.max_ans_len)
+    else:
+        test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
+                              args.max_post_len, args.max_ques_len, args.max_ans_len)
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -98,7 +102,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     utility_model = FeedForward(HIDDEN_SIZE*3*2)
-    utility_criterion = torch.nn.BCEWithLogitsLoss()
+    utility_criterion = torch.nn.BCELoss()
 
     baseline_model = BaselineFF(HIDDEN_SIZE)
 
@@ -132,7 +136,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     mixer_delta = args.max_ques_len
     while epoch < args.n_epochs:
         epoch += 1
-        if epoch < 10:
+        if epoch < args.n_epochs:
             g_n_epochs = 5
             total_loss = run_generator(tr_post_seqs, tr_post_lens,
                                        tr_ques_seqs, tr_ques_lens,
@@ -165,15 +169,15 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 
             print_xe_loss_avg = total_xe_loss
             print_rl_loss_avg = total_rl_loss
-            print_u_pred_avg = total_u_pred
-            print_u_b_pred_avg = total_u_b_pred
+            print_u_pred_avg = total_u_pred / n_batches
+            print_u_b_pred_avg = total_u_b_pred / n_batches
 
             print_summary = 'Generator (RL) %s %d XE_loss: %.4f RL_loss: %.4f U_pred: %.4f B_pred: %.4f' % \
                             (time_since(start, epoch / args.n_epochs), epoch,
                              print_xe_loss_avg, print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
             print(print_summary)
 
-        a_n_epochs = 1
+        a_n_epochs = 5
         total_u_loss, total_u_acc = run_discriminator(tr_post_seqs, tr_post_lens,
                                                       tr_ques_seqs, tr_ques_lens,
                                                       tr_post_ques_seqs, tr_post_ques_lens,
@@ -191,6 +195,16 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         print_summary = 'Discriminator: %s %d U_loss: %.4f U_acc: %.4f ' % \
                         (time_since(start, epoch / args.n_epochs), epoch, print_u_loss_avg, print_u_acc_avg)
         print(print_summary)
+
+        print 'Saving GAN model params'
+        torch.save(q_encoder.state_dict(), args.q_encoder_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(q_decoder.state_dict(), args.q_decoder_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(a_encoder.state_dict(), args.a_encoder_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(a_decoder.state_dict(), args.a_decoder_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(context_model.state_dict(), args.context_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(question_model.state_dict(), args.question_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(answer_model.state_dict(), args.answer_params + '.onlyGAN.epoch%d' % epoch)
+        torch.save(utility_model.state_dict(), args.utility_params + '.onlyGAN.epoch%d' % epoch)
 
         print 'Running evaluation...'
         out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
@@ -293,14 +307,10 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                                                                         tr_ans_seqs, tr_ans_lens, args.batch_size):
             q_pred, ql_pred = evaluate_batch(post, pl, q_encoder, q_decoder,
                                              word2index, args.max_ques_len, args.batch_size)
-            # q_pred = ques
-            # ql_pred = ql
             pq_pred = np.concatenate((post, q_pred), axis=1)
             pql_pred = np.full(args.batch_size, args.max_post_len+args.max_ques_len)
             a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
                                              word2index, args.max_ans_len, args.batch_size)
-            # a_pred = ans
-            # al_pred = al
             post_data[batch_num*2*args.batch_size:
                       batch_num*2*args.batch_size + args.batch_size] = post
             post_data[batch_num*2*args.batch_size + args.batch_size:
@@ -357,9 +367,11 @@ if __name__ == "__main__":
     argparser.add_argument("--tune_context", type = str)
     argparser.add_argument("--tune_question", type = str)
     argparser.add_argument("--tune_answer", type = str)
+    argparser.add_argument("--tune_ids", type=str)
     argparser.add_argument("--test_context", type = str)
     argparser.add_argument("--test_question", type = str)
     argparser.add_argument("--test_answer", type = str)
+    argparser.add_argument("--test_ids", type=str)
     argparser.add_argument("--test_pred_question", type = str)
     argparser.add_argument("--q_encoder_params", type = str)
     argparser.add_argument("--q_decoder_params", type = str)

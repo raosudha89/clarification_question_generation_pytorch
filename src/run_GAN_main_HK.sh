@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#SBATCH --job-name=RL_HK_emb200_mixer
-#SBATCH --output=RL_HK_emb200_mixer
-#SBATCH --qos=gpu-medium
+#SBATCH --job-name=GAN_HK_emb200_mixer
+#SBATCH --output=GAN_HK_emb200_mixer
+#SBATCH --qos=gpu-long
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
-#SBATCH --time=24:00:00
+#SBATCH --time=48:00:00
 #SBATCH --mem=64g
 
 SITENAME=Home_and_Kitchen
@@ -17,7 +17,7 @@ EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITEN
 
 #module load cuda/9.1.85
 
-python $SCRIPT_DIR/RL_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
+python $SCRIPT_DIR/GAN_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--train_ques $CQ_DATA_DIR/train_question.txt \
 									--train_ans $CQ_DATA_DIR/train_answer.txt \
 									--tune_context $CQ_DATA_DIR/tune_context.txt \
@@ -28,7 +28,7 @@ python $SCRIPT_DIR/RL_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--test_ques $CQ_DATA_DIR/test_question.txt \
 									--test_ans $CQ_DATA_DIR/test_answer.txt \
 									--test_ids $CQ_DATA_DIR/test_asin.txt \
-									--test_pred_ques $CQ_DATA_DIR/RL_test_pred_question_mixer.txt \
+									--test_pred_ques $CQ_DATA_DIR/GAN_test_pred_question_mixer.txt \
 									--q_encoder_params $CQ_DATA_DIR/q_encoder_params.epoch60 \
 									--q_decoder_params $CQ_DATA_DIR/q_decoder_params.epoch60 \
 									--a_encoder_params $CQ_DATA_DIR/a_encoder_params.epoch60 \

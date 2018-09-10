@@ -55,8 +55,8 @@ def evaluate_batch(input_batches, input_lens, encoder, decoder,
     return decoded_seqs, decoded_lens    
 
 
-def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input_lens, output_seqs, output_lens, \
-                    batch_size, max_out_len, out_file):
+def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input_lens, output_seqs, output_lens,
+                     batch_size, max_out_len, out_file):
     total_loss = 0.
     n_batches = len(input_seqs) / batch_size
 

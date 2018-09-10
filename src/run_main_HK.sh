@@ -1,19 +1,19 @@
 #!/bin/bash
 
-#SBATCH --job-name=pretrain_util_aus_emb200_fullvocab
-#SBATCH --output=pretrain_util_aus_emb200_fullvocab
+#SBATCH --job-name=pretrain_util_HK_emb200
+#SBATCH --output=pretrain_util_HK_emb200
 #SBATCH --qos=gpu-medium
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
 #SBATCH --time=24:00:00
 #SBATCH --mem=64g
 
-SITENAME=askubuntu_unix_superuser
+SITENAME=Home_and_Kitchen
 
 CQ_DATA_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
 #EMB_DIR=/fs/clip-amr/ranking_clarification_questions/embeddings
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200_fullvocab
+EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200
 
 CURR_METH_DIR=$CQ_DATA_DIR
 

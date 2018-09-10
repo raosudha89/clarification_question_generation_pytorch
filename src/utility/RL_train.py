@@ -3,16 +3,10 @@ import numpy as np
 import torch
 from constants import *
 
-def train_utility(context_model, question_model, answer_model, utility_model, optimizer, c, cl, q, ql, a, al, args, all_pos=True):
-    context_model.train()
-    question_model.train()
-    answer_model.train()
-    utility_model.train()
+
+def train_utility(context_model, question_model, answer_model, utility_model, optimizer, criterion,
+                  c, cm, q, qm, a, am, labs):
     optimizer.zero_grad()
-    criterion = torch.nn.BCEWithLogitsLoss()
-    cm = get_masks(cl, args.max_post_len)
-    qm = get_masks(ql, args.max_ques_len)
-    am = get_masks(al, args.max_ans_len)
     c = torch.tensor(c)
     cm = torch.FloatTensor(cm)
     q = torch.tensor(q)
@@ -42,12 +36,10 @@ def train_utility(context_model, question_model, answer_model, utility_model, op
     a_out = torch.sum(a_out * am, dim=0)
 
     predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
-    if all_pos:
-        l = torch.FloatTensor(np.ones(len(predictions)))
-    else:
-        l = torch.FloatTensor(np.zeros(len(predictions)))
     if USE_CUDA:
-        l = l.cuda()
-    loss = criterion(predictions, l)
-    acc = binary_accuracy(predictions, l)
-    return loss, predictions, acc
+        labs = labs.cuda()
+    loss = criterion(predictions, labs)
+    acc = binary_accuracy(predictions, labs)
+    loss.backward()
+    optimizer.step()
+    return loss, acc

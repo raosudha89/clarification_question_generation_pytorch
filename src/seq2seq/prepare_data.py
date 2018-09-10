@@ -53,4 +53,4 @@ def preprocess_data(triples, word2index, max_post_len, max_ques_len, max_ans_len
 		ans_lens.append(ans_len)
 
 	return post_seqs, post_lens, ques_seqs, ques_lens, \
-			post_ques_seqs, post_ques_lens, ans_seqs, ans_lens
+		post_ques_seqs, post_ques_lens, ans_seqs, ans_lens

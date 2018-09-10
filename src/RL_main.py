@@ -26,10 +26,14 @@ def main(args):
     word2index = p.load(open(args.vocab, 'rb'))
     index2word = reverse_dict(word2index)
 
-    train_data = read_data(args.train_context, args.train_question, args.train_answer,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len, split='train')
-    test_data = read_data(args.tune_context, args.tune_question, args.tune_answer,
-                          args.max_post_len, args.max_ques_len, args.max_ans_len, split='test')
+    train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
+                           args.max_post_len, args.max_ques_len, args.max_ans_len)
+    if args.tune_ids is not None:
+        test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
+                              args.max_post_len, args.max_ques_len, args.max_ans_len)
+    else:
+        test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
+                              args.max_post_len, args.max_ques_len, args.max_ans_len)
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -72,8 +76,15 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     a_encoder.load_state_dict(torch.load(args.a_encoder_params))
     a_decoder.load_state_dict(torch.load(args.a_decoder_params))
 
-    q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad], lr=LEARNING_RATE)
-    q_decoder_optimizer = optim.Adam([par for par in q_decoder.parameters() if par.requires_grad], lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
+    out_fname = args.test_pred_question+'.pretrained'
+    evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+                  te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+                  args.batch_size, args.max_ques_len, out_fname)
+
+    q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad],
+                                     lr=LEARNING_RATE)
+    q_decoder_optimizer = optim.Adam([par for par in q_decoder.parameters() if par.requires_grad],
+                                     lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
 
     context_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
@@ -107,13 +118,6 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 
     epoch = 0.
     start = time.time()
-    #out_file = None
-    #out_fname = args.test_pred_question+'.pretrained'
-    #evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-    #              te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-    #              args.batch_size, args.max_ques_len, out_fname)
-    #return
-
     n_batches = len(tr_post_seqs)/args.batch_size
     mixer_delta = args.max_ques_len
     while epoch < args.n_epochs:
@@ -123,8 +127,8 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         total_rl_loss = 0.
         total_u_pred = 0.
         total_u_b_pred = 0.
-        if mixer_delta >= 2:
-            mixer_delta = mixer_delta - 2
+        if mixer_delta >= 1:
+            mixer_delta = mixer_delta - 1
         batch_num = 0
         for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
                                                                         tr_ques_seqs, tr_ques_lens,
@@ -142,6 +146,12 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
             total_u_b_pred += b_reward.data.sum() / args.batch_size
             total_xe_loss += xe_loss
             total_rl_loss += rl_loss
+
+        print 'Saving RL model params'
+        torch.save(q_encoder.state_dict(), args.q_encoder_params + '.RL.epoch%d' % epoch)
+        torch.save(q_decoder.state_dict(), args.q_decoder_params + '.RL.epoch%d' % epoch)
+        torch.save(a_encoder.state_dict(), args.a_encoder_params + '.RL.epoch%d' % epoch)
+        torch.save(a_decoder.state_dict(), args.a_decoder_params + '.RL.epoch%d' % epoch)
 
         print_loss_avg = total_loss / n_batches
         print_xe_loss_avg = total_xe_loss / n_batches
@@ -167,9 +177,11 @@ if __name__ == "__main__":
     argparser.add_argument("--tune_context", type = str)
     argparser.add_argument("--tune_question", type = str)
     argparser.add_argument("--tune_answer", type = str)
+    argparser.add_argument("--tune_ids", type=str)
     argparser.add_argument("--test_context", type = str)
     argparser.add_argument("--test_question", type = str)
     argparser.add_argument("--test_answer", type = str)
+    argparser.add_argument("--test_ids", type=str)
     argparser.add_argument("--test_pred_question", type = str)
     argparser.add_argument("--q_encoder_params", type = str)
     argparser.add_argument("--q_decoder_params", type = str)

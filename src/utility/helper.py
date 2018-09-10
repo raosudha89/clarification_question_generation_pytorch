@@ -22,17 +22,16 @@ def get_masks(lens, max_len):
 	return np.array(masks)
 
 
-def binary_accuracy(preds, y):
+def binary_accuracy(predictions, truth):
 	"""
 	Returns accuracy per batch, i.e. if you get 8/10 right, this returns 0.8, NOT 8
 	"""
-
-	#round predictions to the closest integer
-	rounded_preds = torch.round(F.sigmoid(preds))
-	correct = (rounded_preds == y).float() #convert into float for division 
-	acc = correct.sum()/len(correct)
-	#pred_pos = (rounded_preds == 1).float()
-	#y_pos = (y == 1).float()
-	#acc = pred_pos.sum()/y_pos.sum()
+	correct = 0.
+	for i in range(len(predictions)):
+		if predictions[i] >= 0.5 and truth[i] == 1:
+			correct += 1
+		elif truth[i] == 0:
+			correct += 1
+	acc = correct/len(predictions)
 	return acc
 
