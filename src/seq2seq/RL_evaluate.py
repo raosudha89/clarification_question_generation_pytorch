@@ -12,7 +12,6 @@ def evaluate_batch(input_batches, input_lens, encoder, decoder,
                    word2index, max_out_len, batch_size):
 
     input_batches = Variable(torch.LongTensor(np.array(input_batches))).transpose(0, 1)
-
     if USE_CUDA:
         input_batches = input_batches.cuda()
 

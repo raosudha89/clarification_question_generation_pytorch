@@ -5,10 +5,10 @@ from helper import *
 from utility.RL_evaluate import *
 from seq2seq.RL_evaluate import *
 
+
 def get_decoded_seqs(output_seqs, word2index, max_len, batch_size):
     decoded_seqs = []
     decoded_lens = []
-    decoded_seq_masks = []
     for b in range(batch_size):
         decoded_seq = []
         decoded_seq_mask = [0]*max_len
@@ -23,12 +23,10 @@ def get_decoded_seqs(output_seqs, word2index, max_len, batch_size):
         decoded_lens.append(len(decoded_seq))
         decoded_seq += [word2index[PAD_token]]*(max_len - len(decoded_seq))
         decoded_seqs.append(decoded_seq)
-        decoded_seq_masks.append(decoded_seq_mask)
 
     decoded_lens = np.array(decoded_lens)
     decoded_seqs = np.array(decoded_seqs)
-    decoded_seq_masks = np.array(decoded_seq_masks)
-    return decoded_seqs, decoded_lens, decoded_seq_masks
+    return decoded_seqs, decoded_lens
 
 
 def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
@@ -51,14 +49,17 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
 
     decoder_input = Variable(torch.LongTensor([word2index[SOS_token]] * args.batch_size))
     xe_decoder_outputs = Variable(torch.zeros(mixer_delta, args.batch_size, q_decoder.output_size))
-    rl_decoder_outputs = Variable(torch.zeros((args.max_ques_len - mixer_delta), args.batch_size, q_decoder.output_size))
+    rl_decoder_outputs = Variable(torch.zeros((args.max_ques_len - mixer_delta),
+                                              args.batch_size, q_decoder.output_size))
     decoder_hiddens = Variable(torch.zeros(args.max_ques_len, args.batch_size, q_decoder.hidden_size))
     output_seqs = Variable(torch.zeros(args.max_ques_len, args.batch_size, dtype=torch.long))
+    greedy_output_seqs = Variable(torch.zeros(args.max_ques_len, args.batch_size, dtype=torch.long))
 
     if USE_CUDA:
         input_batches = input_batches.cuda()
         target_batches = target_batches.cuda()
         output_seqs = output_seqs.cuda()
+        greedy_output_seqs = greedy_output_seqs.cuda()
         decoder_input = decoder_input.cuda()
         xe_decoder_outputs = xe_decoder_outputs.cuda()
         rl_decoder_outputs = rl_decoder_outputs.cuda()
@@ -81,6 +82,7 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
             # Teacher Forcing
             decoder_input = target_batches[t]  # Next input is current target
             output_seqs[t] = target_batches[t]
+            greedy_output_seqs[t] = target_batches[t]
 
         # # Loss calculation and backpropagation
         xe_loss = masked_cross_entropy(
@@ -92,10 +94,10 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
     else:
         xe_loss = 0.
 
-    # Run post words through encoder
-    encoder_outputs, encoder_hidden = q_encoder(input_batches, post_lens, None)
     # Prepare input and output variables
+    encoder_outputs, encoder_hidden = q_encoder(input_batches, post_lens, None)
     decoder_hidden = encoder_hidden[:q_decoder.n_layers] + encoder_hidden[q_decoder.n_layers:]
+    decoder_input = target_batches[mixer_delta-1]
 
     for t in range(args.max_ques_len-mixer_delta):
         decoder_output, decoder_hidden = q_decoder(decoder_input, decoder_hidden, encoder_outputs)
@@ -108,9 +110,10 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
             idx = token_dist.multinomial(1, replacement=False).view(-1).data[0]
             decoder_input[b] = idx
             output_seqs[mixer_delta+t][b] = idx
+            greedy_output_seqs[mixer_delta + t][b] = decoder_output[b].data.topk(1)[1]
 
-    decoded_seqs, decoded_lens, decoded_seq_masks = get_decoded_seqs(output_seqs, word2index,
-                                                                     args.max_ques_len, args.batch_size)
+    decoded_seqs, decoded_lens = get_decoded_seqs(output_seqs, word2index, args.max_ques_len, args.batch_size)
+
     # Calculate reward
     # reward = calculate_bleu(ques_seqs, ques_lens, decoded_seqs, decoded_lens, index2word, args.max_ques_len)
     pq_pred = np.concatenate((post_seqs, decoded_seqs), axis=1)
@@ -123,15 +126,41 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
 
     reward = u_preds
 
-    # Train baseline reward func model
-    baseline_input = torch.sum(decoder_hiddens, dim=0)
-    baseline_input = torch.FloatTensor(baseline_input.data.cpu().numpy())
-    if USE_CUDA:
-        baseline_input = baseline_input.cuda()
-    b_reward = baseline_model(baseline_input).squeeze(1)
-    b_loss = baseline_criterion(b_reward, reward)
-    b_loss.backward()
-    baseline_optimizer.step()
+    # # Train baseline reward func model
+    # baseline_input = torch.sum(decoder_hiddens, dim=0)
+    # baseline_input = torch.FloatTensor(baseline_input.data.cpu().numpy())
+    # if USE_CUDA:
+    #     baseline_input = baseline_input.cuda()
+    # b_reward = baseline_model(baseline_input).squeeze(1)
+    # b_loss = baseline_criterion(b_reward, reward)
+    # b_loss.backward()
+    # baseline_optimizer.step()
+
+    # Prepare input and output variables
+    encoder_outputs, encoder_hidden = q_encoder(input_batches, post_lens, None)
+    decoder_hidden = encoder_hidden[:q_decoder.n_layers] + encoder_hidden[q_decoder.n_layers:]
+    decoder_input = target_batches[mixer_delta - 1]
+
+    for t in range(args.max_ques_len - mixer_delta):
+        decoder_output, decoder_hidden = q_decoder(decoder_input, decoder_hidden, encoder_outputs)
+
+        # Greedy decoding
+        topi = decoder_output.data.topk(1)[1]
+        decoder_input = topi.squeeze(1)
+        greedy_output_seqs[mixer_delta + t] = topi.squeeze(1)
+
+    greedy_decoded_seqs, greedy_decoded_lens = get_decoded_seqs(greedy_output_seqs, word2index,
+                                                                args.max_ques_len, args.batch_size)
+    # b_reward = calculate_bleu(ques_seqs, ques_lens, greedy_decoded_seqs, greedy_decoded_lens,
+    #                           index2word, args.max_ques_len)
+    greedy_pq_pred = np.concatenate((post_seqs, greedy_decoded_seqs), axis=1)
+    greedy_pql_pred = np.full(args.batch_size, args.max_post_len+args.max_ques_len)
+    greedy_a_pred, greedy_al_pred = evaluate_batch(greedy_pq_pred, greedy_pql_pred, a_encoder, a_decoder,
+                                                   word2index, args.max_ans_len, args.batch_size)
+    greedy_u_preds = evaluate_utility(context_model, question_model, answer_model, utility_model,
+                                      post_seqs, post_lens, greedy_decoded_seqs, greedy_decoded_lens,
+                                      greedy_a_pred, greedy_al_pred, args)
+    b_reward = greedy_u_preds
 
     log_probs = calculate_log_probs(
         rl_decoder_outputs.transpose(0, 1).contiguous(),  # -> batch x seq

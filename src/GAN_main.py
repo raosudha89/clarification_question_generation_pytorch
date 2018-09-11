@@ -44,13 +44,13 @@ def main(args):
     index2word = reverse_dict(word2index)
 
     train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len)
+                           args.max_post_len, args.max_ques_len, args.max_ans_len, count=128*10)
     if args.tune_ids is not None:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
                               args.max_post_len, args.max_ques_len, args.max_ans_len)
     else:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
-                              args.max_post_len, args.max_ques_len, args.max_ans_len)
+                              args.max_post_len, args.max_ques_len, args.max_ans_len, count=128*2)
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -114,12 +114,12 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         utility_model.to(device)    
         baseline_model.to(device)
 
-    # Load utility calculator model params
-    print 'Loading utility model params'
-    context_model.load_state_dict(torch.load(args.context_params))
-    question_model.load_state_dict(torch.load(args.question_params))
-    answer_model.load_state_dict(torch.load(args.answer_params))
-    utility_model.load_state_dict(torch.load(args.utility_params))
+    # # Load utility calculator model params
+    # print 'Loading utility model params'
+    # context_model.load_state_dict(torch.load(args.context_params))
+    # question_model.load_state_dict(torch.load(args.question_params))
+    # answer_model.load_state_dict(torch.load(args.answer_params))
+    # utility_model.load_state_dict(torch.load(args.utility_params))
 
     u_optimizer = optim.Adam(list([par for par in context_model.parameters() if par.requires_grad]) +
                              list([par for par in question_model.parameters() if par.requires_grad]) +
@@ -133,10 +133,11 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 
     epoch = 0.
     n_batches = len(tr_post_seqs)/args.batch_size
-    mixer_delta = args.max_ques_len
+    # mixer_delta = args.max_ques_len
+    mixer_delta = 0
     while epoch < args.n_epochs:
         epoch += 1
-        if epoch < args.n_epochs:
+        if epoch < 0:
             g_n_epochs = 5
             total_loss = run_generator(tr_post_seqs, tr_post_lens,
                                        tr_ques_seqs, tr_ques_lens,
@@ -144,7 +145,9 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                                        tr_ans_seqs, tr_ans_lens,
                                        q_encoder, q_decoder,
                                        q_encoder_optimizer, q_decoder_optimizer,
-                                       word2index, g_n_epochs, args)
+                                       a_encoder, a_decoder,
+                                       context_model, question_model, answer_model, utility_model,
+                                       utility_criterion, word2index, g_n_epochs, args)
             print_loss_avg = total_loss
             print_summary = 'Generator: %s %d Loss: %.4f' % \
                             (time_since(start, epoch / args.n_epochs), epoch, print_loss_avg)
@@ -196,27 +199,29 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                         (time_since(start, epoch / args.n_epochs), epoch, print_u_loss_avg, print_u_acc_avg)
         print(print_summary)
 
-        print 'Saving GAN model params'
-        torch.save(q_encoder.state_dict(), args.q_encoder_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(q_decoder.state_dict(), args.q_decoder_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(a_encoder.state_dict(), args.a_encoder_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(a_decoder.state_dict(), args.a_decoder_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(context_model.state_dict(), args.context_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(question_model.state_dict(), args.question_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(answer_model.state_dict(), args.answer_params + '.onlyGAN.epoch%d' % epoch)
-        torch.save(utility_model.state_dict(), args.utility_params + '.onlyGAN.epoch%d' % epoch)
-
-        print 'Running evaluation...'
-        out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
-        evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                      te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                      args.batch_size, args.max_ques_len, out_fname)
+        # print 'Saving GAN model params'
+        # torch.save(q_encoder.state_dict(), args.q_encoder_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(q_decoder.state_dict(), args.q_decoder_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(a_encoder.state_dict(), args.a_encoder_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(a_decoder.state_dict(), args.a_decoder_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(context_model.state_dict(), args.context_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(question_model.state_dict(), args.question_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(answer_model.state_dict(), args.answer_params + '.selfcritic.epoch%d' % epoch)
+        # torch.save(utility_model.state_dict(), args.utility_params + '.selfcritic.epoch%d' % epoch)
+        #
+        # print 'Running evaluation...'
+        # out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
+        # evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+        #               te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+        #               args.batch_size, args.max_ques_len, out_fname)
 
 
 def run_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                   tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens,
                   q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer,
-                  word2index, n_epochs, args):
+                  a_encoder, a_decoder,
+                  context_model, question_model, answer_model, utility_model,
+                  utility_criterion, word2index, n_epochs, args):
     epoch = 0.
     total_loss = 0.
     while epoch < n_epochs:
@@ -227,7 +232,9 @@ def run_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                                                                         tr_ans_seqs, tr_ans_lens, args.batch_size):
             loss = GAN_train(post, pl, ques, ql, q_encoder, q_decoder,
                              q_encoder_optimizer, q_decoder_optimizer,
-                             word2index, args.max_ques_len, args.batch_size)
+                             a_encoder, a_decoder,
+                             context_model, question_model, answer_model, utility_model,
+                             utility_criterion, word2index, args)
 
             total_loss += loss
 
