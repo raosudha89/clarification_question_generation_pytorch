@@ -57,6 +57,8 @@ def train_fn(context_model, question_model, answer_model, utility_model, train_d
         a_out = torch.sum(a_out * am, dim=0)
 
         predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
+        # predictions = utility_model(torch.cat((c_out, q_out), 1)).squeeze(1)
+        # predictions = utility_model(q_out).squeeze(1)
         predictions = torch.nn.functional.sigmoid(predictions)
 
         l = torch.FloatTensor([float(lab) for lab in l])

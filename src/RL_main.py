@@ -27,13 +27,13 @@ def main(args):
     index2word = reverse_dict(word2index)
 
     train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len)
+                           args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*5)
     if args.tune_ids is not None:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
                               args.max_post_len, args.max_ques_len, args.max_ans_len)
     else:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
-                              args.max_post_len, args.max_ques_len, args.max_ans_len)
+                              args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*2)
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -84,6 +84,10 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad],
                                      lr=LEARNING_RATE)
     q_decoder_optimizer = optim.Adam([par for par in q_decoder.parameters() if par.requires_grad],
+                                     lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
+    a_encoder_optimizer = optim.Adam([par for par in a_encoder.parameters() if par.requires_grad],
+                                     lr=LEARNING_RATE)
+    a_decoder_optimizer = optim.Adam([par for par in a_decoder.parameters() if par.requires_grad],
                                      lr=LEARNING_RATE * DECODER_LEARNING_RATIO)
 
     context_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
@@ -139,6 +143,7 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                                                        q_encoder, q_decoder,
                                                        q_encoder_optimizer, q_decoder_optimizer,
                                                        a_encoder, a_decoder,
+                                                       a_encoder_optimizer, a_decoder_optimizer,
                                                        baseline_model, baseline_optimizer, baseline_criterion,
                                                        context_model, question_model, answer_model, utility_model,
                                                        word2index, index2word, mixer_delta, args)

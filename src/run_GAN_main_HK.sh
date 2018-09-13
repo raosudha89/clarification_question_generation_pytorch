@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#SBATCH --job-name=GAN_HK_emb200_mixer
-#SBATCH --output=GAN_HK_emb200_mixer
-#SBATCH --qos=gpu-long
+#SBATCH --job-name=GAN_HK_emb200_mixer_noutil
+#SBATCH --output=GAN_HK_emb200_mixer_noutil
+#SBATCH --qos=gpu-medium
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
-#SBATCH --time=48:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=64g
 
 SITENAME=Home_and_Kitchen
@@ -28,7 +28,7 @@ python $SCRIPT_DIR/GAN_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--test_ques $CQ_DATA_DIR/test_question.txt \
 									--test_ans $CQ_DATA_DIR/test_answer.txt \
 									--test_ids $CQ_DATA_DIR/test_asin.txt \
-									--test_pred_ques $CQ_DATA_DIR/GAN_test_pred_question_mixer.txt \
+                                    --test_pred_ques $CQ_DATA_DIR/GAN_test_pred_question.txt \
 									--q_encoder_params $CQ_DATA_DIR/q_encoder_params.epoch60 \
 									--q_decoder_params $CQ_DATA_DIR/q_decoder_params.epoch60 \
 									--a_encoder_params $CQ_DATA_DIR/a_encoder_params.epoch60 \
@@ -39,8 +39,9 @@ python $SCRIPT_DIR/GAN_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--utility_params $CQ_DATA_DIR/utility_params.epoch10 \
 									--word_embeddings $EMB_DIR/word_embeddings.p \
 									--vocab $EMB_DIR/vocab.p \
+									--model mixer_noutil \
 									--max_post_len 100 \
 									--max_ques_len 20 \
 									--max_ans_len 20 \
-									--batch_size 128 \
+									--batch_size 256 \
 									--n_epochs 40 \

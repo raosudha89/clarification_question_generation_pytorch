@@ -14,6 +14,7 @@ def evaluate_utility(context_model, question_model, answer_model, utility_model,
         cm = get_masks(cl, args.max_post_len)
         qm = get_masks(ql, args.max_ques_len)
         am = get_masks(al, args.max_ans_len)
+
         c = torch.tensor(c)
         cm = torch.FloatTensor(cm)
         q = torch.tensor(q)
@@ -43,6 +44,8 @@ def evaluate_utility(context_model, question_model, answer_model, utility_model,
         a_out = torch.sum(a_out * am, dim=0)
 
         predictions = utility_model(torch.cat((c_out, q_out, a_out), 1)).squeeze(1)
+        # predictions = utility_model(torch.cat((c_out, q_out), 1)).squeeze(1)
+        # predictions = utility_model(q_out).squeeze(1)
         predictions = torch.nn.functional.sigmoid(predictions)
 
     return predictions

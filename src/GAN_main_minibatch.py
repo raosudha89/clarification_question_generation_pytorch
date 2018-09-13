@@ -31,7 +31,6 @@ from seq2seq.GAN_train import *
 from utility.RNN import *
 from utility.FeedForward import *
 from utility.RL_evaluate import *
-from utility.RL_train import *
 from utility.train import *
 from RL_helper import *
 from constants import *
@@ -84,7 +83,6 @@ def initialize_discriminator(word_embeddings):
     question_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     answer_model = RNN(len(word_embeddings), len(word_embeddings[0]), n_layers=1)
     utility_model = FeedForward(HIDDEN_SIZE * 3 * 2)
-    # utility_model = FeedForward(HIDDEN_SIZE * 2 * 2)
     # utility_model = FeedForward(HIDDEN_SIZE * 2)
     utility_criterion = torch.nn.BCELoss()
     if USE_CUDA:
@@ -109,8 +107,7 @@ def initialize_discriminator(word_embeddings):
     return context_model, question_model, answer_model, utility_model, u_optimizer, utility_criterion
 
 
-def run_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
-                  tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens,
+def run_generator(post, pl, ques, ql, pq, pql, ans, al,
                   q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer,
                   a_encoder, a_decoder, a_encoder_optimizer, a_decoder_optimizer,
                   baseline_model, baseline_optimizer, baseline_criterion,
@@ -124,26 +121,22 @@ def run_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
     total_u_b_pred = 0.
 
     while epoch < args.g_n_epochs:
+        xe_loss, rl_loss, a_loss, \
+            reward, b_reward = GAN_train(post, pl, ques, ql, ans, al,
+                                         q_encoder, q_decoder,
+                                         q_encoder_optimizer, q_decoder_optimizer,
+                                         a_encoder, a_decoder,
+                                         a_encoder_optimizer, a_decoder_optimizer,
+                                         baseline_model, baseline_optimizer, baseline_criterion,
+                                         context_model, question_model, answer_model, utility_model,
+                                         word2index, index2word, mixer_delta, args)
+
+        total_u_pred += reward.data.sum() / args.batch_size
+        total_u_b_pred += b_reward.data.sum() / args.batch_size
+        total_xe_loss += xe_loss
+        total_rl_loss += rl_loss
+        total_a_loss += a_loss
         epoch += 1
-        for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
-                                                                        tr_ques_seqs, tr_ques_lens,
-                                                                        tr_post_ques_seqs, tr_post_ques_lens,
-                                                                        tr_ans_seqs, tr_ans_lens, args.batch_size):
-            xe_loss, rl_loss, a_loss, \
-                reward, b_reward = GAN_train(post, pl, ques, ql, ans, al,
-                                             q_encoder, q_decoder,
-                                             q_encoder_optimizer, q_decoder_optimizer,
-                                             a_encoder, a_decoder,
-                                             a_encoder_optimizer, a_decoder_optimizer,
-                                             baseline_model, baseline_optimizer, baseline_criterion,
-                                             context_model, question_model, answer_model, utility_model,
-                                             word2index, index2word, mixer_delta, args)
-            total_xe_loss += xe_loss
-            if mixer_delta != args.max_ques_len:
-                total_u_pred += reward.data.sum() / args.batch_size
-                total_u_b_pred += b_reward.data.sum() / args.batch_size
-                total_rl_loss += rl_loss
-                total_a_loss += a_loss
 
     total_xe_loss = total_xe_loss / args.g_n_epochs
     total_rl_loss = total_rl_loss / args.g_n_epochs
@@ -153,13 +146,11 @@ def run_generator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
     return total_xe_loss, total_rl_loss, total_a_loss, total_u_pred, total_u_b_pred
 
 
-def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
-                      tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens,
+def run_discriminator(post, pl, ques, ql, pq, pql, ans, al,
                       q_encoder, q_decoder, a_encoder, a_decoder,
+                      context_model, question_model, answer_model, utility_model,
                       baseline_model, baseline_criterion, mixer_delta,
-                      context_model, question_model, answer_model,
-                      utility_model, optimizer, utility_criterion,
-                      word2index, index2word, args):
+                      optimizer, utility_criterion, word2index, index2word, args, print_outputs):
     epoch = 0.
     total_loss = 0
     total_acc = 0
@@ -173,72 +164,30 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
     a_decoder.eval()
 
     while epoch < args.a_n_epochs:
-        epoch += 1
-        data_size = (len(tr_post_seqs)/args.batch_size)*args.batch_size*2
-        post_data = [None]*data_size
-        post_len_data = [None]*data_size
-        ques_data = [None]*data_size
-        ques_len_data = [None]*data_size
-        ans_data = [None]*data_size
-        ans_len_data = [None]*data_size
-        labels_data = [None]*data_size
-        batch_num = 0
-        for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
-                                                                        tr_ques_seqs, tr_ques_lens,
-                                                                        tr_post_ques_seqs, tr_post_ques_lens,
-                                                                        tr_ans_seqs, tr_ans_lens, args.batch_size):
-            q_pred, ql_pred, a_pred, al_pred = GAN_train(post, pl, ques, ql, ans, al,
-                                                         q_encoder, q_decoder,
-                                                         None, None,
-                                                         a_encoder, a_decoder,
-                                                         None, None,
-                                                         baseline_model, None, baseline_criterion,
-                                                         context_model, question_model, answer_model, utility_model,
-                                                         word2index, index2word, mixer_delta, args, mode='test')
-            pq_pred = np.concatenate((post, ques), axis=1)
-            pql_pred = np.full(args.batch_size, args.max_post_len + args.max_ques_len)
-            a_pred_true, al_pred_true = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
-                                                       word2index, args.max_ans_len, args.batch_size,
-                                                       ans, al)
-            # if epoch < 2 and batch_num < 5:
-            #     # print 'True Q: %s' % ' '.join([index2word[idx] for idx in ques[0]])
-            #     # print 'True A: %s' % ' '.join([index2word[idx] for idx in ans[0]])
-            #     print 'Fake Q: %s' % ' '.join([index2word[idx] for idx in q_pred[0]])
-            #     print 'Fake A: %s' % ' '.join([index2word[idx] for idx in a_pred[0]])
-            # print
+        q_pred, ql_pred, a_pred, al_pred = GAN_train(post, pl, ques, ql, ans, al,
+                                                     q_encoder, q_decoder,
+                                                     None, None,
+                                                     a_encoder, a_decoder,
+                                                     None, None,
+                                                     baseline_model, None, baseline_criterion,
+                                                     context_model, question_model, answer_model, utility_model,
+                                                     word2index, index2word, mixer_delta, args, mode='test')
 
-            post_data[batch_num*2*args.batch_size:
-                      batch_num*2*args.batch_size + args.batch_size] = post
-            post_data[batch_num*2*args.batch_size + args.batch_size:
-                      batch_num*2*args.batch_size + 2*args.batch_size] = post
-            post_len_data[batch_num*2*args.batch_size:
-                          batch_num*2*args.batch_size + args.batch_size] = pl
-            post_len_data[batch_num*2*args.batch_size + args.batch_size:
-                          batch_num*2*args.batch_size + 2*args.batch_size] = pl
-            ques_data[batch_num*2*args.batch_size:
-                      batch_num*2*args.batch_size + args.batch_size] = ques
-            ques_data[batch_num*2*args.batch_size + args.batch_size:
-                      batch_num*2*args.batch_size + 2*args.batch_size] = q_pred
-            ques_len_data[batch_num*2*args.batch_size:
-                          batch_num*2*args.batch_size + args.batch_size] = ql
-            ques_len_data[batch_num*2*args.batch_size + args.batch_size:
-                          batch_num*2*args.batch_size + 2*args.batch_size] = ql_pred
-            # ans_data[batch_num*2*args.batch_size:
-            #          batch_num*2*args.batch_size + args.batch_size] = ans
-            ans_data[batch_num*2*args.batch_size:
-                     batch_num*2*args.batch_size + args.batch_size] = a_pred_true
-            ans_data[batch_num*2*args.batch_size + args.batch_size:
-                     batch_num*2*args.batch_size + 2*args.batch_size] = a_pred
-            # ans_len_data[batch_num*2*args.batch_size:
-            #              batch_num*2*args.batch_size + args.batch_size] = al
-            ans_len_data[batch_num*2*args.batch_size:
-                         batch_num*2*args.batch_size + args.batch_size] = al_pred_true
-            ans_len_data[batch_num*2*args.batch_size + args.batch_size:
-                         batch_num*2*args.batch_size + 2*args.batch_size] = al_pred
-            labels_data[batch_num*2*args.batch_size:
-                        batch_num*2*args.batch_size + 2*args.batch_size] = \
-                np.concatenate((np.ones(len(post)), np.zeros(len(post))), axis=0)
-            batch_num += 1
+        post_data = np.concatenate((post, post), axis=0)
+        post_len_data = np.concatenate((pl, pl), axis=0)
+        ques_data = np.concatenate((ques, q_pred), axis=0)
+        ques_len_data = np.concatenate((ql, ql_pred), axis=0)
+        ans_data = np.concatenate((ans, a_pred), axis=0)
+        ans_len_data = np.concatenate((al, al_pred), axis=0)
+        labels_data = np.concatenate((np.ones(len(post)), np.zeros(len(post))), axis=0)
+
+        # if epoch < 2 and print_outputs:
+        #     # print 'True Q: %s' % ' '.join([index2word[idx] for idx in ques[0]])
+        #     # print 'True A: %s' % ' '.join([index2word[idx] for idx in ans[0]])
+        #     # print
+        #     print 'Fake Q: %s' % ' '.join([index2word[idx] for idx in q_pred[0]])
+        #     print 'Fake A: %s' % ' '.join([index2word[idx] for idx in a_pred[0]])
+        #     print
 
         permutation = np.random.permutation(len(post_data))
         post_data = np.array(post_data)[permutation]
@@ -252,8 +201,11 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
         train_data = post_data, post_len_data, ques_data, ques_len_data, ans_data, ans_len_data, labels_data
         train_loss, train_acc = train_fn(context_model, question_model, answer_model, utility_model,
                                          train_data, optimizer, utility_criterion, args)
+
         total_loss += train_loss
         total_acc += train_acc
+        epoch += 1
+
     total_loss = total_loss / args.a_n_epochs
     total_acc = total_acc / args.a_n_epochs
     return total_loss, total_acc
@@ -269,10 +221,10 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
 
     print 'Preprocessing test data..'
     te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
-        te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index,
-                                                                                         args.max_post_len,
-                                                                                         args.max_ques_len,
-                                                                                         args.max_ans_len)
+    te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index,
+                                                                                     args.max_post_len,
+                                                                                     args.max_ques_len,
+                                                                                     args.max_ans_len)
 
     q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer, \
         a_encoder, a_decoder, a_encoder_optimizer, a_decoder_optimizer, \
@@ -282,7 +234,6 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         utility_model, u_optimizer, utility_criterion = initialize_discriminator(word_embeddings)
 
     start = time.time()
-
     epoch = 0.
     n_batches = len(tr_post_seqs)/args.batch_size
     mixer_delta = args.max_ques_len
@@ -291,20 +242,54 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         epoch += 1
         if mixer_delta >= 2:
             mixer_delta = mixer_delta - 2
-        total_xe_loss, total_rl_loss, total_a_loss, total_u_pred, total_u_b_pred = \
-            run_generator(tr_post_seqs, tr_post_lens,
-                          tr_ques_seqs, tr_ques_lens,
-                          tr_post_ques_seqs, tr_post_ques_lens,
-                          tr_ans_seqs, tr_ans_lens,
-                          q_encoder, q_decoder,
-                          q_encoder_optimizer, q_decoder_optimizer,
-                          a_encoder, a_decoder,
-                          a_encoder_optimizer, a_decoder_optimizer,
-                          baseline_model, baseline_optimizer,
-                          baseline_criterion,
-                          context_model, question_model,
-                          answer_model, utility_model,
-                          word2index, index2word, mixer_delta, args)
+        total_xe_loss = 0.
+        total_rl_loss = 0.
+        total_a_loss = 0.
+        total_u_pred = 0.
+        total_u_b_pred = 0.
+        total_u_loss = 0
+        total_u_acc = 0
+        batch_num = 0
+        for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
+                                                                        tr_ques_seqs, tr_ques_lens,
+                                                                        tr_post_ques_seqs, tr_post_ques_lens,
+                                                                        tr_ans_seqs, tr_ans_lens, args.batch_size):
+            xe_loss, rl_loss, a_loss, u_pred, u_b_pred = \
+                run_generator(post, pl, ques, ql,
+                              pq, pql, ans, al,
+                              q_encoder, q_decoder,
+                              q_encoder_optimizer, q_decoder_optimizer,
+                              a_encoder, a_decoder,
+                              a_encoder_optimizer, a_decoder_optimizer,
+                              baseline_model, baseline_optimizer,
+                              baseline_criterion,
+                              context_model, question_model,
+                              answer_model, utility_model,
+                              word2index, index2word, mixer_delta, args)
+            total_xe_loss += xe_loss
+            total_rl_loss += rl_loss
+            total_a_loss += a_loss
+            total_u_pred += u_pred
+            total_u_b_pred += u_b_pred
+
+            if epoch > 5:
+                if batch_num == 0:
+                    print_outputs = True
+                else:
+                    print_outputs = False
+                u_loss, u_acc = run_discriminator(post, pl, ques, ql,
+                                                  pq, pql, ans, al,
+                                                  q_encoder, q_decoder,
+                                                  a_encoder, a_decoder,
+                                                  context_model, question_model,
+                                                  answer_model, utility_model,
+                                                  baseline_model, baseline_criterion, mixer_delta,
+                                                  u_optimizer, utility_criterion,
+                                                  word2index, index2word, args,
+                                                  print_outputs)
+                batch_num += 1
+                total_u_loss += u_loss
+                total_u_acc += u_acc
 
         print_xe_loss_avg = total_xe_loss
         print_rl_loss_avg = total_rl_loss
@@ -317,40 +302,29 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                          print_xe_loss_avg, print_rl_loss_avg, print_a_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
         print(print_summary)
 
-        if epoch > -1:
-            total_u_loss, total_u_acc = run_discriminator(tr_post_seqs, tr_post_lens,
-                                                          tr_ques_seqs, tr_ques_lens,
-                                                          tr_post_ques_seqs, tr_post_ques_lens,
-                                                          tr_ans_seqs, tr_ans_lens,
-                                                          q_encoder, q_decoder, a_encoder, a_decoder,
-                                                          baseline_model, baseline_criterion, mixer_delta,
-                                                          context_model, question_model, answer_model,
-                                                          utility_model, u_optimizer, utility_criterion,
-                                                          word2index, index2word, args)
+        print_u_loss_avg = total_u_loss
+        print_u_acc_avg = total_u_acc / n_batches
 
-            print_u_loss_avg = total_u_loss
-            print_u_acc_avg = total_u_acc
+        print_summary = 'Discriminator: %s %d U_loss: %.4f U_acc: %.4f ' % \
+                        (time_since(start, epoch / args.n_epochs), epoch, print_u_loss_avg, print_u_acc_avg)
+        print(print_summary)
 
-            print_summary = 'Discriminator: %s %d U_loss: %.4f U_acc: %.4f ' % \
-                            (time_since(start, epoch / args.n_epochs), epoch, print_u_loss_avg, print_u_acc_avg)
-            print(print_summary)
-
-        print 'Saving GAN model params'
-        torch.save(q_encoder.state_dict(), args.q_encoder_params + '.' + args.model + '.epoch%d' % epoch)
-        torch.save(q_decoder.state_dict(), args.q_decoder_params + '.' + args.model + '.epoch%d' % epoch)
-        # torch.save(a_encoder.state_dict(), args.a_encoder_params + '.' + args.model + '.epoch%d' % epoch)
-        # torch.save(a_decoder.state_dict(), args.a_decoder_params + '.' + args.model + '.epoch%d' % epoch)
-        torch.save(context_model.state_dict(), args.context_params + '.' + args.model + '.epoch%d' % epoch)
-        torch.save(question_model.state_dict(), args.question_params + '.' + args.model + '.epoch%d' % epoch)
-        torch.save(answer_model.state_dict(), args.answer_params + '.' + args.model + '.epoch%d' % epoch)
-        torch.save(utility_model.state_dict(), args.utility_params + '.' + args.model + '.epoch%d' % epoch)
-
-        print 'Running evaluation...'
-        out_fname = args.test_pred_question + '.' + args.model + '.epoch%d' % int(epoch)
-        # out_fname = None
-        evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                      te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                      args.batch_size, args.max_ques_len, out_fname)
+        # print 'Saving GAN model params'
+        # torch.save(q_encoder.state_dict(), args.q_encoder_params + '.' + args.model + '.epoch%d' % epoch)
+        # torch.save(q_decoder.state_dict(), args.q_decoder_params + '.' + args.model + '.epoch%d' % epoch)
+        # # torch.save(a_encoder.state_dict(), args.a_encoder_params + '.' + args.model + '.epoch%d' % epoch)
+        # # torch.save(a_decoder.state_dict(), args.a_decoder_params + '.' + args.model + '.epoch%d' % epoch)
+        # torch.save(context_model.state_dict(), args.context_params + '.' + args.model + '.epoch%d' % epoch)
+        # torch.save(question_model.state_dict(), args.question_params + '.' + args.model + '.epoch%d' % epoch)
+        # torch.save(answer_model.state_dict(), args.answer_params + '.' + args.model + '.epoch%d' % epoch)
+        # torch.save(utility_model.state_dict(), args.utility_params + '.' + args.model + '.epoch%d' % epoch)
+        #
+        # print 'Running evaluation...'
+        # out_fname = args.test_pred_question + '.' + args.model + '.epoch%d' % int(epoch)
+        # # out_fname = None
+        # evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+        #               te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+        #               args.batch_size, args.max_ques_len, out_fname)
 
 
 def main(args):
@@ -360,15 +334,13 @@ def main(args):
     index2word = reverse_dict(word2index)
 
     train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len)
-                           # args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*5)
+                           args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*5)
     if args.tune_ids is not None:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
                               args.max_post_len, args.max_ques_len, args.max_ans_len)
     else:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
-                              args.max_post_len, args.max_ques_len, args.max_ans_len)
-                              # args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*2)
+                              args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*2)
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -403,9 +375,9 @@ if __name__ == "__main__":
     argparser.add_argument("--max_ques_len", type = int, default=50)
     argparser.add_argument("--max_ans_len", type = int, default=50)
     argparser.add_argument("--n_epochs", type = int, default=20)
-    argparser.add_argument("--g_n_epochs", type=int, default=1)
-    argparser.add_argument("--a_n_epochs", type=int, default=1)
-    argparser.add_argument("--batch_size", type = int, default=256)
+    argparser.add_argument("--g_n_epochs", type=int, default=5)
+    argparser.add_argument("--a_n_epochs", type=int, default=5)
+    argparser.add_argument("--batch_size", type = int, default=128)
     argparser.add_argument("--model", type=str)
     args = argparser.parse_args()
     print args

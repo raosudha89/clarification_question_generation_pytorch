@@ -31,7 +31,8 @@ def get_decoded_seqs(output_seqs, word2index, max_len, batch_size):
 
 def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
           q_encoder, q_decoder, q_encoder_optimizer, q_decoder_optimizer,
-          a_encoder, a_decoder, baseline_model, baseline_optimizer, baseline_criterion,
+          a_encoder, a_decoder, a_encoder_optimizer, a_decoder_optimizer,
+          baseline_model, baseline_optimizer, baseline_criterion,
           context_model, question_model, answer_model, utility_model,
           word2index, index2word, mixer_delta, args):
     
@@ -84,7 +85,7 @@ def train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
             output_seqs[t] = target_batches[t]
             greedy_output_seqs[t] = target_batches[t]
 
-        # # Loss calculation and backpropagation
+        # # Loss calculation and back-propagation
         xe_loss = masked_cross_entropy(
             xe_decoder_outputs.transpose(0, 1).contiguous(),  # -> batch x seq
             target_batches[:mixer_delta].transpose(0, 1).contiguous(),  # -> batch x seq

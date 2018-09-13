@@ -30,7 +30,7 @@ def binary_accuracy(predictions, truth):
 	for i in range(len(predictions)):
 		if predictions[i] >= 0.5 and truth[i] == 1:
 			correct += 1
-		elif truth[i] == 0:
+		elif predictions[i] < 0.5 and truth[i] == 0:
 			correct += 1
 	acc = correct/len(predictions)
 	return acc

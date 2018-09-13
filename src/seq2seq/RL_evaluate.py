@@ -9,9 +9,11 @@ from torch.autograd import Variable
 
 
 def evaluate_batch(input_batches, input_lens, encoder, decoder,
-                   word2index, max_out_len, batch_size):
+                   word2index, max_out_len, batch_size,
+                   target_batches=None, target_lens=None):
 
     input_batches = Variable(torch.LongTensor(np.array(input_batches))).transpose(0, 1)
+
     if USE_CUDA:
         input_batches = input_batches.cuda()
 
@@ -47,6 +49,12 @@ def evaluate_batch(input_batches, input_lens, encoder, decoder,
                 break
             else:
                 decoded_seq.append(idx)
+        # if target_batches is not None and decoded_seq.count(word2index['<unk>']) > 1:
+        #     import pdb
+        #     pdb.set_trace()
+        #     decoded_seq = target_batches[b]
+        #     decoded_lens.append(target_lens[b])
+        # else:
         decoded_lens.append(len(decoded_seq))
         decoded_seq += [word2index[PAD_token]]*(max_out_len - len(decoded_seq))
         decoded_seqs.append(decoded_seq)
