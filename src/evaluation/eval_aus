@@ -1,0 +1,25 @@
+#Reference
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_question.txt.hasrefs
+
+#Lucene
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < ../clarification_question_generation/data/askubuntu_unix_superuser/test_pred_lucene.txt.hasrefs 
+
+cat ../clarification_question_generation/data/askubuntu_unix_superuser/test_pred_lucene.txt.hasrefs | /fs/clip-ml/hal/bin/all_ngrams.pl 1 | sort | uniq -c | sort -gr | wc -l
+
+#Seq2Seq
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.seq2seq.len_norm.beam0.hasrefs.nounks
+
+#RL
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.RL_mixer.epoch8.len_norm.beam0.hasrefs.nounks
+
+#GAN
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.mixer_pred_ans.epoch8.len_norm.beam0.hasrefs.nounks
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.selfcritic_pred_ans.epoch8.len_norm.beam0.hasrefs.nounks
+
+cat /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.mixer_pred_ans.epoch8.len_norm.beam0.hasrefs.nounks | /fs/clip-ml/hal/bin/all_ngrams.pl 1 | sort | uniq -c | sort -gr | wc -l
