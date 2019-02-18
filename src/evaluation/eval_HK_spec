@@ -1,0 +1,33 @@
+# Lucene
+
+cat Home_and_Kitchen/blind_test_pred_question.lucene.txt | /fs/clip-ml/hal/bin/all_ngrams.pl 3 |  sort | uniq -c | sort -gr | wc -l
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../style_clarification_question_generation/specificQ_classifier/test_data/test_ref_specific < Home_and_Kitchen/blind_test_pred_question.lucene.txt
+
+# Seq2seq model
+
+cat Home_and_Kitchen/blind_test_pred_ques.txt.seq2seq.epoch100.beam0.nounks | /fs/clip-ml/hal/bin/all_ngrams.pl 3 |  sort | uniq -c | sort -gr | wc -l
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../style_clarification_question_generation/specificQ_classifier/test_data/test_ref_specific < Home_and_Kitchen/blind_test_pred_ques.txt.seq2seq.epoch100.beam0.nounks
+
+
+# RL model
+cat Home_and_Kitchen/blind_test_pred_ques.txt.RL_mixer_3perid.epoch5.beam0.nounks  | /fs/clip-ml/hal/bin/all_ngrams.pl 3 | sort | uniq -c | sort -gr | wc -l
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../style_clarification_question_generation/specificQ_classifier/test_data/test_ref_specific < Home_and_Kitchen/blind_test_pred_ques.txt.RL_mixer_3perid.epoch5.beam0.nounks
+
+# GAN model
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../style_clarification_question_generation/specificQ_classifier/test_data/test_ref_generic < Home_and_Kitchen/blind_test_pred_ques.txt.GAN_selfcritic_pred_ans_3perid.epoch8.beam0.nounks
+
+# Specificity seq2seq model
+
+cat Home_and_Kitchen/blind_test_pred_ques.txt.seq2seq_tobeginning_tospecific.epoch65.beam0.nounks | /fs/clip-ml/hal/bin/all_ngrams.pl 3 | sort | uniq -c | sort -gr | wc -l 
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../style_clarification_question_generation/specificQ_classifier/test_data/test_ref_specific < Home_and_Kitchen/blind_test_pred_ques.txt.seq2seq_tobeginning_tospecific.epoch65.beam0.nounks
+
+# Specificty GAN model
+
+cat Home_and_Kitchen/blind_test_pred_ques.txt.GAN_selfcritic_pred_ans_tobeginning_tospecific.epoch8.beam0.nounks | /fs/clip-ml/hal/bin/all_ngrams.pl 3 |  sort | uniq -c | sort -gr | wc -l 
+
+/fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../style_clarification_question_generation/specificQ_classifier/test_data/test_ref_generic < Home_and_Kitchen/blind_test_pred_ques.txt.GAN_selfcritic_pred_ans_tobeginning_togeneric.epoch8.beam0.nounks

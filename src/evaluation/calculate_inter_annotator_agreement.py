@@ -50,20 +50,16 @@ def get_avg_score(score_dict, ignore_na=True):
 
 def main(args):
     num_models = len(model_list)
-    on_topic_scores = [None] * num_models
-    is_grammatical_scores = [None] * num_models
-    is_specific_scores = [None] * num_models
-    asks_new_info_scores = [None] * num_models
-    useful_scores = [None] * num_models
+    on_topic_conf_scores = []
+    is_grammatical_conf_scores = []
+    is_specific_conf_scores = []
+    asks_new_info_conf_scores = []
+    useful_conf_scores = []
+
     asins_so_far = [None] * num_models
     for i in range(num_models):
-        on_topic_scores[i] = defaultdict(int)
-        is_grammatical_scores[i] = defaultdict(int)
-        is_specific_scores[i] = defaultdict(int)
-        asks_new_info_scores[i] = defaultdict(int)
-        useful_scores[i] = defaultdict(int)
         asins_so_far[i] = []
-
+    
     with open(args.aggregate_results) as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -80,40 +76,27 @@ def main(args):
                 print '%s duplicate %s' % (model_name, asin)
                 continue
             on_topic_score = on_topic_levels[row['on_topic']]
+            on_topic_conf_score = float(row['on_topic:confidence'])
             is_grammatical_score = is_grammatical_levels[row['grammatical']]
-            specific_score = is_specific_levels[row['is_specific']]
+            is_grammatical_conf_score = float(row['grammatical:confidence'])
+            is_specific_conf_score = float(row['is_specific:confidence'])
             asks_new_info_score = asks_new_info_levels[row['new_info']]
-            useful_score = useful_levels[row['useful_to_another_buyer']]
+            asks_new_info_conf_score = float(row['new_info:confidence'])
+            useful_conf_score = float(row['useful_to_another_buyer:confidence'])
 
-            on_topic_scores[model_dict[model_name]][on_topic_score] += 1
-            is_grammatical_scores[model_dict[model_name]][is_grammatical_score] += 1
+            on_topic_conf_scores.append(on_topic_conf_score)
+            is_grammatical_conf_scores.append(is_grammatical_conf_score)
             if on_topic_score != 0 and is_grammatical_score != 0:
-                is_specific_scores[model_dict[model_name]][specific_score] += 1
-                asks_new_info_scores[model_dict[model_name]][asks_new_info_score] += 1
+                is_specific_conf_scores.append(is_specific_conf_score)
+                asks_new_info_conf_scores.append(asks_new_info_conf_score)
                 if asks_new_info_score != 0:
-                    useful_scores[model_dict[model_name]][useful_score] += 1
-                else:
-                    useful_scores[model_dict[model_name]][-1] += 1
-            else:
-                is_specific_scores[model_dict[model_name]][-1] += 1
-                asks_new_info_scores[model_dict[model_name]][-1] += 1
-                useful_scores[model_dict[model_name]][-1] += 1
+                    useful_conf_scores.append(useful_conf_score)
 
-    for i in range(num_models):
-        print model_list[i]
-        #print len(asins_so_far[i])
-        print 'Avg on topic score: %.2f' % get_avg_score(on_topic_scores[i])
-        print 'Avg grammaticality score: %.2f' % get_avg_score(is_grammatical_scores[i])
-        print 'Avg specificity score: %.2f' % get_avg_score(is_specific_scores[i])
-        print 'Avg new info score: %.2f' % get_avg_score(asks_new_info_scores[i])
-        print 'Avg useful score: %.2f' % get_avg_score(useful_scores[i])
-        print
-        print 'On topic:', on_topic_scores[i]
-        print 'Is grammatical: ', is_grammatical_scores[i]
-        print 'Is specific: ', is_specific_scores[i]
-        print 'Asks new info: ', asks_new_info_scores[i]
-        print 'Useful: ', useful_scores[i]
-        print
+    print 'On topic confidence: %.4f' % (sum(on_topic_conf_scores)/float(len(on_topic_conf_scores)))
+    print 'Is grammatical confidence: %.4f' % (sum(is_grammatical_conf_scores)/float(len(is_grammatical_conf_scores)))
+    print 'Asks new info confidence: %.4f' % (sum(asks_new_info_conf_scores)/float(len(asks_new_info_conf_scores)))
+    print 'Useful confidence: %.4f' % (sum(useful_conf_scores)/float(len(useful_conf_scores)))
+    print 'Specificity confidence: %.4f' % (sum(is_specific_conf_scores)/float(len(is_specific_conf_scores)))
 
 
 if __name__ == '__main__':

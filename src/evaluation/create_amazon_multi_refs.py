@@ -6,9 +6,8 @@ import time
 import random
 from collections import defaultdict
 
-
 def create_refs(test_ids, question_candidates, ref_prefix):
-	max_ref_count = 0
+	max_ref_count=0
 	for ques_id in test_ids:
 		asin = ques_id.split('_')[0]
 		N = len(question_candidates[asin])
@@ -24,9 +23,8 @@ def create_refs(test_ids, question_candidates, ref_prefix):
 		choices = range(N)
 		random.shuffle(choices)
 		for j in range(N, max_ref_count):
-			r = choices[j % N]
+			r = choices[j%N]
 			ref_files[j].write(question_candidates[asin][r]+'\n')
-
 
 def main(args):
 	question_candidates = {}
@@ -41,7 +39,6 @@ def main(args):
 			question_candidates[asin].append(ques)
 	
 	create_refs(test_ids, question_candidates, args.ref_prefix)	
-
 
 if __name__ == "__main__":
 	argparser = argparse.ArgumentParser(sys.argv[0])

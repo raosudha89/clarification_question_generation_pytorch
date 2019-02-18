@@ -14,7 +14,5 @@ SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src/evaluation
 
 export PATH="/fs/clip-amr/anaconda2/bin:$PATH"
 
-python $SCRIPT_DIR/create_crowdflower_data_beam.py  --previous_csv_file $CROWDFLOWER_DIR/crowdflower_lucene_seq2seq_rl_gan_diverse_beam_epoch8.batch1.csv \
-                                                    --output_csv_file $CROWDFLOWER_DIR/crowdflower_rl_beam.batch1.csv \
-                                                    --seq2seq_model_name rl.beam \
-                                                    --seq2seq_model_fname $DATA_DIR/blind_test_pred_question.txt.RL_selfcritic.epoch8.len_norm.beam0 \
+python $SCRIPT_DIR/create_crowdflower_data_beam.py  --previous_csv_file $CROWDFLOWER_DIR/crowdflower_lucene_seq2seq_rl_gan_diverse_beam_seq2seq_beam_gan_beam_rl_beam_epoch8.batch1.aggregate.csv \
+                                                    --output_csv_file $CROWDFLOWER_DIR/crowdflower_lucene_seq2seq_rl_gan_beam.batch1.csv \

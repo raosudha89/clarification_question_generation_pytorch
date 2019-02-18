@@ -16,6 +16,8 @@ cat ../clarification_question_generation/data/askubuntu_unix_superuser/test_pred
 
 /fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.RL_mixer.epoch8.len_norm.beam0.hasrefs.nounks
 
+cat /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.RL_selfcritic.epoch8.len_norm.beam0.hasrefs.nounks | /fs/clip-ml/hal/bin/all_ngrams.pl 3 | sort | uniq -c | sort -gr | wc -l
+
 #GAN
 
 /fs/clip-software/user-supported/mosesdecoder/3.0/scripts/generic/multi-bleu.perl ../clarification_question_generation/data/askubuntu_unix_superuser/test_ref < /fs/clip-scratch/raosudha/clarification_question_generation/joint_learning/askubuntu_unix_superuser/test_pred_question.txt.mixer_pred_ans.epoch8.len_norm.beam0.hasrefs.nounks

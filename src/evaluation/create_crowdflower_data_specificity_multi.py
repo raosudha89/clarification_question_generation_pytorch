@@ -29,32 +29,22 @@ def main(args):
     titles = {}
     descriptions = {}
     lucene_model_outs = read_model_outputs(args.lucene_model_fname)
-    seq2seq_model_outs = read_model_outputs(args.seq2seq_model_fname)
-    rl_model_outs = read_model_outputs(args.rl_model_fname)
-    gan_model_outs = read_model_outputs(args.gan_model_fname)
+    seq2seq_model_outs = read_model_outputs(args.seq2seq_model_fname) 
+    seq2seq_specific_model_outs = read_model_outputs(args.seq2seq_specific_model_fname)
+    seq2seq_generic_model_outs = read_model_outputs(args.seq2seq_generic_model_fname)
 
-    prev_batch_asins = []
-    with open(args.batch1_csv_file) as csvfile:
+    prev_asins = []
+    with open(args.prev_csv_file) as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             asin = row['asin']
-            prev_batch_asins.append(asin)
-    with open(args.batch2_csv_file) as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            asin = row['asin']
-            prev_batch_asins.append(asin)
-    with open(args.batch3_csv_file) as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            asin = row['asin']
-            prev_batch_asins.append(asin)
+            prev_asins.append(asin)
 
     for v in parse(args.metadata_fname):
         asin = v['asin']
-        if asin in prev_batch_asins:
+        if asin in prev_asins:
             continue
-        if asin not in lucene_model_outs.keys():
+        if not v.has_key('description') or not v.has_key('title'):
             continue
         title = v['title']
         description = v['description']
@@ -67,9 +57,7 @@ def main(args):
     questions = defaultdict(list)
     for v in parse(args.qa_data_fname):
         asin = v['asin']
-        if asin in prev_batch_asins:
-            continue
-        if asin not in lucene_model_outs.keys():
+        if asin in prev_asins:
             continue
         if asin not in descriptions:
             continue
@@ -80,28 +68,27 @@ def main(args):
     writer = csv.writer(csv_file, delimiter=',')
     writer.writerow(['asin', 'title', 'description', 'model_name', 'question'])
     all_rows = []
-    max_count = 200
     i = 0
-    for asin in lucene_model_outs.keys():
-        if asin in prev_batch_asins:
-            continue
-        if asin not in titles:
-            continue
+    max_count = 50
+    for asin in seq2seq_specific_model_outs.keys():
+        if asin not in descriptions:
+           continue
+        seq2seq_specific_question = seq2seq_specific_model_outs[asin]
+        seq2seq_specific_question_tokens = seq2seq_specific_question.split()
+        if '?' in seq2seq_specific_question_tokens:
+            if seq2seq_specific_question_tokens.index('?') == len(seq2seq_specific_question_tokens)-1 : 
+                continue
         title = titles[asin]
         description = descriptions[asin]
         ref_question = random.choice(questions[asin])
         lucene_question = lucene_model_outs[asin]
-        if lucene_question == '':
-            print 'Found empty line in lucene'
-            continue
         seq2seq_question = seq2seq_model_outs[asin]
-        rl_question = rl_model_outs[asin]
-        gan_question = gan_model_outs[asin]
-        all_rows.append([asin, title, description, 'ref', ref_question])
+        seq2seq_generic_question = seq2seq_generic_model_outs[asin]
+        all_rows.append([asin, title, description, "ref", ref_question])
         all_rows.append([asin, title, description, args.lucene_model_name, lucene_question])
         all_rows.append([asin, title, description, args.seq2seq_model_name, seq2seq_question])
-        all_rows.append([asin, title, description, args.rl_model_name, rl_question])
-        all_rows.append([asin, title, description, args.gan_model_name, gan_question])
+        all_rows.append([asin, title, description, args.seq2seq_specific_model_name, seq2seq_specific_question])
+        all_rows.append([asin, title, description, args.seq2seq_generic_model_name, seq2seq_generic_question])
         i += 1
         if i >= max_count:
             break
@@ -115,18 +102,16 @@ if __name__ == "__main__":
     argparser = argparse.ArgumentParser(sys.argv[0])
     argparser.add_argument("--qa_data_fname", type = str)
     argparser.add_argument("--metadata_fname", type = str)
-    argparser.add_argument("--batch1_csv_file", type=str)
-    argparser.add_argument("--batch2_csv_file", type=str)
-    argparser.add_argument("--batch3_csv_file", type=str)
+    argparser.add_argument("--prev_csv_file", type=str)
     argparser.add_argument("--csv_file", type=str)
-    argparser.add_argument("--lucene_model_fname", type=str)
     argparser.add_argument("--lucene_model_name", type=str)
-    argparser.add_argument("--seq2seq_model_fname", type=str)
+    argparser.add_argument("--lucene_model_fname", type=str)
     argparser.add_argument("--seq2seq_model_name", type=str)
-    argparser.add_argument("--rl_model_fname", type=str)
-    argparser.add_argument("--rl_model_name", type=str)
-    argparser.add_argument("--gan_model_fname", type=str)
-    argparser.add_argument("--gan_model_name", type=str)
+    argparser.add_argument("--seq2seq_model_fname", type=str)
+    argparser.add_argument("--seq2seq_specific_model_name", type=str)
+    argparser.add_argument("--seq2seq_specific_model_fname", type=str)
+    argparser.add_argument("--seq2seq_generic_model_name", type=str)
+    argparser.add_argument("--seq2seq_generic_model_fname", type=str)
     args = argparser.parse_args()
     print args
     print ""
