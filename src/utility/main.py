@@ -12,7 +12,7 @@ from train import *
 
 
 def update_neg_data(data, index2word):
-    post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens = data
+    ids_seqs, post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens = data
     N = 2
     labels = [0]*(N*len(post_seqs))
     new_post_seqs = [None]*(N*len(post_seqs))
@@ -93,7 +93,7 @@ def run_utility(train_data, test_data, word_embeddings, index2word, args, n_laye
         print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % \
                 (epoch, train_loss, train_acc, valid_loss, valid_acc)   
         print 'Time taken: ', time.time()-start_time
-        if epoch%5 == 0:
+        if epoch % 5 == 0:
             print 'Saving model params'
             torch.save(context_model.state_dict(), args.context_params+'.epoch%d' % epoch)
             torch.save(question_model.state_dict(), args.question_params+'.epoch%d' % epoch)

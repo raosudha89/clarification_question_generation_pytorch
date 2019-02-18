@@ -12,5 +12,8 @@ PAD_token = '<PAD>'
 SOS_token = '<SOS>'
 EOP_token = '<EOP>'
 EOS_token = '<EOS>'
+UNK_token = '<unk>'
+SPECIFIC_token = '<specific>'
+GENERIC_token = '<generic>'
 
-BEAM_SIZE = 4
+BEAM_SIZE = 5

@@ -26,14 +26,16 @@ def main(args):
     word2index = p.load(open(args.vocab, 'rb'))
     index2word = reverse_dict(word2index)
 
-    train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*5)
+    train_data = read_data(args.train_context, args.train_question, args.train_answer, args.train_ids,
+                           # args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*5)
+                           args.max_post_len, args.max_ques_len, args.max_ans_len)
     if args.tune_ids is not None:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
                               args.max_post_len, args.max_ques_len, args.max_ans_len)
     else:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
-                              args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*2)
+                              # args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*2)
+                              args.max_post_len, args.max_ques_len, args.max_ans_len)
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -42,14 +44,14 @@ def main(args):
 
 def run_model(train_data, test_data, word_embeddings, word2index, index2word, args):
     print 'Preprocessing train data..'
-    tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
+    tr_id_seqs, tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens, \
         tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens = preprocess_data(train_data, word2index,
                                                                                          args.max_post_len,
                                                                                          args.max_ques_len,
                                                                                          args.max_ans_len)
 
     print 'Preprocessing test data..'
-    te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
+    te_id_seqs, te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
         te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index,
                                                                                          args.max_post_len,
                                                                                          args.max_ques_len,
@@ -76,10 +78,10 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     a_encoder.load_state_dict(torch.load(args.a_encoder_params))
     a_decoder.load_state_dict(torch.load(args.a_decoder_params))
 
-    out_fname = args.test_pred_question+'.pretrained'
-    evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                  te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                  args.batch_size, args.max_ques_len, out_fname)
+    # out_fname = args.test_pred_question+'.pretrained'
+    # evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+    #               te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+    #               args.batch_size, args.max_ques_len, out_fname)
 
     q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad],
                                      lr=LEARNING_RATE)
@@ -131,8 +133,8 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         total_rl_loss = 0.
         total_u_pred = 0.
         total_u_b_pred = 0.
-        if mixer_delta >= 1:
-            mixer_delta = mixer_delta - 1
+        if mixer_delta >= 2:
+            mixer_delta = mixer_delta - 2
         batch_num = 0
         for post, pl, ques, ql, pq, pql, ans, al in iterate_minibatches(tr_post_seqs, tr_post_lens,
                                                                         tr_ques_seqs, tr_ques_lens,
@@ -162,17 +164,17 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                          print_rl_loss_avg, print_u_pred_avg, print_u_b_pred_avg)
         print(print_summary)
 
-        # print 'Saving RL model params'
-        # torch.save(q_encoder.state_dict(), args.q_encoder_params + '.RL.SelfCritic.epoch%d' % epoch)
-        # torch.save(q_decoder.state_dict(), args.q_decoder_params + '.RL.SelfCritic.epoch%d' % epoch)
-        # torch.save(a_encoder.state_dict(), args.a_encoder_params + '.RL.SelfCritic.epoch%d' % epoch)
-        # torch.save(a_decoder.state_dict(), args.a_decoder_params + '.RL.SelfCritic.epoch%d' % epoch)
+        print 'Saving RL model params'
+        torch.save(q_encoder.state_dict(), args.q_encoder_params + '.' + args.model + '.epoch%d' % epoch)
+        torch.save(q_decoder.state_dict(), args.q_decoder_params + '.' + args.model + '.epoch%d' % epoch)
+        torch.save(a_encoder.state_dict(), args.a_encoder_params + '.' + args.model + '.epoch%d' % epoch)
+        torch.save(a_decoder.state_dict(), args.a_decoder_params + '.' + args.model + '.epoch%d' % epoch)
 
-        print 'Running evaluation...'
-        out_fname = args.test_pred_question+'.epoch%d' % int(epoch)
-        evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                      te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                      args.batch_size, args.max_ques_len, out_fname)
+        # print 'Running evaluation...'
+        # out_fname = args.test_pred_question + '.' + args.model + '.epoch%d' % int(epoch)
+        # evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+        #               te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+        #               args.batch_size, args.max_ques_len, out_fname)
         
 
 if __name__ == "__main__":
@@ -180,6 +182,7 @@ if __name__ == "__main__":
     argparser.add_argument("--train_context", type = str)
     argparser.add_argument("--train_question", type = str)
     argparser.add_argument("--train_answer", type = str)
+    argparser.add_argument("--train_ids", type=str)
     argparser.add_argument("--tune_context", type = str)
     argparser.add_argument("--tune_question", type = str)
     argparser.add_argument("--tune_answer", type = str)
@@ -204,6 +207,7 @@ if __name__ == "__main__":
     argparser.add_argument("--max_ans_len", type = int, default=50)
     argparser.add_argument("--n_epochs", type = int, default=20)
     argparser.add_argument("--batch_size", type = int, default=128)
+    argparser.add_argument("--model", type=str)
     args = argparser.parse_args()
     print args
     print ""

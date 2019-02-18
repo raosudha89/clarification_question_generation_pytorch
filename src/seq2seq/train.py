@@ -50,11 +50,13 @@ def train(input_batches, input_lens, target_batches, target_lens,
                 topi = decoder_output[b].topk(1)[1][0]    
                 decoder_input[b] = topi.squeeze().detach()
 
+    loss_fn = torch.nn.NLLLoss()
+
     # Loss calculation and backpropagation
     loss = masked_cross_entropy(
         all_decoder_outputs.transpose(0, 1).contiguous(), # -> batch x seq
         target_batches.transpose(0, 1).contiguous(), # -> batch x seq
-        target_lens
+        target_lens, loss_fn, max_target_length
     )
     loss.backward()
     encoder_optimizer.step()

@@ -56,11 +56,12 @@ def initialize_generator(word_embeddings, word2index):
         baseline_model.to(device)
 
     # Load encoder, decoder params
-    print 'Loading encoded, decoder params'
+    print 'Loading encoder, decoder params'
     q_encoder.load_state_dict(torch.load(args.q_encoder_params))
     q_decoder.load_state_dict(torch.load(args.q_decoder_params))
     a_encoder.load_state_dict(torch.load(args.a_encoder_params))
     a_decoder.load_state_dict(torch.load(args.a_decoder_params))
+    print 'Done! '
 
     q_encoder_optimizer = optim.Adam([par for par in q_encoder.parameters() if par.requires_grad],
                                      lr=LEARNING_RATE)
@@ -94,12 +95,13 @@ def initialize_discriminator(word_embeddings):
         answer_model.to(device)
         utility_model.to(device)
 
-    # # Load utility calculator model params
-    # print 'Loading utility model params'
-    # context_model.load_state_dict(torch.load(args.context_params))
-    # question_model.load_state_dict(torch.load(args.question_params))
-    # answer_model.load_state_dict(torch.load(args.answer_params))
-    # utility_model.load_state_dict(torch.load(args.utility_params))
+    # Load utility calculator model params
+    print 'Loading utility model params'
+    context_model.load_state_dict(torch.load(args.context_params))
+    question_model.load_state_dict(torch.load(args.question_params))
+    answer_model.load_state_dict(torch.load(args.answer_params))
+    utility_model.load_state_dict(torch.load(args.utility_params))
+    print 'Done'
 
     u_optimizer = optim.Adam(list([par for par in context_model.parameters() if par.requires_grad]) +
                              list([par for par in question_model.parameters() if par.requires_grad]) +
@@ -187,19 +189,20 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
                                                                         tr_ques_seqs, tr_ques_lens,
                                                                         tr_post_ques_seqs, tr_post_ques_lens,
                                                                         tr_ans_seqs, tr_ans_lens, args.batch_size):
-            q_pred, ql_pred, a_pred, al_pred = GAN_train(post, pl, ques, ql, ans, al,
-                                                         q_encoder, q_decoder,
-                                                         None, None,
-                                                         a_encoder, a_decoder,
-                                                         None, None,
-                                                         baseline_model, None, baseline_criterion,
-                                                         context_model, question_model, answer_model, utility_model,
-                                                         word2index, index2word, mixer_delta, args, mode='test')
-            pq_pred = np.concatenate((post, ques), axis=1)
-            pql_pred = np.full(args.batch_size, args.max_post_len + args.max_ques_len)
-            a_pred_true, al_pred_true = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
-                                                       word2index, args.max_ans_len, args.batch_size,
-                                                       ans, al)
+            q_pred, ql_pred, a_pred, al_pred, \
+                a_pred_true, al_pred_true = GAN_train(post, pl, ques, ql, ans, al,
+                                                      q_encoder, q_decoder,
+                                                      None, None,
+                                                      a_encoder, a_decoder,
+                                                      None, None,
+                                                      baseline_model, None, baseline_criterion,
+                                                      context_model, question_model, answer_model, utility_model,
+                                                      word2index, index2word, mixer_delta, args, mode='test')
+            # pq_pred = np.concatenate((post, ques), axis=1)
+            # pql_pred = np.full(args.batch_size, args.max_post_len + args.max_ques_len)
+            # a_pred_true, al_pred_true = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
+            #                                            word2index, args.max_ans_len, args.batch_size,
+            #                                            ans, al)
             # if epoch < 2 and batch_num < 5:
             #     # print 'True Q: %s' % ' '.join([index2word[idx] for idx in ques[0]])
             #     # print 'True A: %s' % ' '.join([index2word[idx] for idx in ans[0]])
@@ -210,31 +213,31 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
             post_data[batch_num*2*args.batch_size:
                       batch_num*2*args.batch_size + args.batch_size] = post
             post_data[batch_num*2*args.batch_size + args.batch_size:
-                      batch_num*2*args.batch_size + 2*args.batch_size] = post
+                      batch_num*2*args.batch_size + 2 * args.batch_size] = post
             post_len_data[batch_num*2*args.batch_size:
                           batch_num*2*args.batch_size + args.batch_size] = pl
             post_len_data[batch_num*2*args.batch_size + args.batch_size:
-                          batch_num*2*args.batch_size + 2*args.batch_size] = pl
+                          batch_num*2*args.batch_size + 2 * args.batch_size] = pl
             ques_data[batch_num*2*args.batch_size:
                       batch_num*2*args.batch_size + args.batch_size] = ques
             ques_data[batch_num*2*args.batch_size + args.batch_size:
-                      batch_num*2*args.batch_size + 2*args.batch_size] = q_pred
+                      batch_num*2*args.batch_size + 2 * args.batch_size] = q_pred
             ques_len_data[batch_num*2*args.batch_size:
                           batch_num*2*args.batch_size + args.batch_size] = ql
             ques_len_data[batch_num*2*args.batch_size + args.batch_size:
-                          batch_num*2*args.batch_size + 2*args.batch_size] = ql_pred
+                          batch_num*2*args.batch_size + 2 * args.batch_size] = ql_pred
             # ans_data[batch_num*2*args.batch_size:
             #          batch_num*2*args.batch_size + args.batch_size] = ans
             ans_data[batch_num*2*args.batch_size:
                      batch_num*2*args.batch_size + args.batch_size] = a_pred_true
             ans_data[batch_num*2*args.batch_size + args.batch_size:
-                     batch_num*2*args.batch_size + 2*args.batch_size] = a_pred
+                     batch_num*2*args.batch_size + 2 * args.batch_size] = a_pred
             # ans_len_data[batch_num*2*args.batch_size:
             #              batch_num*2*args.batch_size + args.batch_size] = al
             ans_len_data[batch_num*2*args.batch_size:
                          batch_num*2*args.batch_size + args.batch_size] = al_pred_true
             ans_len_data[batch_num*2*args.batch_size + args.batch_size:
-                         batch_num*2*args.batch_size + 2*args.batch_size] = al_pred
+                         batch_num*2*args.batch_size + 2 * args.batch_size] = al_pred
             labels_data[batch_num*2*args.batch_size:
                         batch_num*2*args.batch_size + 2*args.batch_size] = \
                 np.concatenate((np.ones(len(post)), np.zeros(len(post))), axis=0)
@@ -261,14 +264,14 @@ def run_discriminator(tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,
 
 def run_model(train_data, test_data, word_embeddings, word2index, index2word, args):
     print 'Preprocessing train data..'
-    tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,\
+    tr_id_seqs, tr_post_seqs, tr_post_lens, tr_ques_seqs, tr_ques_lens,\
         tr_post_ques_seqs, tr_post_ques_lens, tr_ans_seqs, tr_ans_lens = preprocess_data(train_data, word2index,
                                                                                          args.max_post_len,
                                                                                          args.max_ques_len,
                                                                                          args.max_ans_len)
 
     print 'Preprocessing test data..'
-    te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
+    te_id_seqs, te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
         te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index,
                                                                                          args.max_post_len,
                                                                                          args.max_ques_len,
@@ -286,10 +289,9 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
     epoch = 0.
     n_batches = len(tr_post_seqs)/args.batch_size
     mixer_delta = args.max_ques_len
-    # mixer_delta = 0
     while epoch < args.n_epochs:
         epoch += 1
-        if mixer_delta >= 2:
+        if mixer_delta >= 4:
             mixer_delta = mixer_delta - 2
         total_xe_loss, total_rl_loss, total_a_loss, total_u_pred, total_u_b_pred = \
             run_generator(tr_post_seqs, tr_post_lens,
@@ -306,9 +308,9 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
                           answer_model, utility_model,
                           word2index, index2word, mixer_delta, args)
 
-        print_xe_loss_avg = total_xe_loss
-        print_rl_loss_avg = total_rl_loss
-        print_a_loss_avg = total_a_loss
+        print_xe_loss_avg = total_xe_loss / n_batches
+        print_rl_loss_avg = total_rl_loss / n_batches
+        print_a_loss_avg = total_a_loss / n_batches
         print_u_pred_avg = total_u_pred / n_batches
         print_u_b_pred_avg = total_u_b_pred / n_batches
 
@@ -345,12 +347,11 @@ def run_model(train_data, test_data, word_embeddings, word2index, index2word, ar
         torch.save(answer_model.state_dict(), args.answer_params + '.' + args.model + '.epoch%d' % epoch)
         torch.save(utility_model.state_dict(), args.utility_params + '.' + args.model + '.epoch%d' % epoch)
 
-        print 'Running evaluation...'
-        out_fname = args.test_pred_question + '.' + args.model + '.epoch%d' % int(epoch)
-        # out_fname = None
-        evaluate_beam(word2index, index2word, q_encoder, q_decoder,
-                      te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
-                      args.batch_size, args.max_ques_len, out_fname)
+        #print 'Running evaluation...'
+        #out_fname = args.test_pred_question + '.' + args.model + '.epoch%d' % int(epoch)
+        #evaluate_beam(word2index, index2word, q_encoder, q_decoder,
+        #              te_id_seqs, te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
+        #              args.batch_size, args.max_ques_len, out_fname)
 
 
 def main(args):
@@ -359,16 +360,20 @@ def main(args):
     word2index = p.load(open(args.vocab, 'rb'))
     index2word = reverse_dict(word2index)
 
-    train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
-                           args.max_post_len, args.max_ques_len, args.max_ans_len)
-                           # args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*5)
+    if args.train_ids is not None:
+        train_data = read_data(args.train_context, args.train_question, args.train_answer, args.train_ids,
+                               args.max_post_len, args.max_ques_len, args.max_ans_len, mode='train')
+                               #count=args.batch_size*10)
+    else:
+        train_data = read_data(args.train_context, args.train_question, args.train_answer, None,
+                               args.max_post_len, args.max_ques_len, args.max_ans_len, mode='train')
     if args.tune_ids is not None:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, args.tune_ids,
-                              args.max_post_len, args.max_ques_len, args.max_ans_len)
+                              args.max_post_len, args.max_ques_len, args.max_ans_len, mode='test')
+                              #count=args.batch_size*5)
     else:
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
-                              args.max_post_len, args.max_ques_len, args.max_ans_len)
-                              # args.max_post_len, args.max_ques_len, args.max_ans_len, count=args.batch_size*2)
+                              args.max_post_len, args.max_ques_len, args.max_ans_len, mode='test')
 
     print 'No. of train_data %d' % len(train_data)
     print 'No. of test_data %d' % len(test_data)
@@ -380,6 +385,7 @@ if __name__ == "__main__":
     argparser.add_argument("--train_context", type = str)
     argparser.add_argument("--train_question", type = str)
     argparser.add_argument("--train_answer", type = str)
+    argparser.add_argument("--train_ids", type=str)
     argparser.add_argument("--tune_context", type = str)
     argparser.add_argument("--tune_question", type = str)
     argparser.add_argument("--tune_answer", type = str)

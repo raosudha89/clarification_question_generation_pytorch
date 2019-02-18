@@ -177,10 +177,10 @@ def GAN_train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
     if mixer_delta != args.max_ques_len:
         # Calculate reward
         # reward = calculate_bleu(ques_seqs, ques_lens, decoded_seqs, decoded_lens, index2word, args.max_ques_len)
-        pq_pred = np.concatenate((post_seqs, decoded_seqs), axis=1)
-        pql_pred = np.full(args.batch_size, args.max_post_len+args.max_ques_len)
 
         if mode == 'train':
+            pq_pred = np.concatenate((post_seqs, decoded_seqs), axis=1)
+            pql_pred = np.full(args.batch_size, args.max_post_len + args.max_ques_len)
             # a_loss, _, _ = train(pq_pred, pql_pred, ans_seqs, ans_lens, a_encoder, a_decoder,
             #                      a_encoder_optimizer, a_decoder_optimizer, word2index, args, mode)
             a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
@@ -190,6 +190,8 @@ def GAN_train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
             #                                       word2index, index2word, args.max_ans_len, args.batch_size)
             a_loss = 0.
         elif mode == 'test':
+            pq_pred = np.concatenate((post_seqs, decoded_seqs), axis=1)
+            pql_pred = np.full(args.batch_size, args.max_post_len + args.max_ques_len)
             # if mixer_delta > 8:
             #     a_loss, a_pred, al_pred = train(pq_pred, pql_pred, ans_seqs, ans_lens, a_encoder, a_decoder,
             #                                     a_encoder_optimizer, a_decoder_optimizer, word2index, args, mode)
@@ -197,6 +199,10 @@ def GAN_train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
             a_pred, al_pred = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
                                              word2index, args.max_ans_len, args.batch_size,
                                              ans_seqs, ans_lens)
+            pq_pred = np.concatenate((post_seqs, ques_seqs), axis=1)
+            a_pred_true, al_pred_true = evaluate_batch(pq_pred, pql_pred, a_encoder, a_decoder,
+                                                       word2index, args.max_ans_len, args.batch_size,
+                                                       ans_seqs, ans_lens)
             # a_pred, al_pred = evaluate_beam_batch(pq_pred, pql_pred, a_encoder, a_decoder,
             #                                       word2index, index2word, args.max_ans_len, args.batch_size)
             a_loss = 0.
@@ -215,12 +221,6 @@ def GAN_train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
                                    post_seqs, post_lens, decoded_seqs, decoded_lens,
                                    a_pred, al_pred, args)
         reward = u_preds
-
-        # print 'Generator outputs'
-        # print u_preds[0]
-        # print decoded_lens[0], ' '.join([index2word[idx] for idx in decoded_seqs[0]])
-        # print al_pred[0], ' '.join([index2word[idx] for idx in a_pred[0]])
-        # print
 
         # b_reward = mixer_baseline(decoder_hiddens, reward, mode,
         #                           baseline_model, baseline_criterion, baseline_optimizer)
@@ -252,4 +252,4 @@ def GAN_train(post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens,
         q_decoder_optimizer.step()
         return xe_loss, rl_loss, a_loss, reward, b_reward
     else:
-        return decoded_seqs, decoded_lens, a_pred, al_pred
+        return decoded_seqs, decoded_lens, a_pred, al_pred, a_pred_true, al_pred_true

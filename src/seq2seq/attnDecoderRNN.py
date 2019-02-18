@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from attn import *
 
+
 class AttnDecoderRNN(nn.Module):
 	def __init__(self, hidden_size, output_size, word_embeddings, n_layers=1, dropout=0.1):
 		super(AttnDecoderRNN, self).__init__()

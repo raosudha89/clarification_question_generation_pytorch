@@ -21,7 +21,7 @@ def time_since(since, percent):
     return '%s (- %s)' % (as_minutes(s), as_minutes(rs))
 
 
-def iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size, shuffle=True):
+def iterate_minibatches(id_seqs, input_seqs, input_lens, output_seqs, output_lens, batch_size, shuffle=True):
     if shuffle:
         indices = np.arange(len(input_seqs))
         np.random.shuffle(indices)
@@ -30,8 +30,8 @@ def iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_
             ex = indices[start_idx:start_idx + batch_size]
         else:
             ex = slice(start_idx, start_idx + batch_size)
-        yield np.array(input_seqs)[ex], np.array(input_lens)[ex], \
-              np.array(output_seqs)[ex], np.array(output_lens)[ex]
+        yield np.array(id_seqs)[ex], np.array(input_seqs)[ex], np.array(input_lens)[ex], \
+                np.array(output_seqs)[ex], np.array(output_lens)[ex]
 
 
 def reverse_dict(word2index):

@@ -62,15 +62,23 @@ def evaluate_batch(input_batches, input_lens, encoder, decoder,
     return decoded_seqs, decoded_lens    
 
 
-def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input_lens, output_seqs, output_lens,
-                     batch_size, max_out_len, out_file):
+def evaluate_seq2seq(word2index, index2word, encoder, decoder,
+                     id_seqs, input_seqs, input_lens, output_seqs, output_lens,
+                     batch_size, max_out_len, out_fname):
     total_loss = 0.
     n_batches = len(input_seqs) / batch_size
 
     encoder.eval()
-    decoder.eval()    
-    for input_seqs_batch, input_lens_batch, output_seqs_batch, output_lens_batch in \
-            iterate_minibatches(input_seqs, input_lens, output_seqs, output_lens, batch_size):
+    decoder.eval()
+    has_ids = True
+    if out_fname:
+        out_file = open(out_fname, 'w')
+        if id_seqs[0] is not None:
+            out_ids_file = open(out_fname+'.ids', 'w')
+        else:
+            has_ids = False
+    for id_seqs_batch, input_seqs_batch, input_lens_batch, output_seqs_batch, output_lens_batch in \
+            iterate_minibatches(id_seqs, input_seqs, input_lens, output_seqs, output_lens, batch_size, shuffle=False):
 
         if USE_CUDA:
             input_seqs_batch = Variable(torch.LongTensor(np.array(input_seqs_batch)).cuda()).transpose(0, 1)
@@ -99,40 +107,26 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder, input_seqs, input
             topv, topi = decoder_output.data.topk(1)
             decoder_input = topi.squeeze(1) 
         for b in range(batch_size):
-            #input_words = []
-            #output_words = []
             decoded_words = []
-            #for t in range(input_lens_batch[b]):
-            #    input_words.append(index2word[input_seqs_batch[t][b].item()])
-            #for t in range(output_lens_batch[b]):
-            #    ni = output_seqs_batch[t][b].item()
-            #    if ni == word2index[EOS_token]:
-            #        output_words.append(EOS_token)
-            #        break
-            #    else:
-            #        output_words.append(index2word[ni])
             for t in range(max_out_len):
                 topv, topi = all_decoder_outputs[t][b].data.topk(1)
                 ni = topi[0].item()
                 if ni == word2index[EOS_token]:
                     decoded_words.append(EOS_token)
-                    #break
+                    break
                 else:
                     decoded_words.append(index2word[ni])
-            #print '> ' + ' '.join(input_words)
-            #print '= ' + ' '.join(output_words)
-            #print '< ' + ' '.join(decoded_words)
-            #import pdb
-            #pdb.set_trace()
-            #print 
-            if out_file:
+            if out_fname:
                 out_file.write(' '.join(decoded_words)+'\n')
+                if has_ids:
+                    out_ids_file.write(id_seqs_batch[b]+'\n')
     
         # Loss calculation
+        loss_fn = torch.nn.NLLLoss()
         loss = masked_cross_entropy(
-            all_decoder_outputs.transpose(0, 1).contiguous(), # -> batch x seq
-            output_seqs_batch.transpose(0, 1).contiguous(), # -> batch x seq
-            output_lens_batch, max_out_len
+            all_decoder_outputs.transpose(0, 1).contiguous(),  # -> batch x seq
+            output_seqs_batch.transpose(0, 1).contiguous(),  # -> batch x seq
+            output_lens_batch, loss_fn, max_out_len
             )
         total_loss += loss.item()
     print 'Loss: %.2f' % (total_loss/n_batches)
