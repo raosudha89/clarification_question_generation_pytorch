@@ -13,7 +13,7 @@ SITENAME=Home_and_Kitchen
 CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
 PARAMS_DIR=/fs/clip-scratch/raosudha/style_clarification_question_generation/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/style_clarification_question_generation/embeddings/$SITENAME/200
+EMB_DIR=/fs/clip-amr/style_clarification_question_generation/embeddings/$SITENAME
 
 export PATH=/cliphomes/raosudha/anaconda2/bin:$PATH
 

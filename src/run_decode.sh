@@ -12,7 +12,7 @@ SITENAME=askubuntu_unix_superuser
 
 CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200_fullvocab
+EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
 
 python $SCRIPT_DIR/decode.py		--test_context $CQ_DATA_DIR/test_context.txt \
 									--test_ques $CQ_DATA_DIR/test_question.txt \

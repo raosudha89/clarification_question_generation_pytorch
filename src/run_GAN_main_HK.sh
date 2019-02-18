@@ -13,8 +13,7 @@ SITENAME=Home_and_Kitchen
 CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
 PARAMS_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-#EMB_DIR=/fs/clip-amr/ranking_clarification_questions/embeddings
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200
+EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
 
 #module load cuda/9.1.85
 

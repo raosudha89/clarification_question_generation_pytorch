@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=pretrain_util_aus_emb200_fullvocab
-#SBATCH --output=pretrain_util_aus_emb200_fullvocab
+#SBATCH --job-name=pretrain_ques_aus_emb200_fullvocab
+#SBATCH --output=pretrain_ques_aus_emb200_fullvocab
 #SBATCH --qos=gpu-medium
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu
@@ -12,7 +12,7 @@ SITENAME=askubuntu_unix_superuser
 
 CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
 SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200_fullvocab
+EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
 
 PARAMS_DIR=$CQ_DATA_DIR
 
@@ -44,7 +44,7 @@ python $SCRIPT_DIR/main.py    --train_context $CQ_DATA_DIR/train_context.txt \
                                     --max_post_len 100 \
 									--max_ques_len 20 \
 									--max_ans_len 20 \
-                                    --pretrain_util True \
+									--pretrain_ques True \
+                                    #--pretrain_util True \
                                     #--pretrain_ans True \
-									#--pretrain_ques True \
 
