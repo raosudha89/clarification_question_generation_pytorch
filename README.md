@@ -1,4 +1,11 @@
-# clarification_question_generation_pytorch
+# Repository information
+
+This repository contains data and code for the paper below:
+
+<i><a href="https://www.aclweb.org/anthology/N19-1013">
+Answer-based Adversarial Training for Generating Clarification Questions</a></i><br/>
+Sudha Rao (Sudha.Rao@microsoft.com) and Hal Daumé III (me@hal3.name)<br/>
+Proceedings of NAACL-HLT 2019
 
 # Downloading data
 
