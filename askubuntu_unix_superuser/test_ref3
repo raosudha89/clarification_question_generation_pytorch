@@ -1,0 +1,500 @@
+is ubuntu detecting yuor wireless card ? **iwconfig** does list your card ?
+can you show a screenshot of what you currently have ?
+is it laptop ? do you have nvidia optimus technology ?
+is n't the output a qasm file ?
+did you do `sudo apt-get update` first ?
+does this happen on restart , or after hibernation , or suspend ?
+are you gon na need performance using your graphic card ?
+did you save that file and update the grub by `sudo update-grub` command ?
+can you anyway get the terminal or cli prompt ?
+what , specifically , is the problem you want help with ?
+what happens when you run 'sudo apt-get install linux-headers-generic ' ?
+what exactly is netext ?
+was there already a partition table on the disk when you ran `zpool create ... ` ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+not currently , what are you using to run the installer ( putty ?
+is this system running a custom kernel ? what does `uname -a` show ?
+what is the make of your wifi card ?
+do you know the size of your windows hard drive ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+which errors you get ?
+can you run the command `file the-jpg-that-gives-the-error.jpg` and paste the output in your question ?
+how did you install `r8168` driver ?
+are you definite you are using bash ? what is the output of `echo $ 0` ?
+if you are running `dhclient` on eth2 , why would you expect it to do anything with eth0 ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+has it previoulsy worked or is this the first time you 've tried to connect it ?
+is your system 32 or 64 bit ?
+can you type `iwconfig` in terminal and paste what it returns here ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+have u tried gparted gui ?
+are you sure he is not asking to unlock the keyring ?
+what version of ubuntu are you using ?
+sudo dpkg -reconfigure all ? ?
+check if exists /etc/init/squid3.conf . what release of ubuntu are you using ?
+why do n't you use the sd card instead ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+what does `dig kalu.home.lan` respond ? did you check the logfiles to ensure bind loaded the zone files correctly ?
+did you install the proprietary drivers ?
+could you tell us what machine this is ?
+why do n't you just let your users login directly as root ?
+what makes you not sure about the solutions you found ?
+`fail2ban` can be the reason ?
+could you please provide a screenshot of your gparted ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+how did you upgrade ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+what is your computer ?
+did you do `sudo apt-get update` first ?
+can you post the output of `glxinfo | grep renderer` by appending it to your question ?
+can you append the output of `iw reg get` to your question ?
+are you sure that card is supported ?
+is your system using the same host name / user name / ... . ? ? ?
+i 'm confused did you have ubuntu installed first then installed windows or windows first then ubuntu ?
+what are you using as a delivery agent on the system ?
+what if you undo changing your boot settings to uefi ? does ubuntu boot again then ?
+which version of chrome are you using ?
+what sound devices are you using ?
+are n't you able to boot to live dvd ?
+do you want to mount the drive automatically ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+which frequency driver and scaling governor do you use ?
+is your usb stick by any chance using sandisk cruzer micro smart u3 technology ?
+is secureboot ( in bios ) and windows hibernation turned off ?
+can you add the outputs of `apt-cache policy ghc libbsd-dev` and `lsb_release -d` please ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+error you get ? actual folder name ?
+which version of ubuntu are you using ? which graphics card does the laptop have ?
+do you have a `` recovery mode '' option in the `` advanced options for ubuntu '' submenu ?
+where exactly do you want to post the image ?
+whats the output of `df -h` ?
+did you restart the system ?
+how is ubuntu installed on the machine , are you using a virtual machine ?
+can you install the dependencies manually ?
+one other thought : is this a 64 bit ubuntu ?
+what file system ? ext4 or btrfs ?
+are you using nvidia or some type of proprietary graphics ?
+are your permissions correct ?
+which part was an ubuntu question ?
+just guessing : it may be an issue of your host graphics driver . details ?
+did you go back and disable secure boot ?
+can you verify other devices have proper access through the android hotspot ?
+can you provide specific hardware details for this computer ? also , which version of ubuntu are you using ?
+did you install dropbox as per dropbox site document ?
+do you have fast boot enabled in your bios ?
+what version of ubuntu are you running ?
+what is the output of `sudo apt-get update` ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+could you post your real and whole `sudoers` file , please ?
+why did you expect `max_users` ?
+what is the output of `apt-cache policy manpages console-tools` ?
+you are using the 64bit version , right ?
+what desktop environment are you using ?
+are you able to compile it with `g++` ?
+could you add ping result for the three dns servers you have specified in /etc/resolve.conf ?
+does this only show-up in eclipse ?
+your output for update seems to be fine.how do you say that your repository is broken ? ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how many seeds does it say you have ?
+i 'm no expert at this , but maybe you want to try `dpkg-reconfigure keyboard-configuration` again ?
+how do you merge a partition for two os ?
+*really* silly question , but are you sure you selected the correct input source on the tv ?
+what does `dmesg` out when you put any of these device into usb slot . what does `lsmod` show ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+which format is your music in : flac , ogg , mp3 , wav , something else ?
+change back the user permissions ?
+can you at least detail what you 've tried ?
+could you point out which approaches you have already tried ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+are you run it on bare metal or in virtualbox ?
+how did you install ubuntu ? did you use a windows installer called wubi ?
+by any chance do you see a message like 'disabled by hardware switch ' ?
+did you install the proprietary driver from the amd support site or from the ubuntu software center ?
+this `` feels '' like the memory going bad perhaps ?
+do other application appear in the dash ?
+can you add to your question if you 've installed the nvidia drivers yet ?
+do you have any kind of distributed authentication set up ? what is the output of `getent passwd dgard` ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+why did n't you use `apt` ?
+you do know you have to reboot , right ?
+first , can i get an accurate perspective ?
+where is your /boot or /boot/efi partition ?
+do your .bash_profile ( or .profile ) and/or your .bashrc source other files ?
+what is the output of `dmesg | grep mount` ?
+what features does it need ?
+works fine for me ... how do you paste ? middle click or with `ctrl`+`v` ?
+how are you burning the iso ? what software are you using ?
+what video driver ?
+any reason you ca n't just `cd` to the directory and `mv` from there ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+is it it possible it 's just a colour ?
+how do you know you 're `` running into a lack of partitioned space '' ?
+or are you asking something about interoperability between an android device and a separate pc/mac running ubuntu ?
+does this script run from cron ?
+so what are the type and access mode ?
+what de are you using ? are you using `unity` ?
+can you provide the link you are trying ?
+minimize opened tab to 15 may be ? or increasing ram ?
+what does `lspci | grep 802` reveal ? is it activated in bios ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+can you run `sudo apt-get update` and `sudo apt-get upgrade` ?
+what display manager ?
+which release are you on ? whats the output of `lsb_release -r` ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+how did you install it ?
+do you have 2-factor authentication or some other security setting enabled on your account ?
+do you have anything listed regarding the issue under additional drivers ?
+can we see the default , and can we see what you want ?
+just to be sure , you are using ubuntu server ?
+is switching browsers an option ? or is google chrome necessary ?
+maybe touchpad-ish two fingers ?
+could you put your `/etc/x11/xorg.conf` file on pastebin ?
+which de are you using ? . are you using some clipboard manager ( like klipeer ) ?
+which release are you on ? whats the output of `lsb_release -r` ?
+are you running 12.04 or 14.04 ?
+can you open `/dev/sr0` using vlc ?
+what is the ubuntu version ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+looks like your partition table may be corrupt . can you delete the partitions and start again ?
+welcome to ask ubuntu ! ** ; - ) ** are you running uefi or bios boot ?
+does `` include spaces ?
+did you restart after editing rc.conf ?
+did you mean one of those to be left ?
+what network card does vbox emulate ?
+what motherboard ( sata controllers ) do you have ?
+tried ctrl + alt + f2 ?
+i might be misunderstanding your problem , but ca n't you get around it with a local ssh mount ?
+by any chance , does `something_to_find` have slashes , a caret , or a dollar sign in it ?
+is emacs running on the same machine as tmux , or are you running emacs over ssh ?
+had you enabled the `net.ipv4.ip_forward=1` parameter ?
+what 's the value of the `listen` directive in the config file ?
+is the console on a framebuffer or does it use a text mode provided by the hardware ?
+is your script marked executable ( `chmod +x` ) , and does it begin with ` # ! /usr/bin/python` ?
+what version of bash do you have ?
+what is this -f switch ?
+how portable do you need to be ?
+or are you writing this to go with some install instructions on your website ?
+would you post the output of `od -c /etc/shells` ?
+can you provide the output you want to extract from this xml file ?
+honest question : ca n't you just use the pptp module of networkmanager ?
+could you show the exact error messages and how are you trying to install them ?
+do you just need to do this just once or programmatically at various times ?
+can you mount the other ( non-home ) partitions ?
+which rc is it and what run mode are you in ?
+is an ssh server running on the target machine ? is the ssh port open ( not firewalled ) ?
+what is the offset if you do `date + % s ; date` ?
+do you have the same problem with another account ? with a different desktop environment ?
+what is the purpose ?
+are you sending the tiff in with `lpr` or similar ? or how is the tiff getting into cups ?
+did you enable forwarding ?
+about how many lines are you talking ? are both files the same size or is one rather small ?
+what do you mean by `` can not install ?
+what did your `.procmailrc` look like ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+does your prompt correctly protect any control sequences with `\ [ \ ] ` ? is `term` correct ?
+those permissions look wacky . what `umask` was used during the install ?
+welcome to unix.se . what exactly is the question ?
+what linux distribution and version are you running ?
+why do you need this ?
+does your system log ( /var/log/messages or /var/log/syslog ) contain any messages about this error ?
+how do you run bash ?
+can you setup a normal user account and then log in with normal user account ?
+are all your `jpg`s in the same dir ? if so why not simply `img2pdf page*.jpg -o book.pdf` ?
+who owns the directories ?
+can you boot kernel-2.6.32-431.17.1.el6.i686 and then reinstall kernel-2.6.32-431.20.3.el6.i686 ?
+what are you expecting to happen ?
+`` i think doing this is illegal in many countries . '' source ?
+do you have a spare keyboard to test with and see if the issues persist ?
+you sure the service is started ?
+you probably mean `` corrupt a filesystem '' ?
+are you able to ping that network ... ... . ? ? ? ? ?
+what 's the output of `lsusb` ?
+why use regexs here at all ?
+can you show the complete output of : `v4l2-ctl -- list-formats-ext` ?
+what is mounted on `/hgfs` ?
+where these value will come from ?
+what does `sudo -l` show for permissions ?
+i the driver distributed as source ?
+is there a need to install it using sudo ?
+which `tmux` version are you using ?
+does anything useful show up in `dmesg` when you try to mount it with the entry still in `fstab` ?
+does `dpkg -- listfiles cetoys` produce any output ?
+are the lists sorted ?
+is it the same command running in each instance ? same name ?
+what exactly you mean by *html5 drag and drop box* ?
+do this happens with all users or just yours ?
+hi ! more information is needed to answer your question . do the files have any structure ?
+any shared memory ( or similar ) used ?
+what happens if you do a `xinput -- list-props` on those id numbers listed ?
+can you share the output of `nslookup google.com` and `dig google.com ns` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+what 's your program ? what 's your gcc version ? did you `apt-get update` before `apt-get install cmake` ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+what are you actually trying to do ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+... and why fedora 15 , since it 's eol since a while now ?
+does the same slowness occur if you ssh from a linux machine to your vps ?
+is the socket already in use ?
+what filesystem is that ?
+does the text look right when you open it from the application menu ?
+do you have `su` aliased to anything ? and what is `user2` 's default shell ?
+are `user1` and `user2` accounts on the same or different machines ?
+how many files match the wildcard pattern ?
+what terminal are you using ?
+do you have a `/var/log/syslog` ?
+did you setup raid 1 ?
+do you need top to be displayed in real time ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+is this arm ? if not ... why ?
+remove the code in the `else` part ?
+elaborate please as to why you ca n't just do this manually ?
+did you call your provider to talk with them first ?
+can you get at the server logs ?
+are you sure apache on windows is answering on port 80 ?
+can you post an example of your column from excel ?
+which os are you using ? which file system is used by your pen drive ?
+what sorts of media files are you dealing with ?
+i assume you have tried a system restart ?
+what is host ip for the server ? how are you trying to connect ?
+just curious , are you able to successfully start the machine in safe mode ?
+what distribution is it ?
+does the machine have any fancy mouse/keyboard driver software , keyboard shortcut software ?
+just your videos or all youtube videos ?
+do you see that really for every partitions , or only for the logical ones ?
+is your battery getting old ?
+ca n't you navigate through the bios setting using the keyboard ?
+what is your `nvidia-smi` output ?
+what did you expect google maps to do without javascript ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+are you running a 64-bit os ?
+are you using cron for a specific reason ?
+does it come back if you reboot , or has it disappeared completely ?
+what operating system ?
+`uname -a` says what ?
+are there multiple users on this install ?
+what is resolution set on both monitors ?
+is this for convenience or for security ? does it matter if it can trivially be evaded ?
+do you have any authentication happening on the server ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+did you set the connection as `` available to all users '' ?
+what os ?
+i 've seen account issues cause something similar . it was a permissions issue , try another account ?
+do you know how to use vba ?
+is this dual boot or a virtual machine ?
+are you testing from inside your network , or externally ?
+can you pull up your /var/log/syslog and /var/log/auth.log from the server ?
+are we talking about a usb or ps2 mouse ?
+do you have any backup software installed ?
+from the screenshot i gather you are on mac os x ?
+what does `which sudo` get you on the machine , both in the working and non-working states ?
+which column needs to be rounded before summing ? h ?
+do you prefer it like a row or like a form for data entry ?
+could it be that some security/firewall/antivirus software is getting triggered ?
+what shows up in the server sshd logs ?
+do you use an ad blocker , like adblock plus ?
+can you see non ad-hoc networks ?
+can you clarify if you 're using xbox 360 , or xbox one ?
+what raid controller do you have ? also what distribution of linux ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+are both versions 32-bit installations on 64-bit operating systems ?
+what vps technology is the host using ?
+i 'm not familiar with what ntb stands for ? netbook ?
+can you please add a screen-shot to illustrate ?
+does the user `administrator` even exist ?
+is there another service that it relies on that is not starting/failing ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+what type of mail server are you using ? why would you need to do this in the clients ?
+do other mice ( mouses ? ) do this too ? how old is the mouse in question ?
+how is the guest connected to the world ? bridge , nat , host-only ?
+could you post dmesg output right after it hang ?
+operating system ? what is `` the program '' ?
+how are you copying the files ? finder ? command line ?
+are they still there after a reboot ?
+can you add more details , maybe also with an image ?
+can you check to which groups your user belongs on the different systems ?
+are they on the same domain or workgroup ?
+what leads you to believe you can not get windows 10 ?
+speakers or headset ?
+what operating systems are you intending to install ? just windows 7 ?
+because of a radius how is an authentication standard to blame for your problems ?
+do you have administration rights to change settings ?
+you are not able to set bandwidth in the wifi hotspot configuration ?
+was the windows booting by legacy or uefi ?
+are you sure these are additional desktops , and not full-screen applications ?
+probably something in your shell configuration ( part of ps1 or via prompt_command ?
+are you getting any different color lights on the adapter when this occurs ?
+where did the sd card come from ? a camera or a phone ?
+at home or at work ? do you use a proxy server between ie and the internet ?
+how did you create the usb drive ?
+what does it mean when the same date appears more than once ?
+what 's the output of 'apt-get check ' ?
+what are the problems you find with skype ?
+can you post a screenshot of what you meant exactly ?
+are you sure there is n't a recovery media creator ?
+when you upgraded your drivers , did you also select to install/update the `` amd hdmi audio drivers '' ?
+are you absolutely certain that it is not incorrectly oriented ?
+do you have any other drives plugged in ?
+what format is the mail you 're sending ?
+can you please describe your problem better ?
+what are your sharing settings set to ?
+32-bit windows or 64-bit ?
+what action do you want the rule to take ?
+which version ? also , what link are you talking about ?
+you could run an android emulator ?
+are all these folder within the inbox itself ? what are the auto-archive settings for these folders ?
+is your image of the disk or the partition ?
+can you add what router model and what kind and model of modem you have ?
+do you want to use only awk , or are other commands allowed as well ?
+should we assume that other computers you have work well with the same wifi hotspot ?
+what error are you getting when trying to connect manually ?
+why do you suspect usb devices and wi-fi adapters ? are your drivers up to date ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+what is the output of `cpuid -i` ?
+can you take snapshots of the tcp/ip settings of both local adapters ?
+does not it have built-in player ?
+what are these areas that you talk about ? is it a table ?
+what addresses do you use to access your linksys router and your motorola modem ?
+you copied the user profile for chrome ?
+any compelling reason you do n't just temporarily copy the files to your laptop ?
+which method are you using for drive mapping ?
+more information would be nice . what printer ? how is it connected ?
+any example ? which scripts are you running and where ?
+why do you attribute this performance loss to the ssd rather than to , say , the cpu ?
+what do you *expect* ` % outputfile % ` to look like ?
+what issue you are facing ?
+if task manager shows 100 % , which process is it associated with ?
+how exactly are you trying to `` download '' the files ?
+may i ask why you want this ?
+is the box configured to accept connections from any version of the remote desktop client ?
+are you booting in uefi mode ?
+are you running this bash script as root user or normal user ?
+how did you search for the results ?
+do you get the same issues when using a different browser ?
+has any further firefox update improved your situation ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+are you logged in as `administrator` or just as ***an*** administrator ?
+create a script with both , save it and run it when you need to sync ?
+also , does `ifconfig -a` display more than just `lo` ?
+did you change the dpi settings ?
+which shell do you have ?
+is he running this command on the server ?
+does this occur on other browsers on your computer ?
+what is your hardware ?
+and the type ( model , manufacturer ) of the coax modem is ?
+does this help you : ` -- rsync-path= '' sudo rsync '' ` ?
+how big is the drive , and do you remember the partition layout before you messed it up ?
+do you have an example of a filename that it does that for ?
+can you get to the grub screen when turn the computer on ?
+do other external cards have problems ?
+you mean edge or internet explorer ?
+why would the mac be *too slow to format a hard drive* ?
+and which e-mail product are you using , i.e . where is this inbox ?
+why not use the gui interface of windows setup to delete and create partitions ?
+how often did you hear clicks ?
+when this happens again , can you pls post the content of /etc/network/interfaces ?
+are you sure running it manually uses that particular key ?
+are you entering it as an array formula ?
+what browser are you using ? what os ? what other add ons do you have ?
+can you share the excel file ?
+do you run your own mail servers ?
+what software are you printing from ?
+is this folder served with nfs , smb or something else ?
+what kind of files are they ?
+can you go into command prompt and type `del *-1.jpg` ?
+if you ping the ubuntu box , do you get a response ?
+perhaps a cached route somewhere ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+how much ram is available to the machine ?
+do you have symbols loaded for everything ?
+does the printer show up as unknown usb device in the device manager ?
+is your screen calibrated correctly ?
+are you referring to actual dos , or the windows command line ?
+is the video a direct screen capture , or a camera recording ?
+what tool are you using ? ( sed , perl , awk , something else ?
+why do n't you just record the input first and apply an effect afterwards ?
+180 euros ?
+would it be a solution if you run those drivers in compatible mode ?
+can you please confirm whether these machines are all on a windows domain or are they all stand-alone ?
+are you with 32bit or 64bit version ?
+on your linux system , do you have a broadcom wifi card driven by *wl* ?
+would powershell be of any use ?
+could there be a filesystem corruption with the source disk ?
+maybe the runtime switch `-display :0` ?
+do you want something similar to windowstogo ?
+did you run 'update-alternatives -- config editor ' while you are root ?
+each each line a field ?
+what do `uname -a` and `lscpu` output ?
+can you post what is logged in the windows error log for this problem ?
+is it `.tt` or `.ff` , and what kind of ( supposedly html-like ) file type is that ?
+is your user local-only ? synced ?
+do you have an example word document or a screenshot ?
+does outlook show that mail is forwarded or not ?
+what do `uname -a` and `lscpu` output ?
+do you know what temperatures you have during gameplay ? is the gpu overclocked ?
+are you running active directory ?
+what 's the local system using ?
+what type of vpn are you using ?
+does this only happen when you login using ssh , or also when you login on the console ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+`` slow '' , compared to what ?
+they installed 100 updates since fhe problem started ?
+did this happen with the latest round of windows updates ( march 2015 ) or before ?
+you see the bars moving ... .are you sure it 's playing to the correct sound device ?
+is this a recurring or one time task ? what version of excel are you using ?
+can you ping the devices from your router ?
+are you in a domain ? or a lone station ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+sorry , are you saying when the speakers stop working , the headphones remain working fine ?
+what keyboard layouts and language packs do you have installed ?
+what motherboard do you have ?
+is every extension doing it or just clearly ?
+do you have another power supply to test with ?
+what do you mean by focus ( focus.exe ) exactly ?
+just out of curiosity is there a reason for this ?
+buy a new keyboard ?
+does the modem hang when dsl goes down ? or vice versa ?
+is firefox your default browser ?
+are there any strange characters in the file ?
+what does ipconfig show ? are you getting dhcp ?
+are you using efi or bios ? which installation cd image are you using ?
+is the os in the vm setup to use dhcp ? can the vm reach the internet currently ?
+are those cable connectors cat6 , are any components ( wall jacks etc ) not cat6 ?
+what spreadsheet software are you using , on which os ?
+is your on-screen keyboard working fine ?
+what system do you want this to run on ?
+did it find anything ? are other browser affected ?
+do you want a vba for this or a worksheet function ?
+how does this printer do its networking ? its own client software , homegroup sharing , etc . ?
+whats your ipconfig result ?
+where is the version number supposed to come from ? a tag that is already present in the repository ?
+what actual practical problem are you experiencing ?
+does it charge if you turn it off or when you connect it to another power source ?
+what about `ifconfig -a` ?
+and in what application are you getting this behaviour ?
+are you connecting it to blue port ?
+make a backup before you upgrade itunes ?
+did you mess with your path previously and maybe put them in the wrong order ?
+are these machines in a domain ? is distributed file system in use on the machine hosting the share ?
+can you add a sample of the text you 're trying this on ?
+this model of cable modem contains its own built in wireless router . why not just use that ?
+what layout do your keyboard and your os use ?
+which os / distribution do you use ?
+do you hear any clicking noises when it spins up ?
+are you doing a clean install or an upgrade ?
+out of curiosity how many file items total on the disk , and what was the file system ?
+what computer/os/hardware are you using ?
+was it always this slow ?
+which version of ssms ? which service pack/rollup ?
+are you 100 % positive the computer is still linked to the microsoft account ?
+do you have a nas by any chance ? what router and operating systems do you use ?
+did you check under the battery for a serial key sticker ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+can you make the range so large that it does n't matter ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+what about an application like fineprint ( .com ) ?
+ipconfig /all from windows , please ?
+do you mean copy the ones that do n't yet exist in the other folder ?
+why ca n't you install the windows media feature pack ?

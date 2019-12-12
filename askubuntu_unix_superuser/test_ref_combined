@@ -1,0 +1,3000 @@
+i doubt it , shutdown and reboot are exactly identical ! are you really rebooting ?
+is ubuntu detecting yuor wireless card ? **iwconfig** does list your card ?
+welcome to ask ubuntu ! ; - ) is the wireless lan disabled in the bios ?
+is ubuntu detecting yuor wireless card ? **iwconfig** does list your card ?
+welcome to ask ubuntu ! ; - ) is the wireless lan disabled in the bios ?
+i doubt it , shutdown and reboot are exactly identical ! are you really rebooting ?
+can you show a screenshot of what you currently have ?
+can you show a screenshot of what you currently have ?
+can you show a screenshot of what you currently have ?
+can you show a screenshot of what you currently have ?
+can you show a screenshot of what you currently have ?
+can you show a screenshot of what you currently have ?
+is it laptop ? do you have nvidia optimus technology ?
+sorry for asking but : do you even have nvidia optimus technology ?
+is it laptop ? do you have nvidia optimus technology ?
+is it laptop ? do you have nvidia optimus technology ?
+sorry for asking but : do you even have nvidia optimus technology ?
+is it laptop ? do you have nvidia optimus technology ?
+is n't the output a qasm file ?
+is n't the output a qasm file ?
+is n't the output a qasm file ?
+is n't the output a qasm file ?
+is n't the output a qasm file ?
+is n't the output a qasm file ?
+did you already try a `sudo apt-get update` before `sudo apt-get -f install` ?
+try `sudo dpkg -- configure -a` what happens ?
+did you actually ever enter `sudo apt-get -f install` with no packages specified ?
+did you do `sudo apt-get update` first ?
+did you actually ever enter `sudo apt-get -f install` with no packages specified ?
+did you already try a `sudo apt-get update` before `sudo apt-get -f install` ?
+does this happen on restart , or after hibernation , or suspend ?
+are you sure it 's not disabled by a hardware switch ?
+does anything else on your home network have this issue as well ?
+does this happen on restart , or after hibernation , or suspend ?
+does this happen on restart , or after hibernation , or suspend ?
+does this happen on restart , or after hibernation , or suspend ?
+are you gon na need performance using your graphic card ?
+i stand corrected . can you provide more details on your hardware ?
+are you gon na need performance using your graphic card ?
+are you gon na need performance using your graphic card ?
+i stand corrected . can you provide more details on your hardware ?
+are you gon na need performance using your graphic card ?
+did you save that file and update the grub by `sudo update-grub` command ?
+did you save that file and update the grub by `sudo update-grub` command ?
+did you save that file and update the grub by `sudo update-grub` command ?
+did you save that file and update the grub by `sudo update-grub` command ?
+did you save that file and update the grub by `sudo update-grub` command ?
+did you save that file and update the grub by `sudo update-grub` command ?
+can you anyway get the terminal or cli prompt ?
+can you anyway get the terminal or cli prompt ?
+can you anyway get the terminal or cli prompt ?
+can you anyway get the terminal or cli prompt ?
+can you anyway get the terminal or cli prompt ?
+can you anyway get the terminal or cli prompt ?
+what , specifically , is the problem you want help with ?
+we *could* try a workaround , with a keyboard shortcut . would that interest you ?
+we *could* try a workaround , with a keyboard shortcut . would that interest you ?
+what , specifically , is the problem you want help with ?
+we *could* try a workaround , with a keyboard shortcut . would that interest you ?
+we *could* try a workaround , with a keyboard shortcut . would that interest you ?
+what happens when you run 'sudo apt-get install linux-headers-generic ' ?
+how did you install virtualbox ?
+as the last command 's error suggests , would you share what dmesg says ?
+what happens when you run 'sudo apt-get install linux-headers-generic ' ?
+as the last command 's error suggests , would you share what dmesg says ?
+as the last command 's error suggests , would you share what dmesg says ?
+what exactly is netext ?
+what graphics card do you have ?
+could be the graphic driver . do you have an nvidia card ?
+what exactly is netext ?
+what graphics card do you have ?
+what exactly is netext ?
+was there already a partition table on the disk when you ran `zpool create ... ` ?
+oh . if there 's nothing too private , do you mind posting all the commands that you ran ?
+was there already a partition table on the disk when you ran `zpool create ... ` ?
+was there already a partition table on the disk when you ran `zpool create ... ` ?
+oh . if there 's nothing too private , do you mind posting all the commands that you ran ?
+was there already a partition table on the disk when you ran `zpool create ... ` ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+after attempting to do this does anything relevant appear in `/var/log/syslog` such as an error about unable to shutdown ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+did you install a plugin for network manager to get openvpn to work ? if so , which one ?
+not currently , what are you using to run the installer ( putty ?
+which ubuntu version ?
+not currently , what are you using to run the installer ( putty ?
+not currently , what are you using to run the installer ( putty ?
+not currently , what are you using to run the installer ( putty ?
+which ubuntu version ?
+would something such as **libnotify** with `notify-send` work for you ?
+is this system running a custom kernel ? what does `uname -a` show ?
+is this system running a custom kernel ? what does `uname -a` show ?
+is this system running a custom kernel ? what does `uname -a` show ?
+would something such as **libnotify** with `notify-send` work for you ?
+would something such as **libnotify** with `notify-send` work for you ?
+what is the make of your wifi card ?
+are you quite sure your hardware/driver combination does 5ghz ?
+what is the make of your wifi card ?
+what is the make of your wifi card ?
+what is the make of your wifi card ?
+are you quite sure your hardware/driver combination does 5ghz ?
+do you know the size of your windows hard drive ?
+what is the outout of command `sudo fdisk -l` ?
+do you know the size of your windows hard drive ?
+do you know the size of your windows hard drive ?
+do you know the size of your windows hard drive ?
+what is the outout of command `sudo fdisk -l` ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+do you want silent **security** updates . or all updates installed without intervention ? why ?
+what happens when you try to boot ?
+can you login to grub > on boot screen ?
+which errors you get ?
+which errors you get ?
+can you login to grub > on boot screen ?
+can you login to grub > on boot screen ?
+can you run the command `file the-jpg-that-gives-the-error.jpg` and paste the output in your question ?
+what is the output for `identify -verbose filename.jpeg` ( requires imagemagick ) ?
+can you upload the image somewhere so we can see it ?
+can you run the command `file the-jpg-that-gives-the-error.jpg` and paste the output in your question ?
+what is the output for `identify -verbose filename.jpeg` ( requires imagemagick ) ?
+can you run the command `file the-jpg-that-gives-the-error.jpg` and paste the output in your question ?
+can you please post the output of `cat /etc/network/interfaces` ?
+do you turn of wifi when try to connect by ethernet ?
+can you add the output of `ifconfig -a` ?
+how did you install `r8168` driver ?
+do you turn of wifi when try to connect by ethernet ?
+can you please post the output of `cat /etc/network/interfaces` ?
+are you definite you are using bash ? what is the output of `echo $ 0` ?
+ok , can you post the content of `/root/.bashrc` ?
+does `source ~/.bashrc` also fix the problem ?
+are you definite you are using bash ? what is the output of `echo $ 0` ?
+are you definite you are using bash ? what is the output of `echo $ 0` ?
+does `source ~/.bashrc` also fix the problem ?
+if you are running `dhclient` on eth2 , why would you expect it to do anything with eth0 ?
+can you do a manual `sudo ifup -- verbose eth0` to see where things go wrong ?
+do you mind letting us have a look at : `cat /etc/network/interfaces` ?
+if you are running `dhclient` on eth2 , why would you expect it to do anything with eth0 ?
+can you do a manual `sudo ifup -- verbose eth0` to see where things go wrong ?
+if you are running `dhclient` on eth2 , why would you expect it to do anything with eth0 ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+can you disable the display on the gpu in the nvidia x server settings app ?
+has it previoulsy worked or is this the first time you 've tried to connect it ?
+can you please show the output of the `mount` command ?
+has it previoulsy worked or is this the first time you 've tried to connect it ?
+has it previoulsy worked or is this the first time you 've tried to connect it ?
+can you please show the output of the `mount` command ?
+has it previoulsy worked or is this the first time you 've tried to connect it ?
+did you copy-paste the command from somewhere ?
+what version of ubuntu are you using ? is it 32-bit or 64-bit ?
+is your system 32 or 64 bit ?
+is your system 32 or 64 bit ?
+is your system 32 or 64 bit ?
+did you copy-paste the command from somewhere ?
+can you type `iwconfig` in terminal and paste what it returns here ?
+what does `iw reg get` reveal ?
+can you type `iwconfig` in terminal and paste what it returns here ?
+can you type `iwconfig` in terminal and paste what it returns here ?
+what does `iw reg get` reveal ?
+can you type `iwconfig` in terminal and paste what it returns here ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+what is the output of `ls ~/.config/gnome-session/saved-session/` ?
+are you certain it 's a 256gb disk ?
+would you mind trying `sudo gdisk -l` and putting the output in your question ?
+have u tried gparted gui ?
+have u tried gparted gui ?
+would you mind trying `sudo gdisk -l` and putting the output in your question ?
+would you mind trying `sudo gdisk -l` and putting the output in your question ?
+are you sure he is not asking to unlock the keyring ?
+are you sure he is not asking to unlock the keyring ?
+are you sure he is not asking to unlock the keyring ?
+are you sure he is not asking to unlock the keyring ?
+are you sure he is not asking to unlock the keyring ?
+are you sure he is not asking to unlock the keyring ?
+what version of ubuntu are you using ?
+what version of ubuntu are you using ?
+what version of ubuntu are you using ?
+what version of ubuntu are you using ?
+what version of ubuntu are you using ?
+what version of ubuntu are you using ?
+sudo dpkg -reconfigure all ? ?
+why not just install steam from their website ?
+sudo dpkg -reconfigure all ? ?
+sudo dpkg -reconfigure all ? ?
+why not just install steam from their website ?
+sudo dpkg -reconfigure all ? ?
+check if exists /etc/init/squid3.conf . what release of ubuntu are you using ?
+did you run squid as root ?
+did you run squid as root ?
+check if exists /etc/init/squid3.conf . what release of ubuntu are you using ?
+did you run squid as root ?
+did you run squid as root ?
+why do n't you use the sd card instead ?
+gingerbread ( 2.3 ) or ics ( 4.0 ) ?
+gingerbread ( 2.3 ) or ics ( 4.0 ) ?
+why do n't you use the sd card instead ?
+why do n't you use the sd card instead ?
+gingerbread ( 2.3 ) or ics ( 4.0 ) ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+it looks like you are using a router via ipv4 at 192.168.1.1 does your router support ipv6 ?
+happen to know what the internal dns software is ? is it `bind9` ?
+what does `dig kalu.home.lan` respond ? did you check the logfiles to ensure bind loaded the zone files correctly ?
+what does `dig kalu.home.lan` respond ? did you check the logfiles to ensure bind loaded the zone files correctly ?
+what does `dig kalu.home.lan` respond ? did you check the logfiles to ensure bind loaded the zone files correctly ?
+what does `dig kalu.home.lan` respond ? did you check the logfiles to ensure bind loaded the zone files correctly ?
+happen to know what the internal dns software is ? is it `bind9` ?
+did you install the proprietary drivers ?
+did you install the proprietary drivers ?
+did you install the proprietary drivers ?
+did you install the proprietary drivers ?
+did you install the proprietary drivers ?
+did you install the proprietary drivers ?
+hmm , i do n't see your webacam there . can you do `lsusb` too please ?
+could you tell us what machine this is ?
+hmm , i do n't see your webacam there . can you do `lsusb` too please ?
+could you tell us what machine this is ?
+hmm , i do n't see your webacam there . can you do `lsusb` too please ?
+could you tell us what machine this is ?
+without pub keys and without entering a password ?
+why do n't you just let your users login directly as root ?
+why do n't you just let your users login directly as root ?
+why do n't you just let your users login directly as root ?
+without pub keys and without entering a password ?
+without pub keys and without entering a password ?
+which ubuntu version are you using ?
+what makes you not sure about the solutions you found ?
+what makes you not sure about the solutions you found ?
+what makes you not sure about the solutions you found ?
+which ubuntu version are you using ?
+which ubuntu version are you using ?
+`fail2ban` can be the reason ?
+`fail2ban` can be the reason ?
+`fail2ban` can be the reason ?
+`fail2ban` can be the reason ?
+`fail2ban` can be the reason ?
+`fail2ban` can be the reason ?
+could you please provide a screenshot of your gparted ?
+could you please provide a screenshot of your gparted ?
+could you please provide a screenshot of your gparted ?
+could you please provide a screenshot of your gparted ?
+could you please provide a screenshot of your gparted ?
+could you please provide a screenshot of your gparted ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+can you elaborate on how you currently send messages to the swift server via ftp ?
+did you install the server or desktop version ?
+how did you upgrade ?
+did you install the server or desktop version ?
+how did you upgrade ?
+how did you upgrade ?
+did you install the server or desktop version ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+questions are same , different motivations : how do i affect the calling shell from a script/file ?
+what is your computer ?
+what are the specs of your computer , especially the video card ?
+what is your computer ?
+what is your computer ?
+what is your computer ?
+what is your computer ?
+are you in 12.04 , 15.10 or 16.04 ?
+what is the output of `sudo dpkg -- configure -a` and `sudo apt-get -f install` ?
+did you do `sudo apt-get update` first ?
+did you do `sudo apt-get update` first ?
+what is the output of `sudo dpkg -- configure -a` and `sudo apt-get -f install` ?
+what is the output of `sudo dpkg -- configure -a` and `sudo apt-get -f install` ?
+can you post the output of `glxinfo | grep renderer` by appending it to your question ?
+what graphics card do you have ? is this in a vm ?
+can you post the output of `glxinfo | grep renderer` by appending it to your question ?
+can you post the output of `glxinfo | grep renderer` by appending it to your question ?
+what graphics card do you have ? is this in a vm ?
+can you post the output of `glxinfo | grep renderer` by appending it to your question ?
+would you consider upgrading to 13.04 ?
+look into /var/log/syslog or /var/log/messages , anything of use in there ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+can you append the output of `iw reg get` to your question ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+are you sure that card is supported ?
+which version of ubuntu do you have ? do you have the proprietary drivers for the graphics card installed ?
+are you sure that card is supported ?
+are you sure that card is supported ?
+which version of ubuntu do you have ? do you have the proprietary drivers for the graphics card installed ?
+are you sure that card is supported ?
+is your system using the same host name / user name / ... . ? ? ?
+you are restoring what kind of backup , i mean from what kind of software ?
+is your system using the same host name / user name / ... . ? ? ?
+is your system using the same host name / user name / ... . ? ? ?
+you are restoring what kind of backup , i mean from what kind of software ?
+is your system using the same host name / user name / ... . ? ? ?
+i 'm confused did you have ubuntu installed first then installed windows or windows first then ubuntu ?
+from the ubuntu liveusb , can you provide the output of `gdisk -l` ?
+from the ubuntu liveusb , can you provide the output of `gdisk -l` ?
+i 'm confused did you have ubuntu installed first then installed windows or windows first then ubuntu ?
+i 'm confused did you have ubuntu installed first then installed windows or windows first then ubuntu ?
+i 'm confused did you have ubuntu installed first then installed windows or windows first then ubuntu ?
+what are you using as a delivery agent on the system ?
+what are you using as a delivery agent on the system ?
+what are you using as a delivery agent on the system ?
+what are you using as a delivery agent on the system ?
+what are you using as a delivery agent on the system ?
+what are you using as a delivery agent on the system ?
+what if you undo changing your boot settings to uefi ? does ubuntu boot again then ?
+do you get better results if you disconnect the old sata i device ?
+did you install ubuntu in bios mode , or efi ?
+what if you undo changing your boot settings to uefi ? does ubuntu boot again then ?
+do you get better results if you disconnect the old sata i device ?
+did you install ubuntu in bios mode , or efi ?
+could you please attach a screenshot to show how exactly its `` nagging '' ?
+which version of chrome are you using ?
+could you please attach a screenshot to show how exactly its `` nagging '' ?
+which version of chrome are you using ?
+could you please attach a screenshot to show how exactly its `` nagging '' ?
+could you please attach a screenshot to show how exactly its `` nagging '' ?
+what sound devices are you using ?
+what sound devices are you using ?
+what sound devices are you using ?
+what sound devices are you using ?
+what sound devices are you using ?
+what sound devices are you using ?
+do you have a cd / usb with the full iso of the ubuntu download on it ?
+why not boot from dvd ?
+are n't you able to boot to live dvd ?
+are n't you able to boot to live dvd ?
+are n't you able to boot to live dvd ?
+why not boot from dvd ?
+do you want to mount the drive automatically ?
+do you want to mount the drive automatically ?
+do you want to mount the drive automatically ?
+do you want to mount the drive automatically ?
+do you want to mount the drive automatically ?
+do you want to mount the drive automatically ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+what is the output of `grep -a1 `` package : android-studio '' /var/lib/dpkg/status` ?
+welcome to ask ubuntu ! is this an nvidia optimus enabled machine ? are you running bumblebee or not ?
+are you sure the correct proprietary drivers are installed ?
+which frequency driver and scaling governor do you use ?
+which frequency driver and scaling governor do you use ?
+are you sure the correct proprietary drivers are installed ?
+are you sure the correct proprietary drivers are installed ?
+ok , what desktop environment are you using ? is this for unity ?
+is your usb stick by any chance using sandisk cruzer micro smart u3 technology ?
+is your usb stick by any chance using sandisk cruzer micro smart u3 technology ?
+is your usb stick by any chance using sandisk cruzer micro smart u3 technology ?
+is your usb stick by any chance using sandisk cruzer micro smart u3 technology ?
+ok , what desktop environment are you using ? is this for unity ?
+is secureboot ( in bios ) and windows hibernation turned off ?
+do you mean separate hard disks or separate partitions ?
+can you give the exact error message ?
+is secureboot ( in bios ) and windows hibernation turned off ?
+can you give the exact error message ?
+can you give the exact error message ?
+can you add the outputs of `apt-cache policy ghc libbsd-dev` and `lsb_release -d` please ?
+did you have trusty-updates enabled at any point ?
+did you have trusty-updates enabled at any point ?
+can you add the outputs of `apt-cache policy ghc libbsd-dev` and `lsb_release -d` please ?
+did you have trusty-updates enabled at any point ?
+did you have trusty-updates enabled at any point ?
+is this a desktop or a laptop ?
+what type of mouse are you using ? wired or bluetooth ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+do you have tlp or some other power management application set up like jupiter or laptopmode tools ?
+error you get ? actual folder name ?
+error you get ? actual folder name ?
+error you get ? actual folder name ?
+error you get ? actual folder name ?
+error you get ? actual folder name ?
+error you get ? actual folder name ?
+which version of ubuntu are you using ? which graphics card does the laptop have ?
+are you asking how to prevent your laptop from overheating or how to make it not get so hot ?
+which version of ubuntu are you using ? which graphics card does the laptop have ?
+which version of ubuntu are you using ? which graphics card does the laptop have ?
+which version of ubuntu are you using ? which graphics card does the laptop have ?
+which version of ubuntu are you using ? which graphics card does the laptop have ?
+what hardware do you have ? especially the graphics card . can you get to a terminal by pressing ?
+do you have a `` recovery mode '' option in the `` advanced options for ubuntu '' submenu ?
+maybe windows cant read the disk because it is formatted in a different type like ext4 ?
+do you have a `` recovery mode '' option in the `` advanced options for ubuntu '' submenu ?
+what hardware do you have ? especially the graphics card . can you get to a terminal by pressing ?
+what hardware do you have ? especially the graphics card . can you get to a terminal by pressing ?
+where exactly do you want to post the image ?
+where exactly do you want to post the image ?
+where exactly do you want to post the image ?
+where exactly do you want to post the image ?
+where exactly do you want to post the image ?
+where exactly do you want to post the image ?
+silly question , but is your trash empty ?
+can you append the output of `df -h` to your question please ?
+whats the output of `df -h` ?
+whats the output of `df -h` ?
+can you append the output of `df -h` to your question please ?
+can you append the output of `df -h` to your question please ?
+did you restart the system ?
+did you restart the system ?
+did you restart the system ?
+did you restart the system ?
+did you restart the system ?
+did you restart the system ?
+where are you seeing `` 3.9.90 '' at exactly ?
+how is ubuntu installed on the machine , are you using a virtual machine ?
+where are you seeing `` 3.9.90 '' at exactly ?
+how is ubuntu installed on the machine , are you using a virtual machine ?
+how is ubuntu installed on the machine , are you using a virtual machine ?
+where are you seeing `` 3.9.90 '' at exactly ?
+can you install the dependencies manually ?
+can you install the dependencies manually ?
+can you install the dependencies manually ?
+can you install the dependencies manually ?
+can you install the dependencies manually ?
+can you install the dependencies manually ?
+one other thought : is this a 64 bit ubuntu ?
+was the iso you used correctly download ? did you checked it 's md5 checksum ?
+one other thought : is this a 64 bit ubuntu ?
+one other thought : is this a 64 bit ubuntu ?
+was the iso you used correctly download ? did you checked it 's md5 checksum ?
+was the iso you used correctly download ? did you checked it 's md5 checksum ?
+what file system ? ext4 or btrfs ?
+what file system ? ext4 or btrfs ?
+what file system ? ext4 or btrfs ?
+what file system ? ext4 or btrfs ?
+what file system ? ext4 or btrfs ?
+what file system ? ext4 or btrfs ?
+are you using nvidia or some type of proprietary graphics ?
+are you using nvidia or some type of proprietary graphics ?
+are you using nvidia or some type of proprietary graphics ?
+are you using nvidia or some type of proprietary graphics ?
+are you using nvidia or some type of proprietary graphics ?
+are you using nvidia or some type of proprietary graphics ?
+are your permissions correct ?
+what issue are you facing ?
+what issue are you facing ?
+are your permissions correct ?
+are your permissions correct ?
+what issue are you facing ?
+which part was an ubuntu question ?
+is the internet on your device working correctly ?
+when you run the output of ifconfig , what do you see ? also does restricted drivers show anything ?
+which part was an ubuntu question ?
+when you run the output of ifconfig , what do you see ? also does restricted drivers show anything ?
+is the internet on your device working correctly ?
+is the host vbox at the latest version ?
+just guessing : it may be an issue of your host graphics driver . details ?
+did you turn hardware virtualization on in bios/efi ?
+just guessing : it may be an issue of your host graphics driver . details ?
+did you turn hardware virtualization on in bios/efi ?
+did you turn hardware virtualization on in bios/efi ?
+and if you use uefi mode to boot up , will you then be able to repair the boot ?
+did you go back and disable secure boot ?
+and if you use uefi mode to boot up , will you then be able to repair the boot ?
+did you go back and disable secure boot ?
+did you go back and disable secure boot ?
+and if you use uefi mode to boot up , will you then be able to repair the boot ?
+can you verify other devices have proper access through the android hotspot ?
+can you verify other devices have proper access through the android hotspot ?
+can you verify other devices have proper access through the android hotspot ?
+can you verify other devices have proper access through the android hotspot ?
+can you verify other devices have proper access through the android hotspot ?
+can you verify other devices have proper access through the android hotspot ?
+when you first installed ubuntu , what exact version did you install ?
+can you provide specific hardware details for this computer ? also , which version of ubuntu are you using ?
+can you provide specific hardware details for this computer ? also , which version of ubuntu are you using ?
+can you provide specific hardware details for this computer ? also , which version of ubuntu are you using ?
+when you first installed ubuntu , what exact version did you install ?
+when you first installed ubuntu , what exact version did you install ?
+how is the sd card mounted ? is it entered in the fstab or is just automounted on login ?
+did you install dropbox as per dropbox site document ?
+how is the sd card mounted ? is it entered in the fstab or is just automounted on login ?
+did you install dropbox as per dropbox site document ?
+did you install dropbox as per dropbox site document ?
+did you install dropbox as per dropbox site document ?
+do you have fast boot enabled in your bios ?
+can you please copy the `lsblk` output here ?
+do you have fast boot enabled in your bios ?
+do you have fast boot enabled in your bios ?
+do you have fast boot enabled in your bios ?
+do you have fast boot enabled in your bios ?
+what version of ubuntu are you running ?
+what version of ubuntu are you running ?
+what version of ubuntu are you running ?
+what version of ubuntu are you running ?
+what version of ubuntu are you running ?
+what version of ubuntu are you running ?
+what exactly are the error messages ?
+what is the output of `sudo apt-get update` ?
+what exactly are the error messages ?
+what is the output of `sudo apt-get update` ?
+what is the output of `sudo apt-get update` ?
+what is the output of `sudo apt-get update` ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+hello and welcome on askubuntu . could you please clarify what you want ?
+could you post your real and whole `sudoers` file , please ?
+could you post your real and whole `sudoers` file , please ?
+could you post your real and whole `sudoers` file , please ?
+could you post your real and whole `sudoers` file , please ?
+could you post your real and whole `sudoers` file , please ?
+could you post your real and whole `sudoers` file , please ?
+why did you expect `max_users` ?
+why did you expect `max_users` ?
+why did you expect `max_users` ?
+why did you expect `max_users` ?
+why did you expect `max_users` ?
+why did you expect `max_users` ?
+can you run `sudo apt-get update` and `sudo apt-get upgrade` ?
+what is the output of `apt-cache policy manpages console-tools` ?
+what is the output of `apt-cache policy manpages console-tools` ?
+what is the output of `apt-cache policy manpages console-tools` ?
+what is the output of `apt-cache policy manpages console-tools` ?
+can you run `sudo apt-get update` and `sudo apt-get upgrade` ?
+your post does not provide sufficient information to answer . what is using your cpu ?
+did you forget to disable ubuntu frequency scaling ?
+is there any process maxing out the cpu or the ram ?
+you are using the 64bit version , right ?
+your post does not provide sufficient information to answer . what is using your cpu ?
+you are using the 64bit version , right ?
+so you want to disable the dialogue that asks you to input your password to change system critical settings ?
+which os you are using ?
+what desktop environment are you using ?
+what desktop environment are you using ?
+so you want to disable the dialogue that asks you to input your password to change system critical settings ?
+so you want to disable the dialogue that asks you to input your password to change system critical settings ?
+mingw32 is a fairly old compiler . perhaps try with mingw-w64 ?
+do you have the build-essential package installed ?
+are you able to compile it with `g++` ?
+are you able to compile it with `g++` ?
+do you have the build-essential package installed ?
+do you have the build-essential package installed ?
+what are the applications you installed for wifi network ?
+could you add ping result for the three dns servers you have specified in /etc/resolve.conf ?
+what are the applications you installed for wifi network ?
+could you add ping result for the three dns servers you have specified in /etc/resolve.conf ?
+could you add ping result for the three dns servers you have specified in /etc/resolve.conf ?
+what are the applications you installed for wifi network ?
+does this only show-up in eclipse ?
+does this only show-up in eclipse ?
+does this only show-up in eclipse ?
+does this only show-up in eclipse ?
+does this only show-up in eclipse ?
+does this only show-up in eclipse ?
+your output for update seems to be fine.how do you say that your repository is broken ? ?
+can you post the contents of `/etc/apt/sources.list` ?
+which version of ubuntu did you are using ?
+your output for update seems to be fine.how do you say that your repository is broken ? ?
+can you post the contents of `/etc/apt/sources.list` ?
+which version of ubuntu did you are using ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how much ram do you have installed ? and what size it the swap disk partition ?
+how many seeds does it say you have ?
+how many seeds does it say you have ?
+how many seeds does it say you have ?
+how many seeds does it say you have ?
+how many seeds does it say you have ?
+how many seeds does it say you have ?
+just to confirm - the english ( macintosh ) keyboard layout does not do what you want ?
+could it be a setting in your bios/uefi ? what is the brand/type of your machine ?
+i 'm no expert at this , but maybe you want to try `dpkg-reconfigure keyboard-configuration` again ?
+i 'm no expert at this , but maybe you want to try `dpkg-reconfigure keyboard-configuration` again ?
+i 'm no expert at this , but maybe you want to try `dpkg-reconfigure keyboard-configuration` again ?
+just to confirm - the english ( macintosh ) keyboard layout does not do what you want ?
+how do you merge a partition for two os ?
+what is your bios mode ? is legacy or uefi mode ?
+do you know in which partition your windows installation resides ?
+how do you merge a partition for two os ?
+do you know in which partition your windows installation resides ?
+how do you merge a partition for two os ?
+*really* silly question , but are you sure you selected the correct input source on the tv ?
+i 've done this plenty of times in the past , what graphics card do you have ?
+what video card are you using ?
+*really* silly question , but are you sure you selected the correct input source on the tv ?
+i 've done this plenty of times in the past , what graphics card do you have ?
+what video card are you using ?
+is it visible in nautilus as unmounted ?
+does all your usb ports work with other devices ?
+what does `dmesg` out when you put any of these device into usb slot . what does `lsmod` show ?
+what does `dmesg` out when you put any of these device into usb slot . what does `lsmod` show ?
+is it visible in nautilus as unmounted ?
+does all your usb ports work with other devices ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+what does `sudo dpkg -- configure -a` do ? same error ?
+how is that different from `eyed3 -- artist=string my_file.mp3` ?
+which format is your music in : flac , ogg , mp3 , wav , something else ?
+which ubuntu version you are targeting ?
+which format is your music in : flac , ogg , mp3 , wav , something else ?
+which format is your music in : flac , ogg , mp3 , wav , something else ?
+which ubuntu version you are targeting ?
+change back the user permissions ?
+change back the user permissions ?
+change back the user permissions ?
+change back the user permissions ?
+change back the user permissions ?
+change back the user permissions ?
+can you at least detail what you 've tried ?
+what 's the output for `` file /etc/alternatives/x-www-browser '' ?
+do you see `` default applications for lxsession '' in the menu under preferences ?
+can you at least detail what you 've tried ?
+what 's the output for `` file /etc/alternatives/x-www-browser '' ?
+what 's the output for `` file /etc/alternatives/x-www-browser '' ?
+how is ubuntu installed on the machine , are you using a virtual machine ?
+could you point out which approaches you have already tried ?
+any images , so we can understand better your problem ?
+could you point out which approaches you have already tried ?
+how is ubuntu installed on the machine , are you using a virtual machine ?
+could you point out which approaches you have already tried ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+what happens when you search for intellij in the ubuntu software center and click anywhere on it ?
+what video drivers are you using and which is your graphics board ?
+can you give us some more information on the hardware you are using ?
+are you run it on bare metal or in virtualbox ?
+are you run it on bare metal or in virtualbox ?
+are you run it on bare metal or in virtualbox ?
+are you run it on bare metal or in virtualbox ?
+can you explain how you installed gnome on your device ?
+why not backup your data and to a clean reinstall ?
+how did you install ubuntu ? did you use a windows installer called wubi ?
+how did you install ubuntu ? did you use a windows installer called wubi ?
+why not backup your data and to a clean reinstall ?
+how did you install ubuntu ? did you use a windows installer called wubi ?
+* '' it 's a company router '' * so perhaps there 's some kind of enterprise-level security involved ?
+by any chance do you see a message like 'disabled by hardware switch ' ?
+by any chance do you see a message like 'disabled by hardware switch ' ?
+by any chance do you see a message like 'disabled by hardware switch ' ?
+* '' it 's a company router '' * so perhaps there 's some kind of enterprise-level security involved ?
+* '' it 's a company router '' * so perhaps there 's some kind of enterprise-level security involved ?
+did you install the proprietary driver from the amd support site or from the ubuntu software center ?
+do you have on-board display ?
+obviously its a panel of some-sort ... what is the output of `ps -ef | grep -i panel` ?
+did you install the proprietary driver from the amd support site or from the ubuntu software center ?
+did you install the proprietary driver from the amd support site or from the ubuntu software center ?
+obviously its a panel of some-sort ... what is the output of `ps -ef | grep -i panel` ?
+did you check the temperature of your processor ?
+what kind of computer do you have ( make/model or cpu ) ?
+how big is your swap partition and what is your swappiness set at ?
+this `` feels '' like the memory going bad perhaps ?
+this `` feels '' like the memory going bad perhaps ?
+what kind of computer do you have ( make/model or cpu ) ?
+what desktop environment are you using ?
+do other application appear in the dash ?
+what desktop environment are you using ?
+do other application appear in the dash ?
+what desktop environment are you using ?
+do other application appear in the dash ?
+how did you `` upgrade '' ? was it a `` fresh '' install ?
+can you add to your question if you 've installed the nvidia drivers yet ?
+do you have a nvidia card with optimus ? ? ?
+can you add to your question if you 've installed the nvidia drivers yet ?
+can you add to your question if you 've installed the nvidia drivers yet ?
+how did you `` upgrade '' ? was it a `` fresh '' install ?
+do you have any kind of distributed authentication set up ? what is the output of `getent passwd dgard` ?
+what version of ubuntu and what version of samba ?
+what version of ubuntu and what version of samba ?
+do you have any kind of distributed authentication set up ? what is the output of `getent passwd dgard` ?
+what version of ubuntu and what version of samba ?
+what version of ubuntu and what version of samba ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+do `/usr/lib/i386-linux-gnu/libgobject-2.0.so.0` , `/usr/lib32/libgobject-2.0.so.0` , `/lib/i386-linux-gnu/libglib-2.0.so.0` and `/lib32/libglib-2.0.so.0` exist ?
+did you install the 32bit version on a 64bit ubuntu ?
+which version of ubuntu are you using ?
+what 's the output of `uname -a` command ?
+why did n't you use `apt` ?
+why did n't you use `apt` ?
+what 's the output of `uname -a` command ?
+install mesa-util to show driver information . what does happen after run sudo nvidia-xconfig ( and restart ) ?
+after generating xorg.conf by nvidia-xconfig , go to additional drivers , do you see nvidia-304 ?
+you do know you have to reboot , right ?
+you do know you have to reboot , right ?
+you do know you have to reboot , right ?
+after generating xorg.conf by nvidia-xconfig , go to additional drivers , do you see nvidia-304 ?
+first , can i get an accurate perspective ?
+first , can i get an accurate perspective ?
+first , can i get an accurate perspective ?
+first , can i get an accurate perspective ?
+first , can i get an accurate perspective ?
+first , can i get an accurate perspective ?
+where is your /boot or /boot/efi partition ?
+could you post the boot-repair log ?
+where is your /boot or /boot/efi partition ?
+where is your /boot or /boot/efi partition ?
+could you post the boot-repair log ?
+where is your /boot or /boot/efi partition ?
+what is your ` $ path` ?
+do your .bash_profile ( or .profile ) and/or your .bashrc source other files ?
+what is your ` $ path` ?
+do your .bash_profile ( or .profile ) and/or your .bashrc source other files ?
+what is your ` $ path` ?
+what is your ` $ path` ?
+maybe it ca n't access your filesystem ?
+can you provide the content of your `/etc/fstab` file , please ?
+are you trying to install ubuntu from a live usb ? is this image broken ?
+what is the output of `dmesg | grep mount` ?
+are you trying to install ubuntu from a live usb ? is this image broken ?
+what is the output of `dmesg | grep mount` ?
+what features does it need ?
+what features does it need ?
+what features does it need ?
+what features does it need ?
+what features does it need ?
+what features does it need ?
+then i 'm afraid i still do n't understand your question ... why ca n't you use ctrl+v itself ?
+works fine for me ... how do you paste ? middle click or with `ctrl`+`v` ?
+are you sure you do n't have a different keybinding conflicting with this one ?
+works fine for me ... how do you paste ? middle click or with `ctrl`+`v` ?
+then i 'm afraid i still do n't understand your question ... why ca n't you use ctrl+v itself ?
+then i 'm afraid i still do n't understand your question ... why ca n't you use ctrl+v itself ?
+the first link provided is for windows ?
+what model of mac are you using ?
+i ca n't tell you . can you verify that the usb drive is bootable on any other computer ?
+how are you burning the iso ? what software are you using ?
+what model of mac are you using ?
+what model of mac are you using ?
+it is defaulting to fall-back session . what graphics card do you have ?
+what 's your graphics card ? if there is any proprietary graphics driver , do you have enabled it ?
+hmmm . can you open a terminal ( `ctrl`+`alt`+`t` ) and run `jockey-gtk` ?
+what video driver ?
+it is defaulting to fall-back session . what graphics card do you have ?
+it is defaulting to fall-back session . what graphics card do you have ?
+what you are doing is no better than `mv /path/to/source /path/to/destination` ..what new are you trying actually ?
+any reason you ca n't just `cd` to the directory and `mv` from there ?
+any reason you ca n't just `cd` to the directory and `mv` from there ?
+any reason you ca n't just `cd` to the directory and `mv` from there ?
+any reason you ca n't just `cd` to the directory and `mv` from there ?
+any reason you ca n't just `cd` to the directory and `mv` from there ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+are you refering to 60 mins of inactivity or 60 mins by any means ?
+is it it possible it 's just a colour ?
+perhaps you can clarify - are you asking how to turn off `` dynamic '' lightdm wallpaper ?
+background of your user desktop ?
+is it it possible it 's just a colour ?
+is it it possible it 's just a colour ?
+is it it possible it 's just a colour ?
+how do you know you 're `` running into a lack of partitioned space '' ?
+is formatting an option ? or you want to keep 7 ?
+is formatting an option ? or you want to keep 7 ?
+how do you know you 're `` running into a lack of partitioned space '' ?
+is formatting an option ? or you want to keep 7 ?
+is formatting an option ? or you want to keep 7 ?
+or are you asking something about interoperability between an android device and a separate pc/mac running ubuntu ?
+you are aware that android is itself linux-based ?
+you are aware that android is itself linux-based ?
+or are you asking something about interoperability between an android device and a separate pc/mac running ubuntu ?
+or are you asking something about interoperability between an android device and a separate pc/mac running ubuntu ?
+you are aware that android is itself linux-based ?
+where do you expect this to be displayed ?
+what are the permissions of said file ?
+do you have any message in `cron.log` ?
+does this script run from cron ?
+what are the permissions of said file ?
+what are the permissions of said file ?
+so what are the type and access mode ?
+so you have physical access to the server ? why do n't you check service status then ?
+can you get in through ssh ?
+so what are the type and access mode ?
+so you have physical access to the server ? why do n't you check service status then ?
+so what are the type and access mode ?
+is `scrot` working fine ?
+what de are you using ? are you using `unity` ?
+what de are you using ? are you using `unity` ?
+what de are you using ? are you using `unity` ?
+what de are you using ? are you using `unity` ?
+is `scrot` working fine ?
+can you provide the link you are trying ?
+are you behind a firewall ?
+could you include some non-sensitive sites in your question , so that we can test ?
+can you provide the link you are trying ?
+can you provide the link you are trying ?
+are you behind a firewall ?
+is this issue firefox-only ? how about other browsers like chrome , or lynx ?
+do you have any vpn server connected ?
+which type of connection is your using ?
+minimize opened tab to 15 may be ? or increasing ram ?
+do you have any vpn server connected ?
+is this issue firefox-only ? how about other browsers like chrome , or lynx ?
+which hardware you have ?
+you 're not connected . is wifi enabled ? what wireless chip and driver do you have ?
+can other computers ( or operating systems ) see the `ssid` of this network and connect to it ?
+what does `lspci | grep 802` reveal ? is it activated in bios ?
+you 're not connected . is wifi enabled ? what wireless chip and driver do you have ?
+you 're not connected . is wifi enabled ? what wireless chip and driver do you have ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+a shot in the dark , but what about quoting ? `find `` $ { search } '' -print` ?
+did you run an update first ?
+can you run `sudo apt-get update` and `sudo apt-get upgrade` ?
+did you run an update first ?
+can you run `sudo apt-get update` and `sudo apt-get upgrade` ?
+did you run an update first ?
+did you run an update first ?
+what display manager ?
+could you add a screenshot then ?
+could you add a screenshot then ?
+what display manager ?
+could you add a screenshot then ?
+what display manager ?
+did you run sudo apt-get update first ?
+which release are you on ? whats the output of `lsb_release -r` ?
+did you run sudo apt-get update first ?
+which release are you on ? whats the output of `lsb_release -r` ?
+did you run sudo apt-get update first ?
+did you run sudo apt-get update first ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+are you sure the option ` -- root-directory` is correct ? is n't it ` -- boot-directory` ?
+how did you install it ?
+how did you install it ?
+how did you install it ?
+how did you install it ?
+how did you install it ?
+how did you install it ?
+just delete evolution config file ?
+are you using 11.10 ?
+do you have 2-factor authentication or some other security setting enabled on your account ?
+do you have 2-factor authentication or some other security setting enabled on your account ?
+are you using 11.10 ?
+are you using 11.10 ?
+did you compile the driver from source code or install it with synaptic or apt-get ?
+do you have anything listed regarding the issue under additional drivers ?
+are linux-headers-generic installed ?
+do you have anything listed regarding the issue under additional drivers ?
+are linux-headers-generic installed ?
+did you compile the driver from source code or install it with synaptic or apt-get ?
+can we see the default , and can we see what you want ?
+can we see the default , and can we see what you want ?
+can we see the default , and can we see what you want ?
+can we see the default , and can we see what you want ?
+can we see the default , and can we see what you want ?
+can we see the default , and can we see what you want ?
+what packages are not working anymore ?
+just to be sure , you are using ubuntu server ?
+just to be sure , you are using ubuntu server ?
+just to be sure , you are using ubuntu server ?
+what packages are not working anymore ?
+just to be sure , you are using ubuntu server ?
+can you please provide a screenshot for the screen tearing ?
+can you provide specific hardware details for this computer ? also , which version of ubuntu are you using ?
+is switching browsers an option ? or is google chrome necessary ?
+is switching browsers an option ? or is google chrome necessary ?
+can you provide specific hardware details for this computer ? also , which version of ubuntu are you using ?
+can you please provide a screenshot for the screen tearing ?
+maybe touchpad-ish two fingers ?
+did you reboot afterward ?
+maybe touchpad-ish two fingers ?
+maybe touchpad-ish two fingers ?
+did you reboot afterward ?
+maybe touchpad-ish two fingers ?
+could you put your `/etc/x11/xorg.conf` file on pastebin ?
+after generating xorg.conf by nvidia-xconfig , go to additional drivers , do you see nvidia-304 ?
+could you put your `/etc/x11/xorg.conf` file on pastebin ?
+could you put your `/etc/x11/xorg.conf` file on pastebin ?
+after generating xorg.conf by nvidia-xconfig , go to additional drivers , do you see nvidia-304 ?
+after generating xorg.conf by nvidia-xconfig , go to additional drivers , do you see nvidia-304 ?
+do you want both ctrl+shift+v and shift+ins to paste the clipboard in gnome terminal ?
+which de are you using ? . are you using some clipboard manager ( like klipeer ) ?
+which de are you using ? . are you using some clipboard manager ( like klipeer ) ?
+which de are you using ? . are you using some clipboard manager ( like klipeer ) ?
+which de are you using ? . are you using some clipboard manager ( like klipeer ) ?
+which de are you using ? . are you using some clipboard manager ( like klipeer ) ?
+what are you specifically trying to install ?
+which release are you on ? whats the output of `lsb_release -r` ?
+which release are you on ? whats the output of `lsb_release -r` ?
+which release are you on ? whats the output of `lsb_release -r` ?
+which release are you on ? whats the output of `lsb_release -r` ?
+which release are you on ? whats the output of `lsb_release -r` ?
+are you running 12.04 or 14.04 ?
+which ppa are you using ?
+are you running 12.04 or 14.04 ?
+are you running 12.04 or 14.04 ?
+which ppa are you using ?
+which ppa are you using ?
+can you open `/dev/sr0` using vlc ?
+what does `ls -lh /mnt` output ?
+what does `ls -lh /mnt` output ?
+can you open `/dev/sr0` using vlc ?
+what does `ls -lh /mnt` output ?
+what does `ls -lh /mnt` output ?
+what is the ubuntu version ?
+what is the ubuntu version ?
+what is the ubuntu version ?
+what is the ubuntu version ?
+what is the ubuntu version ?
+what is the ubuntu version ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+not too important , but is each entry in the csv files really separated by an empty line ?
+you did a restore and deleted ubuntu with that restore ?
+do you want to remove ubuntu ( grub ) and return to a pc with only windows installed ?
+do you have an ubuntu livecd ?
+looks like your partition table may be corrupt . can you delete the partitions and start again ?
+looks like your partition table may be corrupt . can you delete the partitions and start again ?
+you did a restore and deleted ubuntu with that restore ?
+which boot menu are you even talking about ? bios ? grub ?
+welcome to ask ubuntu ! ** ; - ) ** are you running uefi or bios boot ?
+welcome to ask ubuntu ! ** ; - ) ** are you running uefi or bios boot ?
+welcome to ask ubuntu ! ** ; - ) ** are you running uefi or bios boot ?
+welcome to ask ubuntu ! ** ; - ) ** are you running uefi or bios boot ?
+welcome to ask ubuntu ! ** ; - ) ** are you running uefi or bios boot ?
+what version of `zsh` are you using ?
+does `` include spaces ?
+are you sure to exchange quotes ` ' / `` ` ?
+does `` include spaces ?
+does `` include spaces ?
+are you sure to exchange quotes ` ' / `` ` ?
+did you restart after editing rc.conf ?
+can you `ssh` ( or reboot into rescue mode ) and recover some logs ?
+can you `ssh` ( or reboot into rescue mode ) and recover some logs ?
+did you restart after editing rc.conf ?
+can you `ssh` ( or reboot into rescue mode ) and recover some logs ?
+can you `ssh` ( or reboot into rescue mode ) and recover some logs ?
+is n't there a keyboard settings gui where you can configure this ?
+did you mean one of those to be left ?
+did you mean one of those to be left ?
+did you mean one of those to be left ?
+is n't there a keyboard settings gui where you can configure this ?
+did you mean one of those to be left ?
+what network card does vbox emulate ?
+are you running networkmanager or wicd ?
+are you running networkmanager or wicd ?
+what network card does vbox emulate ?
+are you running networkmanager or wicd ?
+are you running networkmanager or wicd ?
+what motherboard ( sata controllers ) do you have ?
+ok , those are gpt , so can you run `parted -l /dev/sdb` or `gdisk -l /dev/sdb` instead ?
+ok , those are gpt , so can you run `parted -l /dev/sdb` or `gdisk -l /dev/sdb` instead ?
+what motherboard ( sata controllers ) do you have ?
+what motherboard ( sata controllers ) do you have ?
+what motherboard ( sata controllers ) do you have ?
+tried ctrl + alt + f2 ?
+define `` frozen '' . did it panic ? or did something else happen ?
+- do you have sudo rights on this computer ?
+tried ctrl + alt + f2 ?
+- do you have sudo rights on this computer ?
+tried ctrl + alt + f2 ?
+are there any other users on that system who have a shell other than bash ?
+i might be misunderstanding your problem , but ca n't you get around it with a local ssh mount ?
+i might be misunderstanding your problem , but ca n't you get around it with a local ssh mount ?
+i might be misunderstanding your problem , but ca n't you get around it with a local ssh mount ?
+are there any other users on that system who have a shell other than bash ?
+i might be misunderstanding your problem , but ca n't you get around it with a local ssh mount ?
+why do you need that the errors are not printed ?
+by any chance , does `something_to_find` have slashes , a caret , or a dollar sign in it ?
+by any chance , does `something_to_find` have slashes , a caret , or a dollar sign in it ?
+by any chance , does `something_to_find` have slashes , a caret , or a dollar sign in it ?
+why do you need that the errors are not printed ?
+why do you need that the errors are not printed ?
+is xclip actually available ? what is the output of `type xclip` ?
+is emacs running on the same machine as tmux , or are you running emacs over ssh ?
+is emacs running on the same machine as tmux , or are you running emacs over ssh ?
+is emacs running on the same machine as tmux , or are you running emacs over ssh ?
+is xclip actually available ? what is the output of `type xclip` ?
+is xclip actually available ? what is the output of `type xclip` ?
+had you enabled the `net.ipv4.ip_forward=1` parameter ?
+could you provide the output of `iptables -t nat -l prerouting` ?
+could you also include the iptables rules , if any , for the output chain ?
+had you enabled the `net.ipv4.ip_forward=1` parameter ?
+could you provide the output of `iptables -t nat -l prerouting` ?
+had you enabled the `net.ipv4.ip_forward=1` parameter ?
+by `` k=10 servers '' are you just asking about starting `` 10 servers '' ?
+what 's the value of the `listen` directive in the config file ?
+by `` k=10 servers '' are you just asking about starting `` 10 servers '' ?
+what 's the value of the `listen` directive in the config file ?
+by `` k=10 servers '' are you just asking about starting `` 10 servers '' ?
+what 's the value of the `listen` directive in the config file ?
+why do you need a script to know whether your computer is asleep ?
+is the console on a framebuffer or does it use a text mode provided by the hardware ?
+why do you need a script to know whether your computer is asleep ?
+is the console on a framebuffer or does it use a text mode provided by the hardware ?
+is the console on a framebuffer or does it use a text mode provided by the hardware ?
+why do you need a script to know whether your computer is asleep ?
+does your command work if you run it from the cli ?
+is your script marked executable ( `chmod +x` ) , and does it begin with ` # ! /usr/bin/python` ?
+does your command work if you run it from the cli ?
+is your script marked executable ( `chmod +x` ) , and does it begin with ` # ! /usr/bin/python` ?
+does your command work if you run it from the cli ?
+does your command work if you run it from the cli ?
+what version of bash do you have ?
+what is the output of `declare -p java_home` ?
+what is the output of `declare -p java_home` ?
+what version of bash do you have ?
+what version of bash do you have ?
+what version of bash do you have ?
+what is this -f switch ?
+what is this -f switch ?
+what is this -f switch ?
+what is this -f switch ?
+what is this -f switch ?
+what is this -f switch ?
+how portable do you need to be ?
+is that specific to the caps lock key , or do other keys get remapped ?
+how portable do you need to be ?
+how portable do you need to be ?
+how portable do you need to be ?
+how portable do you need to be ?
+why would you ever want to do it the second way ?
+or are you writing this to go with some install instructions on your website ?
+what system are you running ?
+or are you writing this to go with some install instructions on your website ?
+or are you writing this to go with some install instructions on your website ?
+why would you ever want to do it the second way ?
+would you post the output of `od -c /etc/shells` ?
+would you post the output of `od -c /etc/shells` ?
+would you post the output of `od -c /etc/shells` ?
+would you post the output of `od -c /etc/shells` ?
+would you post the output of `od -c /etc/shells` ?
+would you post the output of `od -c /etc/shells` ?
+are the data formatted in xml ?
+can you provide the output you want to extract from this xml file ?
+can you provide the output you want to extract from this xml file ?
+can you provide the output you want to extract from this xml file ?
+are the data formatted in xml ?
+can you provide the output you want to extract from this xml file ?
+honest question : ca n't you just use the pptp module of networkmanager ?
+what sort of traffic would you want *not* to go through the vpn ?
+honest question : ca n't you just use the pptp module of networkmanager ?
+honest question : ca n't you just use the pptp module of networkmanager ?
+what sort of traffic would you want *not* to go through the vpn ?
+honest question : ca n't you just use the pptp module of networkmanager ?
+what kind of unix , or linux distribution are you using ?
+could you show the exact error messages and how are you trying to install them ?
+could you show the exact error messages and how are you trying to install them ?
+could you show the exact error messages and how are you trying to install them ?
+what kind of unix , or linux distribution are you using ?
+what kind of unix , or linux distribution are you using ?
+do you just need to do this just once or programmatically at various times ?
+you want this in a script ?
+you want this in a script ?
+do you just need to do this just once or programmatically at various times ?
+do you just need to do this just once or programmatically at various times ?
+do you just need to do this just once or programmatically at various times ?
+is there a specific reason you want to do this with `dd` and not use a normal cd burner ?
+did you umount both partitions before running `dd` ?
+so is there anything relevant in `dmesg | tail -n 100` or so ?
+can you mount the other ( non-home ) partitions ?
+so is there anything relevant in `dmesg | tail -n 100` or so ?
+so is there anything relevant in `dmesg | tail -n 100` or so ?
+which rc is it and what run mode are you in ?
+if you type `service -- status-all` does your service appear in that list ?
+which rc is it and what run mode are you in ?
+which rc is it and what run mode are you in ?
+if you type `service -- status-all` does your service appear in that list ?
+which rc is it and what run mode are you in ?
+why not just rsync via ssh or native rsync ?
+is an ssh server running on the target machine ? is the ssh port open ( not firewalled ) ?
+how are you sharing the user credentials ( authentication , group membership , ... ) between the two machines ?
+is an ssh server running on the target machine ? is the ssh port open ( not firewalled ) ?
+why not just rsync via ssh or native rsync ?
+is an ssh server running on the target machine ? is the ssh port open ( not firewalled ) ?
+is the filesystem local or remote ?
+what is the offset if you do `date + % s ; date` ?
+what does `type date` return ? could it possibly be aliased ? what about `strace -fe open date` ?
+what is the offset if you do `date + % s ; date` ?
+what does `type date` return ? could it possibly be aliased ? what about `strace -fe open date` ?
+what does `type date` return ? could it possibly be aliased ? what about `strace -fe open date` ?
+are you getting `oom` messages in syslog ?
+do you have the same problem with another account ? with a different desktop environment ?
+are the lvm system services running ?
+do you have the same problem with another account ? with a different desktop environment ?
+are you getting `oom` messages in syslog ?
+are the lvm system services running ?
+what is the purpose ?
+what is the purpose ?
+what is the purpose ?
+what is the purpose ?
+what is the purpose ?
+what is the purpose ?
+is there anything in `/var/log/cups/error_log` ?
+can you add a pointer/link to the drivers you are using ?
+versions of cups on your machine and the server ?
+are you sending the tiff in with `lpr` or similar ? or how is the tiff getting into cups ?
+does the printer work from another os ?
+just to check , what does `nmap printer.ip.add.ress` report ?
+you doing this iptables stuff in you wifi router ?
+are you running any transparent proxy for http ? squid ?
+just an idea : did you enable ip_forward ?
+did you enable forwarding ?
+just an idea : did you enable ip_forward ?
+just an idea : did you enable ip_forward ?
+what happens if the files have different numbers of lines ? does the solution need to be in `awk` ?
+about how many lines are you talking ? are both files the same size or is one rather small ?
+what happens if the files have different numbers of lines ? does the solution need to be in `awk` ?
+about how many lines are you talking ? are both files the same size or is one rather small ?
+what happens if the files have different numbers of lines ? does the solution need to be in `awk` ?
+about how many lines are you talking ? are both files the same size or is one rather small ?
+what do you mean by `` can not install ?
+what are the contents of `/etc/apt/sources.list.d` ?
+what do you mean by `` can not install ?
+what do you mean by `` can not install ?
+what do you mean by `` can not install ?
+what are the contents of `/etc/apt/sources.list.d` ?
+what did your `.procmailrc` look like ?
+do you get any error messages in your procmail log ?
+what did your `.procmailrc` look like ?
+what did your `.procmailrc` look like ?
+what did your `.procmailrc` look like ?
+do you get any error messages in your procmail log ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+are the headphones muted in `alsamixer` , and what does the output of `amixer -i -m -c 0` show ?
+does your prompt correctly protect any control sequences with `\ [ \ ] ` ? is `term` correct ?
+do you have the same problem with another account ? with a different desktop environment ?
+do you have the same problem with another account ? with a different desktop environment ?
+does your prompt correctly protect any control sequences with `\ [ \ ] ` ? is `term` correct ?
+do you have the same problem with another account ? with a different desktop environment ?
+does your prompt correctly protect any control sequences with `\ [ \ ] ` ? is `term` correct ?
+those permissions look wacky . what `umask` was used during the install ?
+those permissions look wacky . what `umask` was used during the install ?
+those permissions look wacky . what `umask` was used during the install ?
+those permissions look wacky . what `umask` was used during the install ?
+those permissions look wacky . what `umask` was used during the install ?
+those permissions look wacky . what `umask` was used during the install ?
+welcome to unix.se . what exactly is the question ?
+generally , you start with ensuring you have all dependencies . do you have the autoconf tools ?
+do n't you just need to add an additional switch to your `make ... ` command ?
+welcome to unix.se . what exactly is the question ?
+do n't you just need to add an additional switch to your `make ... ` command ?
+welcome to unix.se . what exactly is the question ?
+which operating system ?
+what does your `/etc/hosts` file contain ? also what does `sysctl kernel.hostname` say ?
+what linux distribution and version are you running ?
+what linux distribution and version are you running ?
+what linux distribution and version are you running ?
+which operating system ?
+waht is your problem that you are trying to solve ?
+why do you need this ?
+what do you need to know is the same ? the distro and version ?
+why do you need this ?
+why do you need this ?
+why do you need this ?
+does your system log ( /var/log/messages or /var/log/syslog ) contain any messages about this error ?
+do you perhaps have a large number of small files in your home directory tree ?
+do you perhaps have a large number of small files in your home directory tree ?
+does your system log ( /var/log/messages or /var/log/syslog ) contain any messages about this error ?
+does your system log ( /var/log/messages or /var/log/syslog ) contain any messages about this error ?
+do you perhaps have a large number of small files in your home directory tree ?
+what is your `prompt_command` ?
+what 's the output of `stty -a` ?
+what terminal emulator are you using ?
+how do you run bash ?
+what is your `prompt_command` ?
+how do you run bash ?
+do you use kvm for virtualization ?
+can you setup a normal user account and then log in with normal user account ?
+do you use kvm for virtualization ?
+can you setup a normal user account and then log in with normal user account ?
+do you use kvm for virtualization ?
+can you setup a normal user account and then log in with normal user account ?
+do you know about imagemagick ?
+are all your `jpg`s in the same dir ? if so why not simply `img2pdf page*.jpg -o book.pdf` ?
+do you know about imagemagick ?
+are all your `jpg`s in the same dir ? if so why not simply `img2pdf page*.jpg -o book.pdf` ?
+are all your `jpg`s in the same dir ? if so why not simply `img2pdf page*.jpg -o book.pdf` ?
+are all your `jpg`s in the same dir ? if so why not simply `img2pdf page*.jpg -o book.pdf` ?
+who owns the directories ?
+who owns the directories ?
+who owns the directories ?
+who owns the directories ?
+who owns the directories ?
+who owns the directories ?
+can you boot kernel-2.6.32-431.17.1.el6.i686 and then reinstall kernel-2.6.32-431.20.3.el6.i686 ?
+em1 is belong to freebsd os , are you sure your working with linux ?
+do you mean `/etc/default/grub` ?
+can you boot kernel-2.6.32-431.17.1.el6.i686 and then reinstall kernel-2.6.32-431.20.3.el6.i686 ?
+em1 is belong to freebsd os , are you sure your working with linux ?
+can you boot kernel-2.6.32-431.17.1.el6.i686 and then reinstall kernel-2.6.32-431.20.3.el6.i686 ?
+what are you expecting to happen ?
+why not use `while true` instead of `while : ` ?
+what are you expecting to happen ?
+what are you expecting to happen ?
+why not use `while true` instead of `while : ` ?
+why not use `while true` instead of `while : ` ?
+`` i think doing this is illegal in many countries . '' source ?
+what *nix are you in ? how is the user going to access the system ?
+was he using gnome or kde ?
+`` i think doing this is illegal in many countries . '' source ?
+was he using gnome or kde ?
+what *nix are you in ? how is the user going to access the system ?
+what happens if you disconnect the keyboard and connect it back ?
+do you have a spare keyboard to test with and see if the issues persist ?
+what happens if you disconnect the keyboard and connect it back ?
+do you have a spare keyboard to test with and see if the issues persist ?
+what happens if you disconnect the keyboard and connect it back ?
+what happens if you disconnect the keyboard and connect it back ?
+you sure the service is started ?
+how are you mounting ? could you show us the relevant `/etc/fstab` ( or osx equivalent ) line ?
+you sure the service is started ?
+you sure the service is started ?
+you sure the service is started ?
+how are you mounting ? could you show us the relevant `/etc/fstab` ( or osx equivalent ) line ?
+you probably mean `` corrupt a filesystem '' ?
+you probably mean `` corrupt a filesystem '' ?
+you probably mean `` corrupt a filesystem '' ?
+you probably mean `` corrupt a filesystem '' ?
+you probably mean `` corrupt a filesystem '' ?
+you probably mean `` corrupt a filesystem '' ?
+on desktop1 , how far does `traceroute 96.96.96.10` get ?
+are you able to ping that network ... ... . ? ? ? ? ?
+your routing looks ok to me.. maybe you are not natting the connection ?
+are you able to ping that network ... ... . ? ? ? ? ?
+on desktop1 , how far does `traceroute 96.96.96.10` get ?
+your routing looks ok to me.. maybe you are not natting the connection ?
+why do you want to disable the usb ?
+what 's the output of `lsusb` ?
+what 's the output of `lsusb` ?
+what 's the output of `lsusb` ?
+why do you want to disable the usb ?
+what 's the output of `lsusb` ?
+what is your requirements ?
+why use regexs here at all ?
+what is your requirements ?
+why use regexs here at all ?
+why use regexs here at all ?
+why use regexs here at all ?
+which shell are you using on the command line , and which shell is `sh` ?
+can you show the complete output of : `v4l2-ctl -- list-formats-ext` ?
+which shell are you using on the command line , and which shell is `sh` ?
+can you show the complete output of : `v4l2-ctl -- list-formats-ext` ?
+which shell are you using on the command line , and which shell is `sh` ?
+can you show the complete output of : `v4l2-ctl -- list-formats-ext` ?
+what is mounted on `/hgfs` ?
+what is mounted on `/hgfs` ?
+what is mounted on `/hgfs` ?
+what is mounted on `/hgfs` ?
+what is mounted on `/hgfs` ?
+what is mounted on `/hgfs` ?
+where these value will come from ?
+which os/distribution and version do you use ?
+where these value will come from ?
+where these value will come from ?
+which os/distribution and version do you use ?
+which os/distribution and version do you use ?
+do you use `sudo su - someuser` as `someuser` ?
+what does `sudo -l` show for permissions ?
+do you use `sudo su - someuser` as `someuser` ?
+what does `sudo -l` show for permissions ?
+do you use `sudo su - someuser` as `someuser` ?
+what does `sudo -l` show for permissions ?
+i the driver distributed as source ?
+and `lspci -knn | grep net -a2` ?
+did you download the source code ? what was the commandline you tried ?
+i the driver distributed as source ?
+i the driver distributed as source ?
+did you download the source code ? what was the commandline you tried ?
+why not using pip and virtualenv to install a specific version of python in a directory ?
+what is the output of `whereis python2.7` and `whereis python` ?
+is there a need to install it using sudo ?
+is there a need to install it using sudo ?
+what is the output of `whereis python2.7` and `whereis python` ?
+why not using pip and virtualenv to install a specific version of python in a directory ?
+which `tmux` version are you using ?
+can you start `tmux` using `tmux -vvvv` ?
+which `tmux` version are you using ?
+which `tmux` version are you using ?
+can you start `tmux` using `tmux -vvvv` ?
+can you start `tmux` using `tmux -vvvv` ?
+can you make a live usb and boot to it ?
+does anything useful show up in `dmesg` when you try to mount it with the entry still in `fstab` ?
+why do n't you boot with a live cd/dvd and modify what ever you need from there ?
+does anything useful show up in `dmesg` when you try to mount it with the entry still in `fstab` ?
+does anything useful show up in `dmesg` when you try to mount it with the entry still in `fstab` ?
+why do n't you boot with a live cd/dvd and modify what ever you need from there ?
+does `dpkg -- listfiles cetoys` produce any output ?
+does `dpkg -- listfiles cetoys` produce any output ?
+does `dpkg -- listfiles cetoys` produce any output ?
+does `dpkg -- listfiles cetoys` produce any output ?
+does `dpkg -- listfiles cetoys` produce any output ?
+does `dpkg -- listfiles cetoys` produce any output ?
+are the lists sorted ?
+is there some reason why a traditional ( or unified ) diff wo n't do the job ?
+is there some reason why a traditional ( or unified ) diff wo n't do the job ?
+are the lists sorted ?
+is there some reason why a traditional ( or unified ) diff wo n't do the job ?
+is there some reason why a traditional ( or unified ) diff wo n't do the job ?
+sem needs write access to $ home/.parallel . maybe you do not have that on sge ?
+is it the same command running in each instance ? same name ?
+is it the same command running in each instance ? same name ?
+is it the same command running in each instance ? same name ?
+sem needs write access to $ home/.parallel . maybe you do not have that on sge ?
+is it the same command running in each instance ? same name ?
+what exactly you mean by *html5 drag and drop box* ?
+this really sounds application specific , can you give more details on why you think it is not ?
+this really sounds application specific , can you give more details on why you think it is not ?
+what exactly you mean by *html5 drag and drop box* ?
+what exactly you mean by *html5 drag and drop box* ?
+this really sounds application specific , can you give more details on why you think it is not ?
+do this happens with all users or just yours ?
+are you certain you reverted everything back to initial state ? did you restart your daemon ?
+do this happens with all users or just yours ?
+do this happens with all users or just yours ?
+are you certain you reverted everything back to initial state ? did you restart your daemon ?
+are you certain you reverted everything back to initial state ? did you restart your daemon ?
+hi ! more information is needed to answer your question . do the files have any structure ?
+can you use perl ?
+can you use perl ?
+hi ! more information is needed to answer your question . do the files have any structure ?
+can you use perl ?
+hi ! more information is needed to answer your question . do the files have any structure ?
+what makes you think that vi has to hold the whole file in memory ?
+any shared memory ( or similar ) used ?
+any shared memory ( or similar ) used ?
+any shared memory ( or similar ) used ?
+any shared memory ( or similar ) used ?
+any shared memory ( or similar ) used ?
+what happens if you do a `xinput -- list-props` on those id numbers listed ?
+do the `xinput` commands do what you want ?
+what happens if you do a `xinput -- list-props` on those id numbers listed ?
+what happens if you do a `xinput -- list-props` on those id numbers listed ?
+what happens if you do a `xinput -- list-props` on those id numbers listed ?
+do the `xinput` commands do what you want ?
+what does `stat /etc/hosts` say ?
+can you share the output of `nslookup google.com` and `dig google.com ns` ?
+would you please show us your /etc/resolv.conf ?
+can you share the output of `nslookup google.com` and `dig google.com ns` ?
+would you please show us your /etc/resolv.conf ?
+can you share the output of `nslookup google.com` and `dig google.com ns` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+does hostb has either `allowagentforwarding no` or `allowtcpforwarding no` in `sshd_config` ?
+can you run this command `apt-cache search owncloud-client` and `apt-cache policy owncloud-client` and send the output ? ? ?
+what 's your program ? what 's your gcc version ? did you `apt-get update` before `apt-get install cmake` ?
+can you run this command `apt-cache search owncloud-client` and `apt-cache policy owncloud-client` and send the output ? ? ?
+what 's your program ? what 's your gcc version ? did you `apt-get update` before `apt-get install cmake` ?
+what 's your program ? what 's your gcc version ? did you `apt-get update` before `apt-get install cmake` ?
+can you run this command `apt-cache search owncloud-client` and `apt-cache policy owncloud-client` and send the output ? ? ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+and what is wrong with `awk -f awk_file.awk outfile1.out outfile2.out > text_file.txt` ?
+what are you actually trying to do ?
+what are you actually trying to do ?
+what are you actually trying to do ?
+what are you actually trying to do ?
+what are you actually trying to do ?
+what are you actually trying to do ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+did you check that your user is in the correct group ( run `` groups '' ) ?
+is there a special reason why you want to disable this option ?
+... and why fedora 15 , since it 's eol since a while now ?
+is there a special reason why you want to disable this option ?
+... and why fedora 15 , since it 's eol since a while now ?
+is there a special reason why you want to disable this option ?
+... and why fedora 15 , since it 's eol since a while now ?
+does the same slowness occur if you ssh from a linux machine to your vps ?
+can you post full ssh log ?
+can you share the putty event log ?
+does the same slowness occur if you ssh from a linux machine to your vps ?
+can you share the putty event log ?
+does the same slowness occur if you ssh from a linux machine to your vps ?
+is the socket already in use ?
+is the socket already in use ?
+is the socket already in use ?
+is the socket already in use ?
+is the socket already in use ?
+is the socket already in use ?
+what filesystem is that ?
+is there a `chroot ( ) ` involved ?
+a few questions : are you deleting them as root ? is the folder in use ?
+what filesystem is that ?
+what filesystem is that ?
+what filesystem is that ?
+how exactly did you create the file ? what encoding are you using on both machines ?
+does the text look right when you open it from the application menu ?
+does the text look right when you open it from the application menu ?
+does the text look right when you open it from the application menu ?
+does the text look right when you open it from the application menu ?
+does the text look right when you open it from the application menu ?
+what is your aim in doing `sudo su -l root -c /bin/bash` ?
+do you have `su` aliased to anything ? and what is `user2` 's default shell ?
+do you have `su` aliased to anything ? and what is `user2` 's default shell ?
+do you have `su` aliased to anything ? and what is `user2` 's default shell ?
+what is your aim in doing `sudo su -l root -c /bin/bash` ?
+what is your aim in doing `sudo su -l root -c /bin/bash` ?
+are `user1` and `user2` accounts on the same or different machines ?
+are `user1` and `user2` accounts on the same or different machines ?
+are `user1` and `user2` accounts on the same or different machines ?
+are `user1` and `user2` accounts on the same or different machines ?
+are `user1` and `user2` accounts on the same or different machines ?
+are `user1` and `user2` accounts on the same or different machines ?
+how many files match the wildcard pattern ?
+how many files match the wildcard pattern ?
+how many files match the wildcard pattern ?
+how many files match the wildcard pattern ?
+how many files match the wildcard pattern ?
+how many files match the wildcard pattern ?
+is the file already coloured using ansi escape sequences or do you need to add the colours as well ?
+can you share a snippet of your logfile also ?
+what terminal are you using ?
+what terminal are you using ?
+can you share a snippet of your logfile also ?
+can you share a snippet of your logfile also ?
+do you have a `/var/log/syslog` ?
+what does `/var/log/messages` say for the failed boots ?
+what does `/var/log/messages` say for the failed boots ?
+do you have a `/var/log/syslog` ?
+what does `/var/log/messages` say for the failed boots ?
+what does `/var/log/messages` say for the failed boots ?
+did you setup raid 1 ?
+interesting . could you show the output of `mount` command and content of /etc/fstab ?
+interesting . could you show the output of `mount` command and content of /etc/fstab ?
+did you setup raid 1 ?
+did you setup raid 1 ?
+did you setup raid 1 ?
+do you need top to be displayed in real time ?
+additional to `ps-watcher` may be `pgrep` helps you ?
+`sar` from the `sysstat` package ?
+do you need top to be displayed in real time ?
+additional to `ps-watcher` may be `pgrep` helps you ?
+additional to `ps-watcher` may be `pgrep` helps you ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+permission problem ? are the files in `~/.gnupg` owned by the correct user ?
+is this arm ? if not ... why ?
+is this arm ? if not ... why ?
+is this arm ? if not ... why ?
+is this arm ? if not ... why ?
+is this arm ? if not ... why ?
+is this arm ? if not ... why ?
+remove the code in the `else` part ?
+remove the code in the `else` part ?
+remove the code in the `else` part ?
+remove the code in the `else` part ?
+remove the code in the `else` part ?
+remove the code in the `else` part ?
+elaborate please as to why you ca n't just do this manually ?
+elaborate please as to why you ca n't just do this manually ?
+elaborate please as to why you ca n't just do this manually ?
+elaborate please as to why you ca n't just do this manually ?
+elaborate please as to why you ca n't just do this manually ?
+elaborate please as to why you ca n't just do this manually ?
+possibly your new place has more walls and things for your wifi signal to go through ?
+did you call your provider to talk with them first ?
+is it just slow on the internet , or is it slow transferring data from one computer to another ?
+did you call your provider to talk with them first ?
+is it just slow on the internet , or is it slow transferring data from one computer to another ?
+did you call your provider to talk with them first ?
+also , are you sure the permissions on the users `~/.ssh/` directory and `~/ssh/authorized_keys` are set right ?
+can you get at the server logs ?
+also , are you sure the permissions on the users `~/.ssh/` directory and `~/ssh/authorized_keys` are set right ?
+can you get at the server logs ?
+also , are you sure the permissions on the users `~/.ssh/` directory and `~/ssh/authorized_keys` are set right ?
+also , are you sure the permissions on the users `~/.ssh/` directory and `~/ssh/authorized_keys` are set right ?
+are you sure apache on windows is answering on port 80 ?
+did you check if there is any incoming attempt on that ip : port at tcp level ?
+what 's the error message you get when that fails ?
+are you sure apache on windows is answering on port 80 ?
+what 's the error message you get when that fails ?
+are you sure apache on windows is answering on port 80 ?
+can you post an example of your column from excel ?
+can you post an example of your column from excel ?
+can you post an example of your column from excel ?
+can you post an example of your column from excel ?
+can you post an example of your column from excel ?
+can you post an example of your column from excel ?
+your drive became _writeable_ ? or _read-only_ ?
+what operation system you use ?
+what file system was the drive using ?
+which os are you using ? which file system is used by your pen drive ?
+what file system was the drive using ?
+what file system was the drive using ?
+which file format are the videos ?
+what sorts of media files are you dealing with ?
+which file format are the videos ?
+what sorts of media files are you dealing with ?
+what sorts of media files are you dealing with ?
+which file format are the videos ?
+i assume you have tried a system restart ?
+can you check *utilities console.app* for any relevant messages when this happens ?
+i guess that task manger should show some process while the dialog is stopping that process from continuing ?
+i assume you have tried a system restart ?
+can you check *utilities console.app* for any relevant messages when this happens ?
+i guess that task manger should show some process while the dialog is stopping that process from continuing ?
+are you sure your isp is n't blocking you ?
+what is host ip for the server ? how are you trying to connect ?
+are you sure your isp is n't blocking you ?
+what is host ip for the server ? how are you trying to connect ?
+what is host ip for the server ? how are you trying to connect ?
+what is host ip for the server ? how are you trying to connect ?
+recovery partition should be fairly large , several gigs . what brand of pc ?
+upgrade to the more stable windows 7 ?
+just curious , are you able to successfully start the machine in safe mode ?
+just curious , are you able to successfully start the machine in safe mode ?
+just curious , are you able to successfully start the machine in safe mode ?
+recovery partition should be fairly large , several gigs . what brand of pc ?
+what distribution is it ?
+what distribution is it ?
+what distribution is it ?
+what distribution is it ?
+what distribution is it ?
+what distribution is it ?
+what os/distro are you running ?
+does the machine have any fancy mouse/keyboard driver software , keyboard shortcut software ?
+does the machine have any fancy mouse/keyboard driver software , keyboard shortcut software ?
+does the machine have any fancy mouse/keyboard driver software , keyboard shortcut software ?
+what os/distro are you running ?
+does the machine have any fancy mouse/keyboard driver software , keyboard shortcut software ?
+how did you download the file ?
+just your videos or all youtube videos ?
+how did you download the file ?
+just your videos or all youtube videos ?
+how did you download the file ?
+just your videos or all youtube videos ?
+how big is the drive , and do you remember the partition layout before you messed it up ?
+do you see that really for every partitions , or only for the logical ones ?
+do you see that really for every partitions , or only for the logical ones ?
+do you see that really for every partitions , or only for the logical ones ?
+how big is the drive , and do you remember the partition layout before you messed it up ?
+do you see that really for every partitions , or only for the logical ones ?
+is your battery getting old ?
+are you using some custom power plan ?
+how old is the battery ?
+is your battery getting old ?
+how old is the battery ?
+are you using some custom power plan ?
+ca n't you navigate through the bios setting using the keyboard ?
+did you install the software for the devices ?
+did you install the software for the devices ?
+ca n't you navigate through the bios setting using the keyboard ?
+did you install the software for the devices ?
+ca n't you navigate through the bios setting using the keyboard ?
+are you running the latest bios offered by lenovo ?
+did you buy an oem battery or a 3rd party battery ?
+is the laptop at the latest bios update ?
+what is your `nvidia-smi` output ?
+what is your `nvidia-smi` output ?
+are you running the latest bios offered by lenovo ?
+what did you expect google maps to do without javascript ?
+what os are you on ?
+does it do the same thing on a different computer ?
+what did you expect google maps to do without javascript ?
+what did you expect google maps to do without javascript ?
+does it do the same thing on a different computer ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+do you have control of the spreadsheet and are you willing to change your data layout to accomplish this ?
+win7 x32 or x64 ? did you check `` show processes from all users '' in task manager ?
+could you please provide a screenshot of activity monitor 's memory view ?
+are you running a 64-bit os ?
+are you running a 64-bit os ?
+could you please provide a screenshot of activity monitor 's memory view ?
+are you running a 64-bit os ?
+what problem are you having ?
+are you using cron for a specific reason ?
+what problem are you having ?
+are you using cron for a specific reason ?
+are you using cron for a specific reason ?
+are you using cron for a specific reason ?
+could you provide a screenshot , specially of the `` waiting '' icons ?
+does it come back if you reboot , or has it disappeared completely ?
+did a third party app actually disable it ?
+does it come back if you reboot , or has it disappeared completely ?
+did a third party app actually disable it ?
+did a third party app actually disable it ?
+what operating system ?
+what operating system ?
+what operating system ?
+what operating system ?
+what operating system ?
+what operating system ?
+what is your question , here ?
+`uname -a` says what ?
+is this problem with this file only ? meaning are you able to install other .deb packages ?
+`uname -a` says what ?
+is this problem with this file only ? meaning are you able to install other .deb packages ?
+is this problem with this file only ? meaning are you able to install other .deb packages ?
+are there multiple users on this install ?
+are you sure the _username_ was changed , and not merely the `` full name '' ?
+are there multiple users on this install ?
+are there multiple users on this install ?
+are you sure the _username_ was changed , and not merely the `` full name '' ?
+are there multiple users on this install ?
+what is resolution set on both monitors ?
+what is resolution set on both monitors ?
+what is resolution set on both monitors ?
+what is resolution set on both monitors ?
+what is resolution set on both monitors ?
+what is resolution set on both monitors ?
+what vpn provider do you use ?
+is this for convenience or for security ? does it matter if it can trivially be evaded ?
+what vpn provider do you use ?
+is this for convenience or for security ? does it matter if it can trivially be evaded ?
+is this for convenience or for security ? does it matter if it can trivially be evaded ?
+what vpn provider do you use ?
+do you have any authentication happening on the server ?
+do you have any authentication happening on the server ?
+do you have any authentication happening on the server ?
+do you have any authentication happening on the server ?
+do you have any authentication happening on the server ?
+do you have any authentication happening on the server ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+you might want to mention which distribution you 're using . is it red hat , centos or fedora ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+i suppose you 've tried sending with your anti-virus disabled ? maybe the av is scanning the transmission ?
+what windows version ?
+did you set the connection as `` available to all users '' ?
+did you set the connection as `` available to all users '' ?
+did you set the connection as `` available to all users '' ?
+what windows version ?
+did you set the connection as `` available to all users '' ?
+what os ?
+what motherboard are you using and in which slots exactly are cards ( including the network card ) located ?
+what os ?
+what os ?
+what os ?
+what motherboard are you using and in which slots exactly are cards ( including the network card ) located ?
+windows 7 recovery ?
+do you have the latest bios installed ?
+what filesystem issues do you still have ? did n't `` chkdsk /f '' fix the reported errors ?
+i 've seen account issues cause something similar . it was a permissions issue , try another account ?
+windows 7 recovery ?
+windows 7 recovery ?
+do you know how to use vba ?
+which version of excel are you using ?
+do you know how to use vba ?
+do you know how to use vba ?
+do you know how to use vba ?
+which version of excel are you using ?
+is this dual boot or a virtual machine ?
+which version of windows 7 are you using ?
+which version of windows 7 are you using ?
+is this dual boot or a virtual machine ?
+is this dual boot or a virtual machine ?
+is this dual boot or a virtual machine ?
+are you referring to the graphical ( gui ) guest login ? or some other services like http ?
+are you testing from inside your network , or externally ?
+are you testing from inside your network , or externally ?
+are you testing from inside your network , or externally ?
+are you referring to the graphical ( gui ) guest login ? or some other services like http ?
+are you testing from inside your network , or externally ?
+can you pull up your /var/log/syslog and /var/log/auth.log from the server ?
+could you please add log messages from the ssh server ?
+what distribution are you running on the server ?
+can you pull up your /var/log/syslog and /var/log/auth.log from the server ?
+what distribution are you running on the server ?
+can you pull up your /var/log/syslog and /var/log/auth.log from the server ?
+do you have a wireless mouse ?
+what kind of mouse/keyboard ? usb cable , usb wireless ?
+out of sheer curiosity , can you check the optical outlet on the bottom of the mouse ?
+are we talking about a usb or ps2 mouse ?
+what kind of mouse/keyboard ? usb cable , usb wireless ?
+do you have a wireless mouse ?
+how large is the `..\wbem\logs` directory ?
+do you have any backup software installed ?
+how large is the `..\wbem\logs` directory ?
+do you have any backup software installed ?
+how large is the `..\wbem\logs` directory ?
+do you have any backup software installed ?
+from the screenshot i gather you are on mac os x ?
+from the screenshot i gather you are on mac os x ?
+from the screenshot i gather you are on mac os x ?
+from the screenshot i gather you are on mac os x ?
+from the screenshot i gather you are on mac os x ?
+from the screenshot i gather you are on mac os x ?
+what does `which sudo` get you on the machine , both in the working and non-working states ?
+are you sure you are not mixing su and sudo ?
+did you mess with your path previously and maybe put them in the wrong order ?
+what does `which sudo` get you on the machine , both in the working and non-working states ?
+did you mess with your path previously and maybe put them in the wrong order ?
+did you mess with your path previously and maybe put them in the wrong order ?
+which column needs to be rounded before summing ? h ?
+can you add more details , maybe also with an image ?
+which column needs to be rounded before summing ? h ?
+which column needs to be rounded before summing ? h ?
+which column needs to be rounded before summing ? h ?
+can you add more details , maybe also with an image ?
+do you prefer it like a row or like a form for data entry ?
+do you prefer it like a row or like a form for data entry ?
+do you prefer it like a row or like a form for data entry ?
+do you prefer it like a row or like a form for data entry ?
+do you prefer it like a row or like a form for data entry ?
+do you prefer it like a row or like a form for data entry ?
+... and your sure both your eclipse and jdk 's are the 64 bit versions ?
+are you running a 64-bit system , with eclipse running as 32-bit ?
+how much ram do you have in your system ?
+could it be that some security/firewall/antivirus software is getting triggered ?
+are you running a 64-bit system , with eclipse running as 32-bit ?
+how much ram do you have in your system ?
+what does `ssh -v` show ?
+what shows up in the server sshd logs ?
+what shows up in the server sshd logs ?
+what shows up in the server sshd logs ?
+what does `ssh -v` show ?
+what does `ssh -v` show ?
+do you use an ad blocker , like adblock plus ?
+do you use an ad blocker , like adblock plus ?
+do you use an ad blocker , like adblock plus ?
+do you use an ad blocker , like adblock plus ?
+do you use an ad blocker , like adblock plus ?
+do you use an ad blocker , like adblock plus ?
+do you have proper drivers for your wireless nic installed ?
+can you see non ad-hoc networks ?
+can you see non ad-hoc networks ?
+can you see non ad-hoc networks ?
+can you see non ad-hoc networks ?
+can you see non ad-hoc networks ?
+can you clarify if you 're using xbox 360 , or xbox one ?
+i assume you have tried 2 at a time first right ?
+i assume you have tried 2 at a time first right ?
+can you clarify if you 're using xbox 360 , or xbox one ?
+can you clarify if you 're using xbox 360 , or xbox one ?
+can you clarify if you 're using xbox 360 , or xbox one ?
+what type of raid exactly ?
+is this software or hardware raid ?
+what raid controller do you have ? also what distribution of linux ?
+what raid controller do you have ? also what distribution of linux ?
+what raid controller do you have ? also what distribution of linux ?
+is this software or hardware raid ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+calculate the sha1sums for both sets of files and then diff the chucksums ?
+are both versions 32-bit installations on 64-bit operating systems ?
+are both versions 32-bit installations on 64-bit operating systems ?
+are both versions 32-bit installations on 64-bit operating systems ?
+are both versions 32-bit installations on 64-bit operating systems ?
+are both versions 32-bit installations on 64-bit operating systems ?
+are both versions 32-bit installations on 64-bit operating systems ?
+hide the vpn ip address from whom ?
+what vps technology is the host using ?
+what operating system do you run on your home pc ?
+what vps technology is the host using ?
+what operating system do you run on your home pc ?
+hide the vpn ip address from whom ?
+i 'm not familiar with what ntb stands for ? netbook ?
+did you already reset the router ? and are all devices configured for dhcp ?
+i 'm not familiar with what ntb stands for ? netbook ?
+i 'm not familiar with what ntb stands for ? netbook ?
+did you already reset the router ? and are all devices configured for dhcp ?
+did you already reset the router ? and are all devices configured for dhcp ?
+is the hyphen also underlined for the correct answer ?
+can you please add a screen-shot to illustrate ?
+can you please add a screen-shot to illustrate ?
+can you please add a screen-shot to illustrate ?
+can you please add a screen-shot to illustrate ?
+can you please add a screen-shot to illustrate ?
+does the user `administrator` even exist ?
+are you able to connect using remote desktop from the other windows 8 machine ?
+does the user `administrator` even exist ?
+does the user `administrator` even exist ?
+does the user `administrator` even exist ?
+are you able to connect using remote desktop from the other windows 8 machine ?
+is there another service that it relies on that is not starting/failing ?
+is there another service that it relies on that is not starting/failing ?
+is there another service that it relies on that is not starting/failing ?
+is there another service that it relies on that is not starting/failing ?
+is there another service that it relies on that is not starting/failing ?
+is there another service that it relies on that is not starting/failing ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+is program.exe able to successfully run invoice.exe when the nas is not involved ?
+by chance , can you share with us what version of outlook you are using ?
+what type of mail server are you using ? why would you need to do this in the clients ?
+what type of mail server are you using ? why would you need to do this in the clients ?
+what type of mail server are you using ? why would you need to do this in the clients ?
+what type of mail server are you using ? why would you need to do this in the clients ?
+what type of mail server are you using ? why would you need to do this in the clients ?
+are you scrolling with a scroll wheel , or by grabbing and dragging the scroll bars ?
+do other mice ( mouses ? ) do this too ? how old is the mouse in question ?
+are you scrolling with a scroll wheel , or by grabbing and dragging the scroll bars ?
+do other mice ( mouses ? ) do this too ? how old is the mouse in question ?
+are you scrolling with a scroll wheel , or by grabbing and dragging the scroll bars ?
+are you scrolling with a scroll wheel , or by grabbing and dragging the scroll bars ?
+why not keep it nat and just forward ports ?
+how is the guest connected to the world ? bridge , nat , host-only ?
+how is the guest connected to the world ? bridge , nat , host-only ?
+how is the guest connected to the world ? bridge , nat , host-only ?
+how is the guest connected to the world ? bridge , nat , host-only ?
+why not keep it nat and just forward ports ?
+could you post dmesg output right after it hang ?
+can you show the output of the commands you tried ?
+could you post dmesg output right after it hang ?
+could you post dmesg output right after it hang ?
+can you show the output of the commands you tried ?
+could you post dmesg output right after it hang ?
+operating system ? what is `` the program '' ?
+operating system ? what is `` the program '' ?
+operating system ? what is `` the program '' ?
+operating system ? what is `` the program '' ?
+operating system ? what is `` the program '' ?
+operating system ? what is `` the program '' ?
+how are you copying the files ? finder ? command line ?
+did you check the permissions on the volume ?
+did you check the permissions on the volume ?
+how are you copying the files ? finder ? command line ?
+how are you copying the files ? finder ? command line ?
+how are you copying the files ? finder ? command line ?
+what does `rm -r dir` run as admin ?
+are they still there after a reboot ?
+does restarting help ?
+are they still there after a reboot ?
+does restarting help ?
+what does `rm -r dir` run as admin ?
+are your raw data strings ?
+can you add more details , maybe also with an image ?
+can you add more details , maybe also with an image ?
+can you add more details , maybe also with an image ?
+are your raw data strings ?
+can you add more details , maybe also with an image ?
+can you check to which groups your user belongs on the different systems ?
+can you check to which groups your user belongs on the different systems ?
+can you check to which groups your user belongs on the different systems ?
+can you check to which groups your user belongs on the different systems ?
+can you check to which groups your user belongs on the different systems ?
+can you check to which groups your user belongs on the different systems ?
+are they on the same domain or workgroup ?
+are they on the same domain or workgroup ?
+are they on the same domain or workgroup ?
+are they on the same domain or workgroup ?
+are they on the same domain or workgroup ?
+are they on the same domain or workgroup ?
+what leads you to believe you can not get windows 10 ?
+what is your specific question ?
+what leads you to believe you can not get windows 10 ?
+what leads you to believe you can not get windows 10 ?
+what leads you to believe you can not get windows 10 ?
+what leads you to believe you can not get windows 10 ?
+sounds like it was working with the original drivers . did you configure the applications ' audio output ?
+are you using windows default audio drivers ?
+speakers or headset ?
+speakers or headset ?
+sounds like it was working with the original drivers . did you configure the applications ' audio output ?
+sounds like it was working with the original drivers . did you configure the applications ' audio output ?
+what operating systems are you intending to install ? just windows 7 ?
+what operating systems are you intending to install ? just windows 7 ?
+what operating systems are you intending to install ? just windows 7 ?
+what operating systems are you intending to install ? just windows 7 ?
+what operating systems are you intending to install ? just windows 7 ?
+what operating systems are you intending to install ? just windows 7 ?
+because of a radius how is an authentication standard to blame for your problems ?
+did you recently update the bios ?
+use a different motherboard ?
+because of a radius how is an authentication standard to blame for your problems ?
+did you recently update the bios ?
+because of a radius how is an authentication standard to blame for your problems ?
+is this computer added do a domain ? do you have network drives mapped ?
+does this happen in 'safe ' mode ?
+do you have administration rights to change settings ?
+do you have administration rights to change settings ?
+do you have administration rights to change settings ?
+does this happen in 'safe ' mode ?
+define usage . do you mean bandwidth usage or sites visited ?
+you are not able to set bandwidth in the wifi hotspot configuration ?
+you are not able to set bandwidth in the wifi hotspot configuration ?
+you are not able to set bandwidth in the wifi hotspot configuration ?
+you are not able to set bandwidth in the wifi hotspot configuration ?
+you are not able to set bandwidth in the wifi hotspot configuration ?
+`i 've tried doing the install already a few times , really need some steps.` what exactly happened ?
+was the windows booting by legacy or uefi ?
+was the windows booting by legacy or uefi ?
+was the windows booting by legacy or uefi ?
+`i 've tried doing the install already a few times , really need some steps.` what exactly happened ?
+`i 've tried doing the install already a few times , really need some steps.` what exactly happened ?
+if you go into system preferences - > keyboard shortcuts , are the hotkeys under mission control correctly assigned ?
+are you sure these are additional desktops , and not full-screen applications ?
+are you sure these are additional desktops , and not full-screen applications ?
+are you sure these are additional desktops , and not full-screen applications ?
+are you sure these are additional desktops , and not full-screen applications ?
+if you go into system preferences - > keyboard shortcuts , are the hotkeys under mission control correctly assigned ?
+could you please be more precise about the contents of `.bash_profile` ?
+probably something in your shell configuration ( part of ps1 or via prompt_command ?
+probably something in your shell configuration ( part of ps1 or via prompt_command ?
+probably something in your shell configuration ( part of ps1 or via prompt_command ?
+could you please be more precise about the contents of `.bash_profile` ?
+probably something in your shell configuration ( part of ps1 or via prompt_command ?
+are you getting any different color lights on the adapter when this occurs ?
+are you getting any different color lights on the adapter when this occurs ?
+are you getting any different color lights on the adapter when this occurs ?
+are you getting any different color lights on the adapter when this occurs ?
+are you getting any different color lights on the adapter when this occurs ?
+are you getting any different color lights on the adapter when this occurs ?
+is it still available under `/dev/sdc` ?
+where did the sd card come from ? a camera or a phone ?
+is it still available under `/dev/sdc` ?
+where did the sd card come from ? a camera or a phone ?
+where did the sd card come from ? a camera or a phone ?
+is it still available under `/dev/sdc` ?
+at home or at work ? do you use a proxy server between ie and the internet ?
+are you going through a proxy ?
+at home or at work ? do you use a proxy server between ie and the internet ?
+at home or at work ? do you use a proxy server between ie and the internet ?
+at home or at work ? do you use a proxy server between ie and the internet ?
+at home or at work ? do you use a proxy server between ie and the internet ?
+how did you create the usb drive ?
+what is the file system of the usb stick ?
+what is the file system of the usb stick ?
+how did you create the usb drive ?
+what is the file system of the usb stick ?
+how did you create the usb drive ?
+what does it mean when the same date appears more than once ?
+what is the format of the exported data ? is it csv or xlsx ?
+what is the format of the exported data ? is it csv or xlsx ?
+what does it mean when the same date appears more than once ?
+what does it mean when the same date appears more than once ?
+what is the format of the exported data ? is it csv or xlsx ?
+what is in /tmp/alsa-driver-linuxant.3139.log ?
+what 's the output of 'apt-get check ' ?
+what is in /tmp/alsa-driver-linuxant.3139.log ?
+what 's the output of 'apt-get check ' ?
+what 's the output of 'apt-get check ' ?
+what is in /tmp/alsa-driver-linuxant.3139.log ?
+are you still going to need to connect to people running skype ?
+what are the problems you find with skype ?
+do you have the latest version of skype ?
+what are the problems you find with skype ?
+do you have the latest version of skype ?
+do you have the latest version of skype ?
+can you post a screenshot of what you meant exactly ?
+when in this full screen mode , does the start menu show up when you press the **windows** key ?
+can you post a screenshot of what you meant exactly ?
+can you post a screenshot of what you meant exactly ?
+can you post a screenshot of what you meant exactly ?
+can you post a screenshot of what you meant exactly ?
+before you do something like a recovery , what is the problem with your current system ?
+are you sure there is n't a recovery media creator ?
+are you sure there is n't a recovery media creator ?
+are you sure there is n't a recovery media creator ?
+are you sure there is n't a recovery media creator ?
+are you sure there is n't a recovery media creator ?
+what app are you seeing this issue in ?
+in what program is this happening ?
+when you upgraded your drivers , did you also select to install/update the `` amd hdmi audio drivers '' ?
+when you upgraded your drivers , did you also select to install/update the `` amd hdmi audio drivers '' ?
+in what program is this happening ?
+when you upgraded your drivers , did you also select to install/update the `` amd hdmi audio drivers '' ?
+could the fan blades be hitting a cable ?
+are you absolutely certain that it is not incorrectly oriented ?
+could the fan blades be hitting a cable ?
+are you absolutely certain that it is not incorrectly oriented ?
+are you absolutely certain that it is not incorrectly oriented ?
+are you absolutely certain that it is not incorrectly oriented ?
+do you have any other drives plugged in ?
+will any other os install without the partition error ?
+do you have any other drives plugged in ?
+do you have any other drives plugged in ?
+will any other os install without the partition error ?
+do you have any other drives plugged in ?
+what version of outlook are you on ? windows or mac ?
+does he have the conversations feature turned on in outlook ?
+what format is the mail you 're sending ?
+what format is the mail you 're sending ?
+does he have the conversations feature turned on in outlook ?
+does he have the conversations feature turned on in outlook ?
+can you ping the devices by ip successfully ?
+can you please describe your problem better ?
+can you please describe your problem better ?
+can you please describe your problem better ?
+can you please describe your problem better ?
+can you please describe your problem better ?
+is `` file and printer sharing for microsoft networks '' installed under the network adapter ?
+what are your sharing settings set to ?
+is `` file and printer sharing for microsoft networks '' installed under the network adapter ?
+what are your sharing settings set to ?
+is `` file and printer sharing for microsoft networks '' installed under the network adapter ?
+what are your sharing settings set to ?
+what does the service manual say ?
+why did n't you ask the warranty department ?
+can you post a photo ?
+32-bit windows or 64-bit ?
+what does the service manual say ?
+32-bit windows or 64-bit ?
+what action do you want the rule to take ?
+what action do you want the rule to take ?
+what action do you want the rule to take ?
+what action do you want the rule to take ?
+what action do you want the rule to take ?
+what action do you want the rule to take ?
+which version ? also , what link are you talking about ?
+do you have a restore point from before you installed the shell hack ?
+do you have a restore point from before you installed the shell hack ?
+which version ? also , what link are you talking about ?
+which version ? also , what link are you talking about ?
+do you have a restore point from before you installed the shell hack ?
+which windows version ?
+you could run an android emulator ?
+are you using win8.1 or win7 ?
+you could run an android emulator ?
+which windows version ?
+are you using win8.1 or win7 ?
+what rules are running on the folder ?
+how long are you waiting between checking ?
+are all these folder within the inbox itself ? what are the auto-archive settings for these folders ?
+are all these folder within the inbox itself ? what are the auto-archive settings for these folders ?
+how long are you waiting between checking ?
+how long are you waiting between checking ?
+is your image of the disk or the partition ?
+are you looking for more of a command-line tool , or a gui 'd one ?
+is your image of the disk or the partition ?
+is your image of the disk or the partition ?
+is your image of the disk or the partition ?
+is your image of the disk or the partition ?
+you mean `` physically '' remove the router ?
+can you add what router model and what kind and model of modem you have ?
+when wired , are you seeing packet loss when you try to ping the router ?
+can you add what router model and what kind and model of modem you have ?
+when wired , are you seeing packet loss when you try to ping the router ?
+when wired , are you seeing packet loss when you try to ping the router ?
+do you want to use only awk , or are other commands allowed as well ?
+do you want to use only awk , or are other commands allowed as well ?
+do you want to use only awk , or are other commands allowed as well ?
+do you want to use only awk , or are other commands allowed as well ?
+do you want to use only awk , or are other commands allowed as well ?
+do you want to use only awk , or are other commands allowed as well ?
+any chance you could tell us what exactly you installed or did as advised by the signal king website ?
+should we assume that other computers you have work well with the same wifi hotspot ?
+please elaborate on `` does n't work '' . what specific errors are you getting ?
+should we assume that other computers you have work well with the same wifi hotspot ?
+should we assume that other computers you have work well with the same wifi hotspot ?
+should we assume that other computers you have work well with the same wifi hotspot ?
+what error are you getting when trying to connect manually ?
+so are both accounts named administrator and do they share a password ?
+so are both accounts named administrator and do they share a password ?
+what error are you getting when trying to connect manually ?
+so are both accounts named administrator and do they share a password ?
+so are both accounts named administrator and do they share a password ?
+does this happen while in safe mode ?
+had you installed any new apps when the problem started ?
+why do you suspect usb devices and wi-fi adapters ? are your drivers up to date ?
+why do you suspect usb devices and wi-fi adapters ? are your drivers up to date ?
+does this happen while in safe mode ?
+does this happen while in safe mode ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+are you looking to program a solution or intending to find an existing solution within the crm product ?
+what is the output of `cpuid -i` ?
+what do `uname -a` and `lscpu` output ?
+what is the output of `cpuid -i` ?
+what is the output of `cpuid -i` ?
+what is the output of `cpuid -i` ?
+what do `uname -a` and `lscpu` output ?
+can you take snapshots of the tcp/ip settings of both local adapters ?
+do you run into the issue if the etherent interface is disabled when you set the wireless static ?
+what is the subnet of the wifi network ?
+can you take snapshots of the tcp/ip settings of both local adapters ?
+can you take snapshots of the tcp/ip settings of both local adapters ?
+can you take snapshots of the tcp/ip settings of both local adapters ?
+does not it have built-in player ?
+does vlc from videolan.org play the file ?
+how are you playing the files ? locally ? from a media server ?
+does not it have built-in player ?
+how are you playing the files ? locally ? from a media server ?
+does vlc from videolan.org play the file ?
+what are these areas that you talk about ? is it a table ?
+does shift+enter ( when the cursor is a the end of the first table ) works ?
+can you give us a picture ?
+what are these areas that you talk about ? is it a table ?
+what are these areas that you talk about ? is it a table ?
+does shift+enter ( when the cursor is a the end of the first table ) works ?
+what addresses do you use to access your linksys router and your motorola modem ?
+just to verify , when you ping google.com does it actually reach an external ip ?
+what addresses do you use to access your linksys router and your motorola modem ?
+what addresses do you use to access your linksys router and your motorola modem ?
+just to verify , when you ping google.com does it actually reach an external ip ?
+just to verify , when you ping google.com does it actually reach an external ip ?
+did you originally password protect your passwords ?
+are you signed into chrome ?
+you copied the user profile for chrome ?
+you copied the user profile for chrome ?
+you copied the user profile for chrome ?
+are you signed into chrome ?
+what data transfer rate are you getting when you test between the dvd drive and the motherboard ?
+does it work in other players ? is it a pirated dvd ?
+are you certain the new disks are dvd , or is it possible they are bluray or hd-dvd ?
+any compelling reason you do n't just temporarily copy the files to your laptop ?
+are you certain the new disks are dvd , or is it possible they are bluray or hd-dvd ?
+are you certain the new disks are dvd , or is it possible they are bluray or hd-dvd ?
+do n't you need to use backslashes instead if it is local ?
+which method are you using for drive mapping ?
+do n't you need to use backslashes instead if it is local ?
+which method are you using for drive mapping ?
+do n't you need to use backslashes instead if it is local ?
+which method are you using for drive mapping ?
+how are you trying to print characters ?
+check system log ( `dmesg` ) and cups log ( ?
+are you using the official drivers ? or are you just letting the mac figure it out by itself ?
+more information would be nice . what printer ? how is it connected ?
+check system log ( `dmesg` ) and cups log ( ?
+how are you trying to print characters ?
+any example ? which scripts are you running and where ?
+any example ? which scripts are you running and where ?
+any example ? which scripts are you running and where ?
+any example ? which scripts are you running and where ?
+any example ? which scripts are you running and where ?
+any example ? which scripts are you running and where ?
+why do you attribute this performance loss to the ssd rather than to , say , the cpu ?
+what does resource monitor show is actually using the drive ?
+what does resource monitor show is actually using the drive ?
+why do you attribute this performance loss to the ssd rather than to , say , the cpu ?
+why do you attribute this performance loss to the ssd rather than to , say , the cpu ?
+what does resource monitor show is actually using the drive ?
+what do you *expect* ` % outputfile % ` to look like ?
+what do you *expect* ` % outputfile % ` to look like ?
+what do you *expect* ` % outputfile % ` to look like ?
+what do you *expect* ` % outputfile % ` to look like ?
+what do you *expect* ` % outputfile % ` to look like ?
+what do you *expect* ` % outputfile % ` to look like ?
+what issue you are facing ?
+what issue you are facing ?
+what issue you are facing ?
+what issue you are facing ?
+what issue you are facing ?
+what issue you are facing ?
+can you provide a full screenshot of task manager 's performance tab while you 're running the stress test ?
+if task manager shows 100 % , which process is it associated with ?
+can you provide a full screenshot of task manager 's performance tab while you 're running the stress test ?
+if task manager shows 100 % , which process is it associated with ?
+if task manager shows 100 % , which process is it associated with ?
+if task manager shows 100 % , which process is it associated with ?
+should n't you be ... you know ... working ?
+how exactly are you trying to `` download '' the files ?
+should n't you be ... you know ... working ?
+how exactly are you trying to `` download '' the files ?
+how exactly are you trying to `` download '' the files ?
+should n't you be ... you know ... working ?
+may i ask why you want this ?
+does that package exist in the repository you added ?
+are you okay fully replacing your local version ? or would you like side-by-side install of both ?
+may i ask why you want this ?
+may i ask why you want this ?
+are you okay fully replacing your local version ? or would you like side-by-side install of both ?
+are you allowed to install an sshd on the box ?
+is the box configured to accept connections from any version of the remote desktop client ?
+are you allowed to install an sshd on the box ?
+is the box configured to accept connections from any version of the remote desktop client ?
+are you allowed to install an sshd on the box ?
+is the box configured to accept connections from any version of the remote desktop client ?
+if you disconnect the ssd and then boot the windows 7 recovery disc do you get the same error ?
+are you booting in uefi mode ?
+if you disconnect the ssd and then boot the windows 7 recovery disc do you get the same error ?
+are you booting in uefi mode ?
+if you disconnect the ssd and then boot the windows 7 recovery disc do you get the same error ?
+if you disconnect the ssd and then boot the windows 7 recovery disc do you get the same error ?
+can you find the `sudo` binary ?
+are you running this bash script as root user or normal user ?
+can you find the `sudo` binary ?
+are you running this bash script as root user or normal user ?
+are you running this bash script as root user or normal user ?
+are you running this bash script as root user or normal user ?
+can you give us an example one or two of the policies you 're talking about ?
+how did you search for the results ?
+is this computer joined to a domain ?
+how did you search for the results ?
+how did you search for the results ?
+can you give us an example one or two of the policies you 're talking about ?
+what browser ? does it happen with another browser ?
+are you sure the page zoom is 100 % ?
+do you get the same issues when using a different browser ?
+do you get the same issues when using a different browser ?
+do you get the same issues when using a different browser ?
+do you get the same issues when using a different browser ?
+how exactly do you figure that 5-7 % cpu usage is half of a single core ?
+example links ?
+i assume you have the latest drivers ?
+has any further firefox update improved your situation ?
+example links ?
+has any further firefox update improved your situation ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+are you opening this file with the editor ( that is notepad ) opened with admin privileges ?
+you talking about local admin account or domain admin account ?
+are you logged in as `administrator` or just as ***an*** administrator ?
+you talking about local admin account or domain admin account ?
+are you logged in as `administrator` or just as ***an*** administrator ?
+are you logged in as `administrator` or just as ***an*** administrator ?
+are you logged in as `administrator` or just as ***an*** administrator ?
+it is a local git repository ? if local on which type of disk ?
+create a script with both , save it and run it when you need to sync ?
+create a script with both , save it and run it when you need to sync ?
+create a script with both , save it and run it when you need to sync ?
+create a script with both , save it and run it when you need to sync ?
+create a script with both , save it and run it when you need to sync ?
+also , does `ifconfig -a` display more than just `lo` ?
+are there blinking lights on the nic ?
+are there blinking lights on the nic ?
+also , does `ifconfig -a` display more than just `lo` ?
+are there blinking lights on the nic ?
+also , does `ifconfig -a` display more than just `lo` ?
+which browser ?
+did you change the dpi settings ?
+which browser ?
+did you change the dpi settings ?
+did you change the dpi settings ?
+did you change the dpi settings ?
+why does it need to be a swf ? a pdf wo n't due ?
+which shell do you have ?
+why does it need to be a swf ? a pdf wo n't due ?
+which shell do you have ?
+which shell do you have ?
+which shell do you have ?
+is there any restore point you created on which your system working properly ?
+is he running this command on the server ?
+is he running this command on the server ?
+is he running this command on the server ?
+is there any restore point you created on which your system working properly ?
+is he running this command on the server ?
+do you happen to have one of those `` minimize to tray '' add-ons enabled ?
+what operating system are you using ?
+which os ?
+does this occur on other browsers on your computer ?
+do you happen to have one of those `` minimize to tray '' add-ons enabled ?
+do you happen to have one of those `` minimize to tray '' add-ons enabled ?
+what `` usb gps '' do you have ?
+what is your hardware ?
+what is your hardware ?
+what is your hardware ?
+what `` usb gps '' do you have ?
+what is your hardware ?
+do your other phone outlets work as phone lines ?
+does the modem hang when dsl goes down ? or vice versa ?
+and the type ( model , manufacturer ) of the coax modem is ?
+and the type ( model , manufacturer ) of the coax modem is ?
+and the type ( model , manufacturer ) of the coax modem is ?
+does the modem hang when dsl goes down ? or vice versa ?
+does this help you : ` -- rsync-path= '' sudo rsync '' ` ?
+when you ssh to the remote server are you doing it as root ?
+what 's the permission for /root itself ?
+does this help you : ` -- rsync-path= '' sudo rsync '' ` ?
+does this help you : ` -- rsync-path= '' sudo rsync '' ` ?
+when you ssh to the remote server are you doing it as root ?
+did you check the partitions in the `` disk management '' tool of windows 7 ?
+how did you remove the partition ?
+is it really not an option to backup your data and format your drive ?
+how big is the drive , and do you remember the partition layout before you messed it up ?
+how big is the drive , and do you remember the partition layout before you messed it up ?
+did you check the partitions in the `` disk management '' tool of windows 7 ?
+do you want to re-download . it 's already exist there right ?
+do you have an example of a filename that it does that for ?
+do you want to re-download . it 's already exist there right ?
+do you have an example of a filename that it does that for ?
+do you want to re-download . it 's already exist there right ?
+do you have an example of a filename that it does that for ?
+can you attach a screenshot of disk management in windows ?
+is disk gpt style or mbr style ?
+can you get to the grub screen when turn the computer on ?
+can you get to the grub screen when turn the computer on ?
+is disk gpt style or mbr style ?
+is disk gpt style or mbr style ?
+which `` capture card '' do you have ?
+model number would be helpful . did you go to the manufacturer 's site to look for drivers ?
+what brand is your machine , is it a laptop ? model no ?
+do other external cards have problems ?
+model number would be helpful . did you go to the manufacturer 's site to look for drivers ?
+which `` capture card '' do you have ?
+you mean edge or internet explorer ?
+you mean edge or internet explorer ?
+you mean edge or internet explorer ?
+you mean edge or internet explorer ?
+you mean edge or internet explorer ?
+you mean edge or internet explorer ?
+why would the mac be *too slow to format a hard drive* ?
+are you open for format conversion using free/commercial programs in case it 's not possible ?
+are you open for format conversion using free/commercial programs in case it 's not possible ?
+why would the mac be *too slow to format a hard drive* ?
+why would the mac be *too slow to format a hard drive* ?
+why would the mac be *too slow to format a hard drive* ?
+what type of account do you use ( pop3/imap/hotmail/exchange/ ... ) ?
+and which e-mail product are you using , i.e . where is this inbox ?
+and which e-mail product are you using , i.e . where is this inbox ?
+and which e-mail product are you using , i.e . where is this inbox ?
+what type of account do you use ( pop3/imap/hotmail/exchange/ ... ) ?
+what type of account do you use ( pop3/imap/hotmail/exchange/ ... ) ?
+does disconnecting the xp drive render the system unbootable ?
+did you run a `chkdsk` to see what it says ?
+why not use the gui interface of windows setup to delete and create partitions ?
+why not use the gui interface of windows setup to delete and create partitions ?
+does disconnecting the xp drive render the system unbootable ?
+why not use the gui interface of windows setup to delete and create partitions ?
+how often did you hear clicks ?
+how often did you hear clicks ?
+how often did you hear clicks ?
+how often did you hear clicks ?
+how often did you hear clicks ?
+how often did you hear clicks ?
+can you show the output of `systemctl status rfkill-unblock @ all.service` ?
+when this happens again , can you pls post the content of /etc/network/interfaces ?
+can you show the output of `systemctl status rfkill-unblock @ all.service` ?
+when this happens again , can you pls post the content of /etc/network/interfaces ?
+when this happens again , can you pls post the content of /etc/network/interfaces ?
+when this happens again , can you pls post the content of /etc/network/interfaces ?
+is the `home` environment variable set correctly ?
+are you sure running it manually uses that particular key ?
+is the `home` environment variable set correctly ?
+are you sure running it manually uses that particular key ?
+are you sure running it manually uses that particular key ?
+are you sure running it manually uses that particular key ?
+what do you mean by `` return all cells '' ? what should the output look like ?
+where would each output go ?
+are you entering it as an array formula ?
+are you entering it as an array formula ?
+what do you mean by `` return all cells '' ? what should the output look like ?
+where would each output go ?
+do you have any add-ons that might affect it ?
+what browser are you using ? what os ? what other add ons do you have ?
+do you have any add-ons that might affect it ?
+what browser are you using ? what os ? what other add ons do you have ?
+what browser are you using ? what os ? what other add ons do you have ?
+do you have any add-ons that might affect it ?
+is there a fixed path for your output ? is there only one table per sheet ?
+can you share the excel file ?
+is there a fixed path for your output ? is there only one table per sheet ?
+can you share the excel file ?
+can you share the excel file ?
+can you share the excel file ?
+what 's in those emails ? any links ?
+do you run your own mail servers ?
+what 's in those emails ? any links ?
+do you run your own mail servers ?
+do you run your own mail servers ?
+what 's in those emails ? any links ?
+what software are you printing from ?
+what software are you printing from ?
+what software are you printing from ?
+what software are you printing from ?
+what software are you printing from ?
+what software are you printing from ?
+is n't this what source control is for ?
+is this folder served with nfs , smb or something else ?
+are you using ads ? which version of samba ?
+is this folder served with nfs , smb or something else ?
+is this folder served with nfs , smb or something else ?
+is this folder served with nfs , smb or something else ?
+what sort of file ? plain text ?
+any particular document type , or do you want a print driver ?
+what kind of files are they ?
+what kind of files are they ?
+what sort of file ? plain text ?
+what kind of files are they ?
+can you go into command prompt and type `del *-1.jpg` ?
+can you go into command prompt and type `del *-1.jpg` ?
+can you go into command prompt and type `del *-1.jpg` ?
+can you go into command prompt and type `del *-1.jpg` ?
+can you go into command prompt and type `del *-1.jpg` ?
+can you go into command prompt and type `del *-1.jpg` ?
+if you ping the ubuntu box , do you get a response ?
+are you sure ssh is not blocked on your end ?
+what runlevel are you using ? are you sure you have networking at all ?
+if you ping the ubuntu box , do you get a response ?
+what runlevel are you using ? are you sure you have networking at all ?
+if you ping the ubuntu box , do you get a response ?
+perhaps a cached route somewhere ?
+what vpn server ? what mode is it set to ?
+what vpn server ? what mode is it set to ?
+perhaps a cached route somewhere ?
+what vpn server ? what mode is it set to ?
+perhaps a cached route somewhere ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+`ethtool -s p33p1 autoneg off speed 1000 duplex full` does n't set it to gb ?
+how much ram is available to the machine ?
+what about `find` and a `for` loop to target each directory ?
+what about `find` and a `for` loop to target each directory ?
+how much ram is available to the machine ?
+what about `find` and a `for` loop to target each directory ?
+how much ram is available to the machine ?
+what plugins do you have enabled ?
+do you have symbols loaded for everything ?
+do you have symbols loaded for everything ?
+do you have symbols loaded for everything ?
+do you have symbols loaded for everything ?
+do you have symbols loaded for everything ?
+does the printer show up as unknown usb device in the device manager ?
+do you have any other usb 3.0 devices you can try ?
+does the printer show up as unknown usb device in the device manager ?
+does the printer show up as unknown usb device in the device manager ?
+does the printer show up as unknown usb device in the device manager ?
+does the printer show up as unknown usb device in the device manager ?
+a picture might help - is those sort of feathery/fernish looking ?
+what kind of connection are you using between the monitor and computer ? vga , dvi , hdmi ?
+is your screen calibrated correctly ?
+is your screen calibrated correctly ?
+what kind of connection are you using between the monitor and computer ? vga , dvi , hdmi ?
+what kind of connection are you using between the monitor and computer ? vga , dvi , hdmi ?
+are you referring to actual dos , or the windows command line ?
+what os are you using ? i guess it is a flavor of windows but which one ?
+what os are you using ? i guess it is a flavor of windows but which one ?
+are you referring to actual dos , or the windows command line ?
+what os are you using ? i guess it is a flavor of windows but which one ?
+what os are you using ? i guess it is a flavor of windows but which one ?
+is the video a direct screen capture , or a camera recording ?
+is the video a direct screen capture , or a camera recording ?
+is the video a direct screen capture , or a camera recording ?
+is the video a direct screen capture , or a camera recording ?
+is the video a direct screen capture , or a camera recording ?
+is the video a direct screen capture , or a camera recording ?
+what tool are you using ? ( sed , perl , awk , something else ?
+what operating system are you using ?
+what tool are you using ? ( sed , perl , awk , something else ?
+what tool are you using ? ( sed , perl , awk , something else ?
+what tool are you using ? ( sed , perl , awk , something else ?
+what tool are you using ? ( sed , perl , awk , something else ?
+why do n't you just record the input first and apply an effect afterwards ?
+why do n't you just record the input first and apply an effect afterwards ?
+why do n't you just record the input first and apply an effect afterwards ?
+why do n't you just record the input first and apply an effect afterwards ?
+why do n't you just record the input first and apply an effect afterwards ?
+why do n't you just record the input first and apply an effect afterwards ?
+180 euros ?
+any reason you ca n't just call whoever administers the server and ask them ?
+any reason you ca n't just call whoever administers the server and ask them ?
+180 euros ?
+any reason you ca n't just call whoever administers the server and ask them ?
+180 euros ?
+would it be a solution if you run those drivers in compatible mode ?
+what brand is your machine , is it a laptop ? model no ?
+what brand is your machine , is it a laptop ? model no ?
+would it be a solution if you run those drivers in compatible mode ?
+what brand is your machine , is it a laptop ? model no ?
+would it be a solution if you run those drivers in compatible mode ?
+can you please confirm whether these machines are all on a windows domain or are they all stand-alone ?
+what login are you entering ? does it belong to the windows vista machine as a local account ?
+are all the computers running windows 7 ? what firewall ? can you connect using `net use` ?
+can you please confirm whether these machines are all on a windows domain or are they all stand-alone ?
+what login are you entering ? does it belong to the windows vista machine as a local account ?
+can you please confirm whether these machines are all on a windows domain or are they all stand-alone ?
+are you with 32bit or 64bit version ?
+are you with 32bit or 64bit version ?
+are you with 32bit or 64bit version ?
+are you with 32bit or 64bit version ?
+are you with 32bit or 64bit version ?
+are you with 32bit or 64bit version ?
+any reason you ca n't use an internal network for this ?
+on your linux system , do you have a broadcom wifi card driven by *wl* ?
+any reason you ca n't use an internal network for this ?
+on your linux system , do you have a broadcom wifi card driven by *wl* ?
+on your linux system , do you have a broadcom wifi card driven by *wl* ?
+any reason you ca n't use an internal network for this ?
+what 's your operating system ?
+tried to clean system restore ?
+your sector sizes are n't an issue . what does `sgdisk -v /dev/sdd` tell you ?
+would powershell be of any use ?
+tried to clean system restore ?
+what 's your operating system ?
+are these regular sd cards or high speed sd cards ?
+could there be a filesystem corruption with the source disk ?
+are the drives in raid ? if so , what level ?
+could there be a filesystem corruption with the source disk ?
+could there be a filesystem corruption with the source disk ?
+could there be a filesystem corruption with the source disk ?
+maybe the runtime switch `-display :0` ?
+maybe the runtime switch `-display :0` ?
+maybe the runtime switch `-display :0` ?
+maybe the runtime switch `-display :0` ?
+maybe the runtime switch `-display :0` ?
+maybe the runtime switch `-display :0` ?
+do you want something similar to windowstogo ?
+you mean you ca n't get to the installer when using usb 3.0 because the disk is not recognized ?
+is boot from usb enabled in the bios ?
+do you want something similar to windowstogo ?
+do you want something similar to windowstogo ?
+you mean you ca n't get to the installer when using usb 3.0 because the disk is not recognized ?
+did you run 'update-alternatives -- config editor ' while you are root ?
+what is the use case ? do you just want to trigger particular `autocmd`s ?
+did you run 'update-alternatives -- config editor ' while you are root ?
+did you run 'update-alternatives -- config editor ' while you are root ?
+did you run 'update-alternatives -- config editor ' while you are root ?
+did you run 'update-alternatives -- config editor ' while you are root ?
+each each line a field ?
+each each line a field ?
+each each line a field ?
+each each line a field ?
+each each line a field ?
+each each line a field ?
+what 's your price range ?
+what do `uname -a` and `lscpu` output ?
+what do `uname -a` and `lscpu` output ?
+what do `uname -a` and `lscpu` output ?
+what do `uname -a` and `lscpu` output ?
+what do `uname -a` and `lscpu` output ?
+can you post what is logged in the windows error log for this problem ?
+any reason not to use far superior 3rd party backup solutions ?
+what is your goal ? - backup your data/files or a complete disk/partition-image ?
+can you post what is logged in the windows error log for this problem ?
+any reason not to use far superior 3rd party backup solutions ?
+can you post what is logged in the windows error log for this problem ?
+is it `.tt` or `.ff` , and what kind of ( supposedly html-like ) file type is that ?
+are you talking about syntax highlighting in vim or styling html ?
+is it `.tt` or `.ff` , and what kind of ( supposedly html-like ) file type is that ?
+is it `.tt` or `.ff` , and what kind of ( supposedly html-like ) file type is that ?
+is it `.tt` or `.ff` , and what kind of ( supposedly html-like ) file type is that ?
+is it `.tt` or `.ff` , and what kind of ( supposedly html-like ) file type is that ?
+is your user local-only ? synced ?
+is your user local-only ? synced ?
+is your user local-only ? synced ?
+is your user local-only ? synced ?
+is your user local-only ? synced ?
+is your user local-only ? synced ?
+do you have an example word document or a screenshot ?
+what 's the source of your images ?
+what 's the source of your images ?
+do you have an example word document or a screenshot ?
+what 's the source of your images ?
+do you have an example word document or a screenshot ?
+does outlook show that mail is forwarded or not ?
+is this an exchange account ?
+does outlook show that mail is forwarded or not ?
+does outlook show that mail is forwarded or not ?
+is this an exchange account ?
+is this an exchange account ?
+what system do you have with multiple cpus that are n't all the same speed ?
+what do `uname -a` and `lscpu` output ?
+what system do you have with multiple cpus that are n't all the same speed ?
+what do `uname -a` and `lscpu` output ?
+what system do you have with multiple cpus that are n't all the same speed ?
+what system do you have with multiple cpus that are n't all the same speed ?
+do you know what temperatures you have during gameplay ? is the gpu overclocked ?
+what is the name of your gpu ?
+what is the name of your gpu ?
+do you know what temperatures you have during gameplay ? is the gpu overclocked ?
+do you know what temperatures you have during gameplay ? is the gpu overclocked ?
+what is the name of your gpu ?
+home , pro , ultimate ? ?
+are you running active directory ?
+home , pro , ultimate ? ?
+are you running active directory ?
+are you running active directory ?
+are you running active directory ?
+administration tool users on the server ?
+what 's the local system using ?
+run as admin maybe ?
+what 's the local system using ?
+administration tool users on the server ?
+what 's the local system using ?
+what happens if you tracert client 1 from client 2 ?
+what type of vpn are you using ?
+which ip address do you get when you connect to the vpn on dc01 ?
+what type of vpn are you using ?
+what happens if you tracert client 1 from client 2 ?
+what happens if you tracert client 1 from client 2 ?
+is your listener running on the winbox ?
+does this only happen when you login using ssh , or also when you login on the console ?
+does this only happen when you login using ssh , or also when you login on the console ?
+does this only happen when you login using ssh , or also when you login on the console ?
+is your listener running on the winbox ?
+does this only happen when you login using ssh , or also when you login on the console ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+does this happen only with this one specific video ? are your graphic card drivers up to date ?
+`` slow '' , compared to what ?
+how many directories deep does this go ?
+`` slow '' , compared to what ?
+`` slow '' , compared to what ?
+`` slow '' , compared to what ?
+`` slow '' , compared to what ?
+they installed 100 updates since fhe problem started ?
+does this happen with newly created projects or only this existing one ?
+they installed 100 updates since fhe problem started ?
+they installed 100 updates since fhe problem started ?
+does this happen with newly created projects or only this existing one ?
+they installed 100 updates since fhe problem started ?
+does win10 have the `` sample rate '' adjustment in sounds playback speaker properties advanced ?
+did this happen with the latest round of windows updates ( march 2015 ) or before ?
+does win10 have the `` sample rate '' adjustment in sounds playback speaker properties advanced ?
+did this happen with the latest round of windows updates ( march 2015 ) or before ?
+does win10 have the `` sample rate '' adjustment in sounds playback speaker properties advanced ?
+did this happen with the latest round of windows updates ( march 2015 ) or before ?
+hmmm ... how about in the system / device manager , try to disable and then enable the device ?
+you see the bars moving ... .are you sure it 's playing to the correct sound device ?
+hmmm ... how about in the system / device manager , try to disable and then enable the device ?
+you see the bars moving ... .are you sure it 's playing to the correct sound device ?
+hmmm ... how about in the system / device manager , try to disable and then enable the device ?
+you see the bars moving ... .are you sure it 's playing to the correct sound device ?
+is this a recurring or one time task ? what version of excel are you using ?
+could you specify the version of office ?
+could you specify the version of office ?
+is this a recurring or one time task ? what version of excel are you using ?
+is this a recurring or one time task ? what version of excel are you using ?
+could you specify the version of office ?
+can you verify that your local ip address is 192.168.1.x ?
+can you ping the devices from your router ?
+can you verify that your local ip address is 192.168.1.x ?
+can you ping the devices from your router ?
+can you verify that your local ip address is 192.168.1.x ?
+can you ping the devices from your router ?
+are you in a domain ? or a lone station ?
+do i correctly assume you 're encountering this problem on a windows 7 machine ?
+do i correctly assume you 're encountering this problem on a windows 7 machine ?
+are you in a domain ? or a lone station ?
+are you in a domain ? or a lone station ?
+do i correctly assume you 're encountering this problem on a windows 7 machine ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+are you sure it 's `oobenchk.exe ` and not `oobechk.exe` ?
+sorry , are you saying when the speakers stop working , the headphones remain working fine ?
+are you using windows default audio drivers ?
+does this issue of the speaker stopping only occur when using windows 8 or any os ?
+sorry , are you saying when the speakers stop working , the headphones remain working fine ?
+sorry , are you saying when the speakers stop working , the headphones remain working fine ?
+sorry , are you saying when the speakers stop working , the headphones remain working fine ?
+what keyboard layouts and language packs do you have installed ?
+what keyboard layouts and language packs do you have installed ?
+what keyboard layouts and language packs do you have installed ?
+what keyboard layouts and language packs do you have installed ?
+what keyboard layouts and language packs do you have installed ?
+what keyboard layouts and language packs do you have installed ?
+what motherboard do you have ?
+what does your mobo 's supported ram have to do with your choice of graphics card ?
+what motherboard do you have ?
+what motherboard do you have ?
+what does your mobo 's supported ram have to do with your choice of graphics card ?
+what motherboard do you have ?
+is every extension doing it or just clearly ?
+what branch ? dev , beta or stable ?
+is every extension doing it or just clearly ?
+is every extension doing it or just clearly ?
+is every extension doing it or just clearly ?
+is every extension doing it or just clearly ?
+maybe a bad power cord ? bad psu ? no current on wall socket ?
+do you have another power supply to test with ?
+maybe a bad power cord ? bad psu ? no current on wall socket ?
+do you have another power supply to test with ?
+do you have another power supply to test with ?
+do you have another power supply to test with ?
+are you accessing these files over a network ? any of these problems on outlook 2007 also ?
+what do you mean by focus ( focus.exe ) exactly ?
+which laptop you are using ?
+what do you mean by focus ( focus.exe ) exactly ?
+what do you mean by focus ( focus.exe ) exactly ?
+which laptop you are using ?
+just out of curiosity is there a reason for this ?
+just out of curiosity is there a reason for this ?
+just out of curiosity is there a reason for this ?
+just out of curiosity is there a reason for this ?
+just out of curiosity is there a reason for this ?
+just out of curiosity is there a reason for this ?
+buy a new keyboard ?
+buy a new keyboard ?
+buy a new keyboard ?
+buy a new keyboard ?
+buy a new keyboard ?
+buy a new keyboard ?
+does the wifi router has dhcp activated itself ?
+does the modem hang when dsl goes down ? or vice versa ?
+what response produce _ping 192.168.0.1_ ?
+does the modem hang when dsl goes down ? or vice versa ?
+does the modem hang when dsl goes down ? or vice versa ?
+does the wifi router has dhcp activated itself ?
+is firefox your default browser ?
+which operating system ?
+which version of firefox ?
+is firefox your default browser ?
+is firefox your default browser ?
+which operating system ?
+are there any strange characters in the file ?
+are there any strange characters in the file ?
+are there any strange characters in the file ?
+are there any strange characters in the file ?
+are there any strange characters in the file ?
+are there any strange characters in the file ?
+this is in no way meant to insult your intelligence but do you have the wlan switch turned on ?
+what driver version do you have ?
+what does ipconfig show ? are you getting dhcp ?
+what does ipconfig show ? are you getting dhcp ?
+what does ipconfig show ? are you getting dhcp ?
+this is in no way meant to insult your intelligence but do you have the wlan switch turned on ?
+are you able to install windows with that cd ?
+are you using efi or bios ? which installation cd image are you using ?
+are you using efi or bios ? which installation cd image are you using ?
+are you using efi or bios ? which installation cd image are you using ?
+are you using efi or bios ? which installation cd image are you using ?
+are you using efi or bios ? which installation cd image are you using ?
+if you set a static ip address does it work ?
+is the os in the vm setup to use dhcp ? can the vm reach the internet currently ?
+if you set a static ip address does it work ?
+is the os in the vm setup to use dhcp ? can the vm reach the internet currently ?
+if you set a static ip address does it work ?
+if you set a static ip address does it work ?
+did you wire the ends of the cable yourself ? if so , what pin-to-pair mapping did you use ?
+you left out something very important : is there a switch or router ? if so , what model/speed ?
+are those cable connectors cat6 , are any components ( wall jacks etc ) not cat6 ?
+are those cable connectors cat6 , are any components ( wall jacks etc ) not cat6 ?
+you left out something very important : is there a switch or router ? if so , what model/speed ?
+you left out something very important : is there a switch or router ? if so , what model/speed ?
+so the rows represent individuals and each individual is in one of 30 groups ?
+what spreadsheet software are you using , on which os ?
+using if or vba ?
+what spreadsheet software are you using , on which os ?
+so the rows represent individuals and each individual is in one of 30 groups ?
+so the rows represent individuals and each individual is in one of 30 groups ?
+is your on-screen keyboard working fine ?
+does keyboard viewer show the key being pressed down when you press it ?
+is your on-screen keyboard working fine ?
+is your on-screen keyboard working fine ?
+is your on-screen keyboard working fine ?
+does keyboard viewer show the key being pressed down when you press it ?
+are we talking real ms-dos or just command-line ?
+why not write a more sophisticated script ( bash/perl/python/ruby/etc ) ?
+what system do you want this to run on ?
+what system do you want this to run on ?
+why not write a more sophisticated script ( bash/perl/python/ruby/etc ) ?
+what system do you want this to run on ?
+did it find anything ? are other browser affected ?
+what virusscanner / firewall do you use ?
+did it find anything ? are other browser affected ?
+did it find anything ? are other browser affected ?
+did it find anything ? are other browser affected ?
+what virusscanner / firewall do you use ?
+do you want a vba for this or a worksheet function ?
+do you want a vba for this or a worksheet function ?
+do you want a vba for this or a worksheet function ?
+do you want a vba for this or a worksheet function ?
+do you want a vba for this or a worksheet function ?
+do you want a vba for this or a worksheet function ?
+is your wireless ip the same subnet as the wired lan ? what your os ?
+how does this printer do its networking ? its own client software , homegroup sharing , etc . ?
+how does this printer do its networking ? its own client software , homegroup sharing , etc . ?
+how does this printer do its networking ? its own client software , homegroup sharing , etc . ?
+is your wireless ip the same subnet as the wired lan ? what your os ?
+is your wireless ip the same subnet as the wired lan ? what your os ?
+any firewall running ?
+what is the routing table on the windows system , once it stops working ?
+any luck disabling any firewalls ?
+whats your ipconfig result ?
+sounds like a routing problem . can you print your routing table , pls ?
+sounds like a routing problem . can you print your routing table , pls ?
+where is the version number supposed to come from ? a tag that is already present in the repository ?
+does `git reflog` still show your previous head ?
+can you show the output of `id` as gitlab ?
+where is the version number supposed to come from ? a tag that is already present in the repository ?
+can you show the output of `id` as gitlab ?
+where is the version number supposed to come from ? a tag that is already present in the repository ?
+what actual practical problem are you experiencing ?
+what actual practical problem are you experiencing ?
+what actual practical problem are you experiencing ?
+what actual practical problem are you experiencing ?
+what actual practical problem are you experiencing ?
+what actual practical problem are you experiencing ?
+do all cables in question have all connectors available ?
+does it charge if you turn it off or when you connect it to another power source ?
+do all cables in question have all connectors available ?
+does it charge if you turn it off or when you connect it to another power source ?
+do all cables in question have all connectors available ?
+does it charge if you turn it off or when you connect it to another power source ?
+what about `ifconfig -a` ?
+are your vms all set for nat ?
+are your vms all set for nat ?
+what about `ifconfig -a` ?
+what about `ifconfig -a` ?
+what about `ifconfig -a` ?
+and in what application are you getting this behaviour ?
+it depends on what text editor you are using . so what text editor are you using ?
+and in what application are you getting this behaviour ?
+and in what application are you getting this behaviour ?
+it depends on what text editor you are using . so what text editor are you using ?
+and in what application are you getting this behaviour ?
+is the 3.0 pendrive detected by 2.0 port ?
+do you have any other usb 3.0 devices you can try ?
+does this usb drive work well under other os like windows or mac ?
+are you connecting it to blue port ?
+are you connecting it to blue port ?
+do you have any other usb 3.0 devices you can try ?
+make a backup before you upgrade itunes ?
+make a backup before you upgrade itunes ?
+make a backup before you upgrade itunes ?
+make a backup before you upgrade itunes ?
+make a backup before you upgrade itunes ?
+make a backup before you upgrade itunes ?
+what 's in `/desktop` now ? all your files plus the original content of `/user/local/bin` ?
+did you mess with your path previously and maybe put them in the wrong order ?
+what 's in `/desktop` now ? all your files plus the original content of `/user/local/bin` ?
+did you mess with your path previously and maybe put them in the wrong order ?
+did you mess with your path previously and maybe put them in the wrong order ?
+did you mess with your path previously and maybe put them in the wrong order ?
+are these machines in a domain ? is distributed file system in use on the machine hosting the share ?
+permissions on the share perhaps ?
+are these machines in a domain ? is distributed file system in use on the machine hosting the share ?
+are these machines in a domain ? is distributed file system in use on the machine hosting the share ?
+permissions on the share perhaps ?
+permissions on the share perhaps ?
+can you add a sample of the text you 're trying this on ?
+can you add a sample of the text you 're trying this on ?
+can you add a sample of the text you 're trying this on ?
+can you add a sample of the text you 're trying this on ?
+can you add a sample of the text you 're trying this on ?
+can you add a sample of the text you 're trying this on ?
+exactly what model of cable modem ?
+this model of cable modem contains its own built in wireless router . why not just use that ?
+this model of cable modem contains its own built in wireless router . why not just use that ?
+this model of cable modem contains its own built in wireless router . why not just use that ?
+this model of cable modem contains its own built in wireless router . why not just use that ?
+exactly what model of cable modem ?
+what layout do your keyboard and your os use ?
+what layout do your keyboard and your os use ?
+what layout do your keyboard and your os use ?
+what layout do your keyboard and your os use ?
+what layout do your keyboard and your os use ?
+what layout do your keyboard and your os use ?
+which os / distribution do you use ?
+are you the owner of .bash_history or root ?
+which os / distribution do you use ?
+which os / distribution do you use ?
+are you the owner of .bash_history or root ?
+which os / distribution do you use ?
+do you hear any clicking noises when it spins up ?
+which motherboard do you have , @ gandhyonly ?
+which motherboard do you have , @ gandhyonly ?
+do you hear any clicking noises when it spins up ?
+do you hear any clicking noises when it spins up ?
+which motherboard do you have , @ gandhyonly ?
+did you create a partition for w8 before you tried to install ?
+are you doing a clean install or an upgrade ?
+are you doing a clean install or an upgrade ?
+are you doing a clean install or an upgrade ?
+are you doing a clean install or an upgrade ?
+did you create a partition for w8 before you tried to install ?
+what problem are you trying to solve by deleting files with data other nul characters ?
+out of curiosity how many file items total on the disk , and what was the file system ?
+what problem are you trying to solve by deleting files with data other nul characters ?
+out of curiosity how many file items total on the disk , and what was the file system ?
+what problem are you trying to solve by deleting files with data other nul characters ?
+out of curiosity how many file items total on the disk , and what was the file system ?
+what bsod error ( s ) are you getting ?
+what computer/os/hardware are you using ?
+does this problem happen in a minimal start-up configuration ? is this a laptop ?
+what computer/os/hardware are you using ?
+what bsod error ( s ) are you getting ?
+what bsod error ( s ) are you getting ?
+was it always this slow ?
+was it always this slow ?
+was it always this slow ?
+was it always this slow ?
+was it always this slow ?
+was it always this slow ?
+what version of vs 2012 are you installing ? ultimate , pro , express ? web installer or .iso ?
+which version of ssms ? which service pack/rollup ?
+which version of ssms ? which service pack/rollup ?
+which version of ssms ? which service pack/rollup ?
+what version of vs 2012 are you installing ? ultimate , pro , express ? web installer or .iso ?
+what version of vs 2012 are you installing ? ultimate , pro , express ? web installer or .iso ?
+do you need to _log in_ or would it be sufficient to be able to retrieve their data files ?
+has the live id password been changed ? is your computer connected to the internet ?
+are you 100 % positive the computer is still linked to the microsoft account ?
+are you 100 % positive the computer is still linked to the microsoft account ?
+are you 100 % positive the computer is still linked to the microsoft account ?
+are you 100 % positive the computer is still linked to the microsoft account ?
+i can help with bind - what do you have so far ?
+on which os do you want to setup the dns server ?
+do you have a nas by any chance ? what router and operating systems do you use ?
+do you have a nas by any chance ? what router and operating systems do you use ?
+i can help with bind - what do you have so far ?
+on which os do you want to setup the dns server ?
+you are aware the product id is not the key you use to install with , right ?
+are you referring to actual dos , or the windows command line ?
+did you check under the battery for a serial key sticker ?
+did you check under the battery for a serial key sticker ?
+are you referring to actual dos , or the windows command line ?
+you are aware the product id is not the key you use to install with , right ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+but you can add nodes using java start , without ssh , is it not an option for you ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+just curious -- how much coffee must be consumed for triple or greater speed to seem natural ?
+can you make the range so large that it does n't matter ?
+which version of excel ?
+which version of excel ?
+can you make the range so large that it does n't matter ?
+can you make the range so large that it does n't matter ?
+can you make the range so large that it does n't matter ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+rosso , did you test your transcend pen drive faster on any other computer ?
+what about an application like fineprint ( .com ) ?
+maybe you can make ghostscript output a purely black-and-white pdf , rather than a grayscale one ?
+what about an application like fineprint ( .com ) ?
+what about an application like fineprint ( .com ) ?
+maybe you can make ghostscript output a purely black-and-white pdf , rather than a grayscale one ?
+what about an application like fineprint ( .com ) ?
+ipconfig /all from windows , please ?
+what is the output of `` ifconfig '' on the embedded device ?
+what is your firewall configuration ?
+ipconfig /all from windows , please ?
+ipconfig /all from windows , please ?
+what is your firewall configuration ?
+: which linux flavor are you using ? ubuntu ?
+to confirm , you want the file to increment in number if it already exists when copied ?
+do you want a folder that it a perfect copy or a folder that consists only of changed files ?
+do you mean copy the ones that do n't yet exist in the other folder ?
+: which linux flavor are you using ? ubuntu ?
+do you mean copy the ones that do n't yet exist in the other folder ?
+and the feature pack is n't in the list of installed _programs_ either ?
+why ca n't you install the windows media feature pack ?
+and the feature pack is n't in the list of installed _programs_ either ?
+why ca n't you install the windows media feature pack ?
+why ca n't you install the windows media feature pack ?
+why ca n't you install the windows media feature pack ?
