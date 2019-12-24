@@ -1,0 +1,500 @@
+davit_unix_setno_1,47830,5,0 5 6,2	tamara_unix_setno_1,47830,6,0 2 5 6,2
+davit_unix_setno_1,67415,2,0 2 9,1	tamara_unix_setno_1,67415,0,0 2 4 5,1
+davit_unix_setno_1,273735,0,0 3,1	tamara_unix_setno_1,273735,0,0 3 4,2
+davit_unix_setno_1,67948,0,0 1 4,2	tamara_unix_setno_1,67948,1,0 1 2 3,1
+davit_unix_setno_1,178495,6, 0 1 2 6,2	tamara_unix_setno_1,178495,2,0 2 5 6,2
+davit_unix_setno_1,65256,8,0 6 7 8,2	tamara_unix_setno_1,65256,7,0 6 7 8,1
+davit_unix_setno_1,238690,0,0 3 7,2	tamara_unix_setno_1,238690,3,0 3 6 7,2
+davit_unix_setno_1,222201,3,0 3 4,1	tamara_unix_setno_1,222201,0,0 3 4 5,2
+davit_unix_setno_1,77355,9,0 4 5 9,1	tamara_unix_setno_1,77355,0,0 2 4 5,1
+davit_unix_setno_1,267185,0,0 3 4,2	tamara_unix_setno_1,267185,0,0 3 4 6 9,2
+davit_unix_setno_2,291579,2,0 2 3 4,2	tamara_unix_setno_2,291579,0,0 1 2 4 6,1
+davit_unix_setno_2,280691,4,2 3 4,1	tamara_unix_setno_2,280691,0,0 3 4 6,2
+davit_unix_setno_2,217197,1,1 2 7 9,2	tamara_unix_setno_2,217197,2,0 1 2 4 7 9,1
+davit_unix_setno_2,56867,3,3 6,1	tamara_unix_setno_2,56867,0,0 3 6,2
+davit_unix_setno_2,108208,0,0 9,1	tamara_unix_setno_2,108208,9,0 9,1
+davit_unix_setno_2,108207,0,0 2 4 6 7,1	tamara_unix_setno_2,108207,4,0 4 7,2
+davit_unix_setno_2,291571,0,0 6 9,1	tamara_unix_setno_2,291571,9,6 9 0,1
+davit_unix_setno_2,280699,0,0 7,2	tamara_unix_setno_2,280699,0,0 5,2
+davit_unix_setno_2,219469,0,0 3 5,1	tamara_unix_setno_2,219469,3,0 3 5,1
+davit_unix_setno_2,14519,0,0 6 7,2	tamara_unix_setno_2,14519,7,0 5 7,2
+davit_unix_setno_3,239615,1,0 1 9,2	tamara_unix_setno_3,239615,0,0 1 9,2
+davit_unix_setno_3,268981,8,0 8,2	tamara_unix_setno_3,268981,0,0 8,2
+davit_unix_setno_3,106893,0,0 1 6 8 9,2	tamara_unix_setno_3,106893,6,0 1 6 9,1
+davit_unix_setno_3,170055,0,0 5 6,2	tamara_unix_setno_3,170055,0,0 1 5,2
+davit_unix_setno_3,72658,0,0 1 8,2	tamara_unix_setno_3,72658,1,0 1 3 8,2
+davit_unix_setno_3,111877,0,0 3 5 9,2	tamara_unix_setno_3,111877,0,0 9 3,2
+davit_unix_setno_3,136485,0,0 3 4,2	tamara_unix_setno_3,136485,0,0 3 4,2
+davit_unix_setno_3,136954,0,0 4,1	tamara_unix_setno_3,136954,0,0,2
+davit_unix_setno_3,77139,0,0 1 2 3 4 8,2	tamara_unix_setno_3,77139,4,0 1 2 3 4 8 9,2
+davit_unix_setno_3,258457,5,0 1 4 5,2	tamara_unix_setno_3,258457,0,0 1 4 5 7,2
+davit_unix_setno_4,84752,0,0 1 2 9,2	tamara_unix_setno_4,84752,2,0 1 2,2
+davit_unix_setno_4,258102,6,0 6,2	tamara_unix_setno_4,258102,0,0 4 6,2
+davit_unix_setno_4,282127,7,1 7 9,2	tamara_unix_setno_4,282127,9,0 1 7 9,2
+davit_unix_setno_4,260548,2,1 2 5,2	tamara_unix_setno_4,260548,1,1 2 3 9,2
+davit_unix_setno_4,114510,0,0 9,2	tamara_unix_setno_4,114510,9,0 2 9,1
+davit_unix_setno_4,266582,7,5 7,2	tamara_unix_setno_4,266582,0,0 5 7 9,2
+davit_unix_setno_4,129093,9,0 2 5 6 9,1	tamara_unix_setno_4,129093,0,0 1 2 9,1
+davit_unix_setno_4,80577,0,0 4 7,2	tamara_unix_setno_4,80577,7,0 4 5 7,2
+davit_unix_setno_4,160510,7,0 3 7,2	tamara_unix_setno_4,160510,0,0 3 7 9,1
+davit_unix_setno_4,138507,8,0 7 8,2	tamara_unix_setno_4,138507,0,0 3 7 8,2
+davit_unix_setno_5,226214,9,2 7 9,2	tamara_unix_setno_5,226214,0,0 2 6 7,2
+davit_unix_setno_5,214647,9,2 6 9,1	tamara_unix_setno_5,214647,0,0 2 3 6 9,2
+davit_unix_setno_5,61320,3,0 3 5,2	tamara_unix_setno_5,61320,0,0 3 4,2
+davit_unix_setno_5,127620,0,0 8,2	tamara_unix_setno_5,127620,8,0 1 6 8,1
+davit_unix_setno_5,155087,8,0 2 8,1	tamara_unix_setno_5,155087,0,0 2 3,2
+davit_unix_setno_5,156835,1,0 1 4,1	tamara_unix_setno_5,156835,0,0 1,2
+davit_unix_setno_5,239929,0,0 2 7,2	tamara_unix_setno_5,239929,8,0 2 7 8,2
+davit_unix_setno_5,61326,0,0 3 6,2	tamara_unix_setno_5,61326,3,0 1 3,2
+davit_unix_setno_5,61329,4,0 3 4 7,2	tamara_unix_setno_5,61329,0,0 1 3 4 9,2
+davit_unix_setno_5,155089,0,0 6 9 7,2	tamara_unix_setno_5,155089,7,0 7,2
+davit_unix_setno_6,181553,5,0 1 3 5,2	tamara_unix_setno_6,181553,0,0 3 4 5 9,2
+davit_unix_setno_6,141362,0,0 5 6 8,1	tamara_unix_setno_6,141362,0,0 1 5,2
+davit_unix_setno_6,213699,1,0 1 5,2	tamara_unix_setno_6,213699,5,0 1 5 8,2
+davit_unix_setno_6,182343,0,0 5 8,2	tamara_unix_setno_6,182343,0,0 3 5 6 8,2
+davit_unix_setno_6,215590,0,0 9,2	tamara_unix_setno_6,215590,0,0 1,2
+davit_unix_setno_6,298312,0,0 4,2	tamara_unix_setno_6,298312,4,0 3 4,2
+davit_unix_setno_6,116911,0,0 1 2 5,2	tamara_unix_setno_6,116911,1,0 1 2 9,2
+davit_unix_setno_6,116914,2,0 2 5,1	tamara_unix_setno_6,116914,0,0 5 9,2
+davit_unix_setno_6,145169,4,0 3 4,2	tamara_unix_setno_6,145169,0,0 3 4 8,2
+davit_unix_setno_6,304032,5,0 5 7,2	tamara_unix_setno_6,304032,0,0 3 5 7,2
+davit_unix_setno_7,185026,5,0 2 4 5,2	tamara_unix_setno_7,185026,0,0 1 2 4 5,2
+davit_unix_setno_7,245486,0,3 0,2	tamara_unix_setno_7,245486,0,0,2
+davit_unix_setno_7,126931,0,0 5 6,2	tamara_unix_setno_7,126931,6,0 6,2
+davit_unix_setno_7,235115,0,0 1 5,1	tamara_unix_setno_7,235115,0,0 1,1
+davit_unix_setno_7,110362,0,0 1,1	tamara_unix_setno_7,110362,0,0 1 6,1
+davit_unix_setno_7,145167,0,0 3 6 9,2	tamara_unix_setno_7,145167,0,0 5 6,2
+davit_unix_setno_7,203041,0,0 6 7,2	tamara_unix_setno_7,203041,0,0 7,2
+davit_unix_setno_7,163967,0,0 3,2	tamara_unix_setno_7,163967,0,0 3 6,2
+davit_unix_setno_7,264747,0,8 0,1	tamara_unix_setno_7,264747,0,0 3 8,1
+davit_unix_setno_7,217518,5,0 3 4 5 6,2	tamara_unix_setno_7,217518,4,0 1 2 4 6,2
+davit_unix_setno_8,96183,2,2 4 6,2	tamara_unix_setno_8,96183,6,0 2 6,2
+davit_unix_setno_8,140538,0,0 9,2	tamara_unix_setno_8,140538,9,0 8 9,2
+davit_unix_setno_8,181738,3,0 3 8,2	tamara_unix_setno_8,181738,0,0 1 6 8,2
+davit_unix_setno_8,163968,4,0 2 4,2	tamara_unix_setno_8,163968,0,0 4 6,2
+davit_unix_setno_8,241222,0,0 3,1	tamara_unix_setno_8,241222,0,0 8 6,1
+davit_unix_setno_8,34152,1,0 1 6,2	tamara_unix_setno_8,34152,0,1 8 6 0,2
+davit_unix_setno_8,241225,0,0 4 5,2	tamara_unix_setno_8,241225,0,0 4 5 9,2
+davit_unix_setno_8,65662,0,0 2,2	tamara_unix_setno_8,65662,0,0 5 6,1
+davit_unix_setno_8,214428,1,1 8 9,1	tamara_unix_setno_8,214428,9,0 5 7 8 9,2
+davit_unix_setno_8,306601,0,0 6,1	tamara_unix_setno_8,306601,0,0 2 6,2
+davit_unix_setno_9,65843,0,0 1 5 6,2	tamara_unix_setno_9,65843,0,0 1 3 6,2
+davit_unix_setno_9,60499,0,0 3,2	tamara_unix_setno_9,60499,0,0 3 8,2
+davit_unix_setno_9,155195,0,0 2,2	tamara_unix_setno_9,155195,2,0 2,2
+davit_unix_setno_9,69320,0,0 3 5 7,1	tamara_unix_setno_9,69320,0,0 3 7,2
+davit_unix_setno_9,124632,5,0 1 5 6,2	tamara_unix_setno_9,124632,0,0 3 5,1
+davit_unix_setno_9,60495,0,0 4 8,1	tamara_unix_setno_9,60495,0,0 1 2 4 5,2
+davit_unix_setno_9,120570,4,0 4 9,2	tamara_unix_setno_9,120570,0,0 6 9,2
+davit_unix_setno_9,266326,0,0 1,2	tamara_unix_setno_9,266326,0,0 6,2
+davit_unix_setno_9,251705,0,0 1,2	tamara_unix_setno_9,251705,1,1 8,2
+davit_unix_setno_9,266320,0,0,2	tamara_unix_setno_9,266320,0,0 6,2
+shridhar_askubuntu_setno_1,791945,0,0 4 5 9,0	jomon_askubuntu_setno_1,791945,5,0 3 4 5 9,0
+shridhar_askubuntu_setno_1,361057,9,3 6 9,1	jomon_askubuntu_setno_1,361057,6,3 6 8 9,0
+shridhar_askubuntu_setno_1,162639,0,0 2 6 7,2	jomon_askubuntu_setno_1,162639,2,0 2 6 7 9,1
+shridhar_askubuntu_setno_1,521013,0,0 5,1	jomon_askubuntu_setno_1,521013,0,0,0
+shridhar_askubuntu_setno_1,406238,8,2 6 7 8,0	jomon_askubuntu_setno_1,406238,8,1 2 3 7 6 8,0
+shridhar_askubuntu_setno_1,403608,7,0 1 5 6 7,2	jomon_askubuntu_setno_1,403608,6,1 4 5 6 7,0
+shridhar_askubuntu_setno_1,299675,7,0 2 4 7,0	jomon_askubuntu_setno_1,299675,4,2 4 6,0
+shridhar_askubuntu_setno_1,406230,0,0 6,0	jomon_askubuntu_setno_1,406230,0,0 5,0
+shridhar_askubuntu_setno_1,91332,4,3 4,0	jomon_askubuntu_setno_1,91332,5,5,0
+shridhar_askubuntu_setno_1,704807,0,0 2 4,0	jomon_askubuntu_setno_1,704807,7,7,0
+shridhar_askubuntu_setno_2,750771,0,0 3 4 5,1	jomon_askubuntu_setno_2,750771,4,0 3 4 6 7 9,1
+shridhar_askubuntu_setno_2,750773,0,0 4 8,2	jomon_askubuntu_setno_2,750773,8,0 3 4 8,1
+shridhar_askubuntu_setno_2,330666,0,0 3 5,2	jomon_askubuntu_setno_2,330666,0,0 1 2 3 5,1
+shridhar_askubuntu_setno_2,628212,0,0 2 4 5,1	jomon_askubuntu_setno_2,628212,4,0 4 6,1
+shridhar_askubuntu_setno_2,628216,1,1 2 7,0	jomon_askubuntu_setno_2,628216,1,1 2 3 7 9,0
+shridhar_askubuntu_setno_2,688172,0,0 3 4 5,1	jomon_askubuntu_setno_2,688172,5,0 3 5,0
+shridhar_askubuntu_setno_2,648820,0,0 7,1	jomon_askubuntu_setno_2,648820,0,0 7,2
+shridhar_askubuntu_setno_2,727993,3,1 3 6,1	jomon_askubuntu_setno_2,727993,6,2 3 6,0
+shridhar_askubuntu_setno_2,598323,0,0 3,2	jomon_askubuntu_setno_2,598323,3,0 2 3 6,1
+shridhar_askubuntu_setno_2,87849,0,0 8,1	jomon_askubuntu_setno_2,87849,0,0 8,0
+shridhar_askubuntu_setno_3,648828,4,0 3 4 6 9,1	jomon_askubuntu_setno_3,648828,0,0 3 4 5 9,0
+shridhar_askubuntu_setno_3,606735,0,0 1 7 8,1	jomon_askubuntu_setno_3,606735,0,0 1 4 7,2
+shridhar_askubuntu_setno_3,644335,8,0 1 5 7 8,1	jomon_askubuntu_setno_3,644335,0,0 1 7 8,0
+shridhar_askubuntu_setno_3,432636,0,0 2 5 6 9,1	jomon_askubuntu_setno_3,432636,0,0 3 5 9,0
+shridhar_askubuntu_setno_3,614520,0,0 1 4 7,0	jomon_askubuntu_setno_3,614520,7,0 4 7,0
+shridhar_askubuntu_setno_3,279488,9,0 2 5 6 9,0	jomon_askubuntu_setno_3,279488,6,6 9,0
+shridhar_askubuntu_setno_3,25908,0,0 1 5 7,2	jomon_askubuntu_setno_3,25908,1,0 1 4 5,0
+shridhar_askubuntu_setno_3,590662,0,0 2 4 6 7,1	jomon_askubuntu_setno_3,590662,0,0 6 7,2
+shridhar_askubuntu_setno_3,590663,1,1 2 3 4 9,0	jomon_askubuntu_setno_3,590663,1,1 3 9,0
+shridhar_askubuntu_setno_3,372601,2,0 2 9,1	jomon_askubuntu_setno_3,372601,2,2 5,0
+shridhar_askubuntu_setno_4,613068,6,0 6 8 9,1	jomon_askubuntu_setno_4,613068,0,0 1 6 9,1
+shridhar_askubuntu_setno_4,244567,0,0 2 8,0	jomon_askubuntu_setno_4,244567,2,1 2,0
+shridhar_askubuntu_setno_4,696306,0,0,0	jomon_askubuntu_setno_4,696306,0,0 7,0
+shridhar_askubuntu_setno_4,712603,8,0 4 6 7 8 9,1	jomon_askubuntu_setno_4,712603,4,4 6 8,0
+shridhar_askubuntu_setno_4,499095,0,0 1 2 4 9,1	jomon_askubuntu_setno_4,499095,1,0 1 4 5,0
+shridhar_askubuntu_setno_4,277306,0,0 5 7,0	jomon_askubuntu_setno_4,277306,0,0 7,0
+shridhar_askubuntu_setno_4,809853,1,0 1 5 7,1	jomon_askubuntu_setno_4,809853,7,1 7 9,0
+shridhar_askubuntu_setno_4,695960,0,0 1 2 4 6,1	jomon_askubuntu_setno_4,695960,1,0 1 2,0
+shridhar_askubuntu_setno_4,809854,0,0 3 6 9,1	jomon_askubuntu_setno_4,809854,0,0 5 9,0
+shridhar_askubuntu_setno_4,441635,5,0 1 5,1	jomon_askubuntu_setno_4,441635,0,0 1,0
+shridhar_askubuntu_setno_5,624918,1,1 5,1	jomon_askubuntu_setno_5,624918,2,1 2 5,2
+shridhar_askubuntu_setno_5,527314,4,0 4,1	jomon_askubuntu_setno_5,527314,5,0 5,0
+shridhar_askubuntu_setno_5,813587,0,0 8,1	jomon_askubuntu_setno_5,813587,8,0 3 8,0
+shridhar_askubuntu_setno_5,791049,5,3 5 6,1	jomon_askubuntu_setno_5,791049,3,3 5,0
+shridhar_askubuntu_setno_5,791048,0,0 5,1	jomon_askubuntu_setno_5,791048,0,0 5,1
+shridhar_askubuntu_setno_5,817802,0,0 3 4 7,1	jomon_askubuntu_setno_5,817802,4,0 3 4 7,1
+shridhar_askubuntu_setno_5,515432,1,1,1	jomon_askubuntu_setno_5,515432,0,0 1,0
+shridhar_askubuntu_setno_5,817804,6,0 6 7,1	jomon_askubuntu_setno_5,817804,0,0 6,0
+shridhar_askubuntu_setno_5,817805,2,0 2 3 4 9,0	jomon_askubuntu_setno_5,817805,0,0 3 4 7,0
+shridhar_askubuntu_setno_5,520839,2,0 1 2 4 9,1	jomon_askubuntu_setno_5,520839,0,0 2 4 6,0
+shridhar_askubuntu_setno_6,288827,9,0 3 7 9,1	jomon_askubuntu_setno_6,288827,0,0 3 7 9,0
+shridhar_askubuntu_setno_6,687310,0,0 2 6 9,1	jomon_askubuntu_setno_6,687310,6,0 1 4 6 9,0
+shridhar_askubuntu_setno_6,647738,0,0 2 4 8,0	jomon_askubuntu_setno_6,647738,4,1 2 4 6,0
+shridhar_askubuntu_setno_6,182799,0,0 3 4,1	jomon_askubuntu_setno_6,182799,4,0 3 4 6,0
+shridhar_askubuntu_setno_6,336541,0,0,1	jomon_askubuntu_setno_6,336541,0,0,0
+shridhar_askubuntu_setno_6,755856,6,0 1 3 5 6 8,0	jomon_askubuntu_setno_6,755856,0,0 3 6 8,0
+shridhar_askubuntu_setno_6,744534,0,0 5 6,1	jomon_askubuntu_setno_6,744534,0,0 6 8,0
+shridhar_askubuntu_setno_6,628966,0,0 6,1	jomon_askubuntu_setno_6,628966,0,0 3 5,1
+shridhar_askubuntu_setno_6,523560,0,0 3 5 7 9,0	jomon_askubuntu_setno_6,523560,7,0 3 7,0
+shridhar_askubuntu_setno_6,173464,0,0 7,0	jomon_askubuntu_setno_6,173464,5,5,0
+shridhar_askubuntu_setno_7,617762,7,4 7,1	jomon_askubuntu_setno_7,617762,4,4 5 7 8,1
+shridhar_askubuntu_setno_7,247033,1,0 1 3 4 5,1	jomon_askubuntu_setno_7,247033,7,0 1 3 7 9,1
+shridhar_askubuntu_setno_7,182249,1,1 7,0	jomon_askubuntu_setno_7,182249,9,1 3 9,0
+shridhar_askubuntu_setno_7,745480,0,0 4 5 9,1	jomon_askubuntu_setno_7,745480,0,0 4 5 9,1
+shridhar_askubuntu_setno_7,568124,4,0 1 3 4 7,1	jomon_askubuntu_setno_7,568124,0,0 4 9,1
+shridhar_askubuntu_setno_7,745484,8,2 3 5 8 9,0	jomon_askubuntu_setno_7,745484,9,2 5 9,0
+shridhar_askubuntu_setno_7,745485,0,0 5,1	jomon_askubuntu_setno_7,745485,5,0 5 6,0
+shridhar_askubuntu_setno_7,320684,0,0 1 2 3 6,1	jomon_askubuntu_setno_7,320684,1,0 1 2,1
+shridhar_askubuntu_setno_7,703585,5,1 3 5 6 9,0	jomon_askubuntu_setno_7,703585,5,3 4 5 6,0
+shridhar_askubuntu_setno_7,556749,5,0 5,1	jomon_askubuntu_setno_7,556749,0,0 5,1
+shridhar_askubuntu_setno_8,553996,4,0 1 2 4 6 7,1	jomon_askubuntu_setno_8,553996,1,0 1 2 4 7,2
+shridhar_askubuntu_setno_8,610081,1,1 7,0	jomon_askubuntu_setno_8,610081,3,1 3 6,0
+shridhar_askubuntu_setno_8,455584,9,0 4 8 9,1	jomon_askubuntu_setno_8,455584,0,0 9 4,1
+shridhar_askubuntu_setno_8,448009,6,0 3 5 6 7,1	jomon_askubuntu_setno_8,448009,0,0 1 3 6,2
+shridhar_askubuntu_setno_8,605415,0,0 1 6 4 7,1	jomon_askubuntu_setno_8,605415,1,0 1 2 7,1
+shridhar_askubuntu_setno_8,38460,2,2 7,0	jomon_askubuntu_setno_8,38460,6,2 4 6,1
+shridhar_askubuntu_setno_8,38462,8,2 5 8 9,1	jomon_askubuntu_setno_8,38462,8,2 8,0
+shridhar_askubuntu_setno_8,796779,8,0 2 3 6 7 8,1	jomon_askubuntu_setno_8,796779,0,0 2 8 9,1
+shridhar_askubuntu_setno_8,739958,7,0 6 7 8 9,0	jomon_askubuntu_setno_8,739958,4,0 1 4 6,0
+shridhar_askubuntu_setno_8,481003,0,1 3 6 9,1	jomon_askubuntu_setno_8,481003,1,0 1 6 7 9,0
+shridhar_askubuntu_setno_9,622405,3,0 1 2 3 5,1	jomon_askubuntu_setno_9,622405,2,1 2 5,0
+shridhar_askubuntu_setno_9,573818,0,3 2 0 4,2	jomon_askubuntu_setno_9,573818,0,3 6 0 4,1
+shridhar_askubuntu_setno_9,742278,0,0 1 9,0	jomon_askubuntu_setno_9,742278,9,0 1 9,1
+shridhar_askubuntu_setno_9,554429,0,9 0,2	jomon_askubuntu_setno_9,554429,0,9 0,1
+shridhar_askubuntu_setno_9,780762,6,5 7 6 2 8 3,1	jomon_askubuntu_setno_9,780762,8,5 7 6 8 0,1
+shridhar_askubuntu_setno_9,172330,3,6 8 2 1 3 0,1	jomon_askubuntu_setno_9,172330,0,0 3 8 4,2
+shridhar_askubuntu_setno_9,780769,1,3 4 9 1 7,1	jomon_askubuntu_setno_9,780769,9,2 9 7 1,0
+shridhar_askubuntu_setno_9,582712,0,0,0	jomon_askubuntu_setno_9,582712,0,0 7 9 6,0
+shridhar_askubuntu_setno_9,587543,1,3 1,1	jomon_askubuntu_setno_9,587543,3,3 5 1,2
+shridhar_askubuntu_setno_9,589523,0,0,1	jomon_askubuntu_setno_9,589523,0,0 9 4,1
+shridhar_askubuntu_setno_10,709751,2,0 2 4 5 3,1	jomon_askubuntu_setno_10,709751,4,4 2 3,0
+shridhar_askubuntu_setno_10,709756,3,2 5 7 3 8,1	jomon_askubuntu_setno_10,709756,5,0 2 5 7,0
+shridhar_askubuntu_setno_10,364344,0,2 1 0 9,1	jomon_askubuntu_setno_10,364344,0,2 1 0 5,0
+shridhar_askubuntu_setno_10,583049,9,6 0 9,0	jomon_askubuntu_setno_10,583049,0,6 0 9 5,0
+shridhar_askubuntu_setno_10,584014,7,2 4 5 7 9,0	jomon_askubuntu_setno_10,584014,4,4 9 7,1
+shridhar_askubuntu_setno_10,688993,0,0 1,1	jomon_askubuntu_setno_10,688993,0,1 0 6,1
+shridhar_askubuntu_setno_10,17909,1,0 1 9,1	jomon_askubuntu_setno_10,17909,0,2 1 7 0 9,2
+shridhar_askubuntu_setno_10,324765,2,2 9 8,1	jomon_askubuntu_setno_10,324765,0,2 0 8,1
+shridhar_askubuntu_setno_10,324762,1,1 8,0	jomon_askubuntu_setno_10,324762,4,1 4 9 8,0
+shridhar_askubuntu_setno_10,87028,4,0 8 1 9 4,0	jomon_askubuntu_setno_10,87028,0,0 8 6 9 4,0
+davit_askubuntu_setno_11,704052,0,1 0 2,2	steve_askubuntu_setno_11,704052,1,1 3 2 0,1
+davit_askubuntu_setno_11,739378,0,0 4 5 3,2	steve_askubuntu_setno_11,739378,5,5 0 3 9 4,1
+davit_askubuntu_setno_11,87025,0,0 1 9,2	steve_askubuntu_setno_11,87025,5,6 9 5 0 1,1
+davit_askubuntu_setno_11,701697,8,8 4,2	steve_askubuntu_setno_11,701697,4,8 4 2,2
+davit_askubuntu_setno_11,693472,0,0 7 5 2,2	steve_askubuntu_setno_11,693472,0,0 5 8 2 7,1
+davit_askubuntu_setno_11,490964,0,8 0,2	steve_askubuntu_setno_11,490964,8,8 3 2 0,1
+davit_askubuntu_setno_11,243644,5,5 0 1,2	steve_askubuntu_setno_11,243644,6,6 5 0 1 7,2
+davit_askubuntu_setno_11,421087,1,3 1 0 6,2	steve_askubuntu_setno_11,421087,6,3 6 1 5 0,1
+davit_askubuntu_setno_11,300684,0,0,2	steve_askubuntu_setno_11,300684,0,1 0,1
+davit_askubuntu_setno_11,212190,9,9 6 7 0 4,1	steve_askubuntu_setno_11,212190,0,4 9 6 0,1
+davit_askubuntu_setno_12,707593,1,0 8 4 1,2	steve_askubuntu_setno_12,707593,0,0 1 2 7 4,2
+davit_askubuntu_setno_12,797554,0,4 7 5 0 1,2	steve_askubuntu_setno_12,797554,5,5 3 1 0,1
+davit_askubuntu_setno_12,306218,9,2 3 9,1	steve_askubuntu_setno_12,306218,2,2 8 3 0 9,1
+davit_askubuntu_setno_12,797552,8,1 4 8 0,2	steve_askubuntu_setno_12,797552,0,1 7 4 0,1
+davit_askubuntu_setno_12,787682,0,1 7 0,2	steve_askubuntu_setno_12,787682,7,5 1 0 7,1
+davit_askubuntu_setno_12,797559,0,0 4 9 5,2	steve_askubuntu_setno_12,797559,4,4 6 5 0,1
+davit_askubuntu_setno_12,352669,0,0 2,2	steve_askubuntu_setno_12,352669,2,6 0 3 2 1,1
+davit_askubuntu_setno_12,613851,2,2 0 7,1	steve_askubuntu_setno_12,613851,4,1 9 4 2,1
+davit_askubuntu_setno_12,352661,5,2 5 0 9 4,2	steve_askubuntu_setno_12,352661,0,4 0 1 9 2 5,1
+davit_askubuntu_setno_12,129661,0,0 3 5 8,2	steve_askubuntu_setno_12,129661,0,0 3 4 5 8,0
+davit_askubuntu_setno_13,609483,0,0 1,2	steve_askubuntu_setno_13,609483,0,0 3 1 9,1
+davit_askubuntu_setno_13,627295,3,3 2 8 6 9,2	steve_askubuntu_setno_13,627295,6,6 0 3 9 2,1
+davit_askubuntu_setno_13,195961,3,3 7 0,2	steve_askubuntu_setno_13,195961,7,2 3 7 0,0
+davit_askubuntu_setno_13,451630,0,0 1 4 2 3,2	steve_askubuntu_setno_13,451630,4,1 3 4 7 0 2,1
+davit_askubuntu_setno_13,15415,0,3 0,1	steve_askubuntu_setno_13,15415,0,2 0,2
+davit_askubuntu_setno_13,393601,3,1 5 8 3 0,1	steve_askubuntu_setno_13,393601,0,1 3 8 5 0,1
+davit_askubuntu_setno_13,438188,0,4 3 2 0,2	steve_askubuntu_setno_13,438188,3,5 8 4 2 3,1
+davit_askubuntu_setno_13,123174,5,5 7 8 0,2	steve_askubuntu_setno_13,123174,4,5 9 7 8 4 0,1
+davit_askubuntu_setno_13,624275,0,5 1 0,2	steve_askubuntu_setno_13,624275,0,5 3 9 0 2,1
+davit_askubuntu_setno_13,673102,0,0 7 1,2	steve_askubuntu_setno_13,673102,0,0 9 2 1 4,1
+davit_askubuntu_setno_14,673104,0,0 7 8 2 1,1	steve_askubuntu_setno_14,673104,1,0 8 1,1
+davit_askubuntu_setno_14,244911,9,9 4 3 0,2	steve_askubuntu_setno_14,244911,0,8 2 3 0 9,0
+davit_askubuntu_setno_14,341778,6,0 6 3,2	steve_askubuntu_setno_14,341778,0,7 0 1 6,1
+davit_askubuntu_setno_14,438453,3,0 3 1 6,2	steve_askubuntu_setno_14,438453,3,0 1 3 4 6 9,1
+davit_askubuntu_setno_14,574593,0,2 1 0,2	steve_askubuntu_setno_14,574593,2,2 1 3 4,0
+davit_askubuntu_setno_14,777774,0,5 0,2	steve_askubuntu_setno_14,777774,6,5 2 6 1 0,1
+davit_askubuntu_setno_14,28954,9,0 9 1 4,2	steve_askubuntu_setno_14,28954,1,9 1 3 0 4,1
+davit_askubuntu_setno_14,503374,0,4 8 0 9 2,2	steve_askubuntu_setno_14,503374,9,4 1 0 9 6 2 3,1
+davit_askubuntu_setno_14,219412,9,4 9 6 0 7,2	steve_askubuntu_setno_14,219412,9,4 9 6 0 7 1,2
+davit_askubuntu_setno_14,460536,2,2 7,2	steve_askubuntu_setno_14,460536,2,9 2 5,0
+davit_askubuntu_setno_15,777778,8,4 5 8 3,2	steve_askubuntu_setno_15,777778,3,9 6 8 3,1
+davit_askubuntu_setno_15,150539,0,0 5 2 7,2	steve_askubuntu_setno_15,150539,2,0 5 2 3 7,1
+davit_askubuntu_setno_15,713140,5,0 1 4 5 9,2	steve_askubuntu_setno_15,713140,0,1 4 0 9 6 5,1
+davit_askubuntu_setno_15,492617,2,5 2 8,2	steve_askubuntu_setno_15,492617,2,7 8 5 0 2,1
+davit_askubuntu_setno_15,65633,0,0 2,2	steve_askubuntu_setno_15,65633,0,0 5 2,1
+davit_askubuntu_setno_15,784653,0,3 0 7,2	steve_askubuntu_setno_15,784653,7,1 7 3 0,1
+davit_askubuntu_setno_15,586629,0,5 0 1,2	steve_askubuntu_setno_15,586629,5,5 2 0 8 1,1
+davit_askubuntu_setno_15,706344,0,0,2	steve_askubuntu_setno_15,706344,0,0,1
+davit_askubuntu_setno_15,666750,1,1 0,1	steve_askubuntu_setno_15,666750,0,1 9 0,1
+davit_askubuntu_setno_15,814842,0,0 3 2 6,2	steve_askubuntu_setno_15,814842,2,0 3 2 7 1 6,1
+davit_askubuntu_setno_16,81653,3,3 2 0,1	tamara_askubuntu_setno_16,81653,0,3 2 6 0,2
+davit_askubuntu_setno_16,468098,4,9 5 4 2,1	tamara_askubuntu_setno_16,468098,9,9 5 8 4 2 6 7,2
+davit_askubuntu_setno_16,656124,7,5 7 2,1	tamara_askubuntu_setno_16,656124,5,5 7 4 2 6,2
+davit_askubuntu_setno_16,124962,7,9 5 7,2	tamara_askubuntu_setno_16,124962,0,9 0 5 7,2
+davit_askubuntu_setno_16,631493,8,5 8 0 7,2	tamara_askubuntu_setno_16,631493,0,3 1 2 6 0 7,2
+davit_askubuntu_setno_16,624498,7,7,2	tamara_askubuntu_setno_16,624498,0,6 5 0,2
+davit_askubuntu_setno_16,684505,4,5 4 0,2	tamara_askubuntu_setno_16,684505,0,4 0 6 7,2
+davit_askubuntu_setno_16,684500,0,0 4,1	tamara_askubuntu_setno_16,684500,0,0 2,2
+davit_askubuntu_setno_16,684508,1,0 3 8 1 6,2	tamara_askubuntu_setno_16,684508,6,0 6 3 8 1,2
+davit_askubuntu_setno_16,503996,7,8 0 7 1 3,2	tamara_askubuntu_setno_16,503996,1,8 0 7 1,2
+sachin_superuser_setno_1,861921,0,0,2	josphat_superuser_setno_1,861921,0,0 6,2
+sachin_superuser_setno_1,861923,2,0 4 5 2,2	josphat_superuser_setno_1,861923,0,5 0 4 7 2 3 6,1
+sachin_superuser_setno_1,405766,6,8 2 5 6,2	josphat_superuser_setno_1,405766,8,8 2 4 5 6,2
+sachin_superuser_setno_1,624913,1,1 3 6 8,1	josphat_superuser_setno_1,624913,8,3 9 7 6 8,1
+sachin_superuser_setno_1,744685,0,0 9,1	josphat_superuser_setno_1,744685,0,0 2 4,1
+sachin_superuser_setno_1,744686,0,0 2 4 5 6,2	josphat_superuser_setno_1,744686,5,2 4 5 6 1 3,2
+sachin_superuser_setno_1,392522,5,5 4 0,1	josphat_superuser_setno_1,392522,0,5 7 0,2
+sachin_superuser_setno_1,356658,7,2 9 7 5,1	josphat_superuser_setno_1,356658,5,2 5 4 3,0
+sachin_superuser_setno_1,728827,7,4 7,1	josphat_superuser_setno_1,728827,4,6 4 7,1
+sachin_superuser_setno_1,328455,6,6 2,1	josphat_superuser_setno_1,328455,5,5 2 6,1
+sachin_superuser_setno_2,603816,9,9,1	josphat_superuser_setno_2,603816,1,5 9 1,1
+sachin_superuser_setno_2,603814,5,6 1 0 5,1	josphat_superuser_setno_2,603814,0,6 1 0 7 5,2
+sachin_superuser_setno_2,647736,1,0 3 1,2	josphat_superuser_setno_2,647736,0,0 4 1,2
+sachin_superuser_setno_2,989257,0,3 0 5 7,1	josphat_superuser_setno_2,989257,3,0 9 5 7 3,2
+sachin_superuser_setno_2,749027,2,3 2 0,1	josphat_superuser_setno_2,749027,0,3 4 2 0,1
+sachin_superuser_setno_2,933178,8,8 3 0,1	josphat_superuser_setno_2,933178,0,8 3 0 1,1
+sachin_superuser_setno_2,989252,4,4 2 1 9 5,2	josphat_superuser_setno_2,989252,1,4 2 6 9 1,2
+sachin_superuser_setno_2,749020,0,0 5 6,2	josphat_superuser_setno_2,749020,6,5 8 7 6 0 1,1
+sachin_superuser_setno_2,989250,3,3 8,2	josphat_superuser_setno_2,989250,8,8 0,0
+sachin_superuser_setno_2,855672,8,7 8 6,1	josphat_superuser_setno_2,855672,7,1 7 8 3 6,1
+sachin_superuser_setno_3,131234,0,0 3 9,1	josphat_superuser_setno_3,131234,0,2 3 0,2
+sachin_superuser_setno_3,552488,0,0 1 5,0	josphat_superuser_setno_3,552488,5,5 0 1,1
+sachin_superuser_setno_3,182796,6,0 7 6,0	josphat_superuser_setno_3,182796,0,7 0 9 6,2
+sachin_superuser_setno_3,935345,0,0 5 8,0	josphat_superuser_setno_3,935345,5,5 4 8,1
+sachin_superuser_setno_3,903585,0,0 1,1	josphat_superuser_setno_3,903585,1,6 1 0,0
+sachin_superuser_setno_3,561900,3,3 4,2	josphat_superuser_setno_3,561900,9,9 3,2
+sachin_superuser_setno_3,561904,0,0 8 2 6,2	josphat_superuser_setno_3,561904,0,0 2,2
+sachin_superuser_setno_3,561907,0,0,1	josphat_superuser_setno_3,561907,0,0 7,2
+sachin_superuser_setno_3,682928,0,0,2	josphat_superuser_setno_3,682928,0,9 0,2
+sachin_superuser_setno_3,121201,7,5 6 7,1	josphat_superuser_setno_3,121201,6,0 6 5 7,1
+sachin_superuser_setno_4,755852,0,0 3 7 9 4,1	josphat_superuser_setno_4,755852,3,0 3 8 4,2
+sachin_superuser_setno_4,1057410,4,5 4 0,1	josphat_superuser_setno_4,1057410,0,0 4 9,1
+sachin_superuser_setno_4,378960,0,0 5 4,1	josphat_superuser_setno_4,378960,7,0 4 7 5 1,1
+sachin_superuser_setno_4,744536,0,0 1 8,1	josphat_superuser_setno_4,744536,1,1 8 0,2
+sachin_superuser_setno_4,362776,0,0 3 2 6,1	josphat_superuser_setno_4,362776,3,0 3 2,0
+sachin_superuser_setno_4,539337,3,0 1 3,1	josphat_superuser_setno_4,539337,1,1 0 4,1
+sachin_superuser_setno_4,855671,3,1 0 3,1	josphat_superuser_setno_4,855671,0,7 1 0 3,2
+sachin_superuser_setno_4,755858,0,0 4 1 9,1	josphat_superuser_setno_4,755858,1,4 0 1 9,2
+sachin_superuser_setno_4,661243,0,0 8 3 7,1	josphat_superuser_setno_4,661243,0,0 3,0
+sachin_superuser_setno_4,523564,0,2 0 4 3 9,1	josphat_superuser_setno_4,523564,9,2 0 9,2
+sachin_superuser_setno_5,568777,0,0 4 6 9,1	josphat_superuser_setno_5,568777,0,6 1 9 0,2
+sachin_superuser_setno_5,905298,3,0 3 2,1	josphat_superuser_setno_5,905298,0,7 0 1 6,0
+sachin_superuser_setno_5,865352,4,0 3 4 5,1	josphat_superuser_setno_5,865352,0,4 9 0,1
+sachin_superuser_setno_5,401516,5,6 5 7 8,1	josphat_superuser_setno_5,401516,0,6 5 0 1 7 8,1
+sachin_superuser_setno_5,1083225,0,9 7 6 0,1	josphat_superuser_setno_5,1083225,9,9 6 0,2
+sachin_superuser_setno_5,588655,2,0 2,1	josphat_superuser_setno_5,588655,2,2 9 1,2
+sachin_superuser_setno_5,1041190,7,4 8 7,1	josphat_superuser_setno_5,1041190,4,4 8 2 7,1
+sachin_superuser_setno_5,703055,4,0 4 5 2,1	josphat_superuser_setno_5,703055,0,8 0 6 2,1
+sachin_superuser_setno_5,708002,0,3 0 7,1	josphat_superuser_setno_5,708002,3,0 3 7 1,2
+sachin_superuser_setno_5,708001,0,0,1	josphat_superuser_setno_5,708001,0,0 2,1
+sachin_superuser_setno_6,754108,5,5 1,1	josphat_superuser_setno_6,754108,5,1 0 5,1
+sachin_superuser_setno_6,1093285,0,0 8 4 9,1	josphat_superuser_setno_6,1093285,4,0 2 4 9,0
+sachin_superuser_setno_6,488604,2,0 2,1	josphat_superuser_setno_6,488604,0,0 4 2,1
+sachin_superuser_setno_6,870206,0,1 9 5 4 0,1	josphat_superuser_setno_6,870206,9,0 9 5,0
+sachin_superuser_setno_6,871158,0,0 4 2 6,1	josphat_superuser_setno_6,871158,4,4 8 5 0,0
+sachin_superuser_setno_6,564834,4,4 5,1	josphat_superuser_setno_6,564834,5,4 5 1,0
+sachin_superuser_setno_6,820327,0,0 8,1	josphat_superuser_setno_6,820327,4,2 4 0,0
+sachin_superuser_setno_6,465857,0,0 1 5 8,1	josphat_superuser_setno_6,465857,5,0 7 5 1,1
+sachin_superuser_setno_6,1116801,8,0 4 8,1	josphat_superuser_setno_6,1116801,0,2 8 4 0,1
+sachin_superuser_setno_6,455589,3,3 8,1	josphat_superuser_setno_6,455589,5,8 7 5,1
+sachin_superuser_setno_7,473189,3,3 6 9,1	josphat_superuser_setno_7,473189,9,4 3 6 9 0,0
+sachin_superuser_setno_7,941967,1,0 1,1	josphat_superuser_setno_7,941967,0,4 1 0 8,1
+sachin_superuser_setno_7,703581,0,0 1 9,1	josphat_superuser_setno_7,703581,0,0 1 7 6 9,2
+sachin_superuser_setno_7,610085,3,1 9 2 3,1	josphat_superuser_setno_7,610085,9,9 2 3 7 1,2
+sachin_superuser_setno_7,553996,4,4 8 3 0,1	josphat_superuser_setno_7,553996,3,5 0 4 3,0
+sachin_superuser_setno_7,905743,7,0 7,1	josphat_superuser_setno_7,905743,7,0 9 7,2
+sachin_superuser_setno_7,610086,8,8 0 9,1	josphat_superuser_setno_7,610086,8,4 8 9,2
+sachin_superuser_setno_7,948545,0,0 4 1 5,1	josphat_superuser_setno_7,948545,0,0 4 9 1,1
+sachin_superuser_setno_7,703589,1,8 1 6 2 0,1	josphat_superuser_setno_7,703589,8,2 4 8 0 1 6 7,2
+sachin_superuser_setno_7,200425,0,0 1,1	josphat_superuser_setno_7,200425,1,3 0 1,0
+sachin_superuser_setno_8,1059453,0,0 3 4,2	josphat_superuser_setno_8,1059453,3,4 3 9 0,1
+sachin_superuser_setno_8,944465,0,0 1 3 5,1	josphat_superuser_setno_8,944465,9,9 0 6 3,0
+sachin_superuser_setno_8,281357,1,0 6 1,1	josphat_superuser_setno_8,281357,0,0 6 1 7,1
+sachin_superuser_setno_8,719655,0,0 5 8 3,1	josphat_superuser_setno_8,719655,5,8 5 0,0
+sachin_superuser_setno_8,38460,8,3 8,0	josphat_superuser_setno_8,38460,3,8 1 3,0
+sachin_superuser_setno_8,944469,0,0 3,1	josphat_superuser_setno_8,944469,0,3 2 0,1
+sachin_superuser_setno_8,1086762,5,0 1 5,0	josphat_superuser_setno_8,1086762,0,5 0 6 9 3,2
+sachin_superuser_setno_8,856322,7,4 5 7,2	josphat_superuser_setno_8,856322,5,5 8 4 7,2
+sachin_superuser_setno_8,739955,7,8 7,0	josphat_superuser_setno_8,739955,8,7 1 8,1
+sachin_superuser_setno_8,856328,0,0 7,2	josphat_superuser_setno_8,856328,0,5 0 7 8,2
+sachin_superuser_setno_9,481000,7,0 7,1	josphat_superuser_setno_9,481000,0,0 7 8,0
+sachin_superuser_setno_9,274822,6,0 1 6 4,1	josphat_superuser_setno_9,274822,0,0 4 7 6,2
+sachin_superuser_setno_9,327303,0,0 3 4 9,1	josphat_superuser_setno_9,327303,9,0 9 4,2
+sachin_superuser_setno_9,790025,0,0 7 6 1,1	josphat_superuser_setno_9,790025,8,2 1 8 0 5 6,2
+sachin_superuser_setno_9,455631,0,0 2 3,1	josphat_superuser_setno_9,455631,0,0 2,1
+sachin_superuser_setno_9,622407,7,0 7 3,1	josphat_superuser_setno_9,622407,0,0 3,2
+sachin_superuser_setno_9,622400,4,4 3 9,1	josphat_superuser_setno_9,622400,7,7 3 9,1
+sachin_superuser_setno_9,1071559,8,6 0 8 9,1	josphat_superuser_setno_9,1071559,6,8 9 6 0,1
+sachin_superuser_setno_9,931151,8,8 4,1	josphat_superuser_setno_9,931151,3,3 4,1
+sachin_superuser_setno_9,931150,1,9 1 0,1	josphat_superuser_setno_9,931150,0,0 1 3,2
+sachin_superuser_setno_10,312050,3,3 8 0 9,1	josphat_superuser_setno_10,312050,9,5 0 3 4 9,2
+sachin_superuser_setno_10,947849,9,9 0 8 2,1	josphat_superuser_setno_10,947849,0,0 5 2 4 8,1
+sachin_superuser_setno_10,291105,1,6 1,0	josphat_superuser_setno_10,291105,6,6 8 1,1
+sachin_superuser_setno_10,627439,8,8 0,1	josphat_superuser_setno_10,627439,0,8 0,0
+sachin_superuser_setno_10,411144,8,8 2 6 9,1	josphat_superuser_setno_10,411144,0,8 0 9,1
+sachin_superuser_setno_10,839058,3,3 2 9 1,2	josphat_superuser_setno_10,839058,3,6 9 1 3 2,2
+sachin_superuser_setno_10,788219,4,9 4 6,2	josphat_superuser_setno_10,788219,4,4 6 0,1
+sachin_superuser_setno_10,854256,2,2 6 3 0,1	josphat_superuser_setno_10,854256,0,4 2 6 3 8 0,2
+sachin_superuser_setno_10,1096493,8,8,0	josphat_superuser_setno_10,1096493,8,8 7,2
+sachin_superuser_setno_10,818053,0,0 1 6 7,0	josphat_superuser_setno_10,818053,0,6 0 1,2
+sarmed_superuser_setno_11,935817,6,3 6 0 4,1	klevin_superuser_setno_11,935817,4,0 3 6 4,1
+sarmed_superuser_setno_11,860382,9,3 9 2 1 7,2	klevin_superuser_setno_11,860382,1,9 6 2 1 7,1
+sarmed_superuser_setno_11,569824,9,9 0 3,1	klevin_superuser_setno_11,569824,0,9 0 5,1
+sarmed_superuser_setno_11,419790,0,0 8,2	klevin_superuser_setno_11,419790,8,0 8,2
+sarmed_superuser_setno_11,367262,0,7 0 3 9 1 6,2	klevin_superuser_setno_11,367262,0,0 3 9 6,1
+sarmed_superuser_setno_11,860385,0,2 8 4 0 7,2	klevin_superuser_setno_11,860385,2,5 2 8 0,1
+sarmed_superuser_setno_11,701565,0,4 5 3 0,1	klevin_superuser_setno_11,701565,4,4 3 0 5,1
+sarmed_superuser_setno_11,582716,2,8 9 1 2,1	klevin_superuser_setno_11,582716,1,8 4 1 2 7,1
+sarmed_superuser_setno_11,655573,0,8 2 0 5 7,0	klevin_superuser_setno_11,655573,8,8 7 2 0 4,1
+sarmed_superuser_setno_11,364346,0,0 4 1 7 5,2	klevin_superuser_setno_11,364346,5,0 4 1 5,2
+sarmed_superuser_setno_12,583046,0,3 0,2	klevin_superuser_setno_12,583046,3,3 5 0,1
+sarmed_superuser_setno_12,280757,2,2 0 8 6,2	klevin_superuser_setno_12,280757,0,0 2 6 5 8,1
+sarmed_superuser_setno_12,584013,7,7 4,0	klevin_superuser_setno_12,584013,3,7 3 6,1
+sarmed_superuser_setno_12,41486,7,5 1 7,1	klevin_superuser_setno_12,41486,1,4 1 7 2,1
+sarmed_superuser_setno_12,902217,0,0 8,0	klevin_superuser_setno_12,902217,0,8 2 0 4,1
+sarmed_superuser_setno_12,539338,0,9 1 7 0,1	klevin_superuser_setno_12,539338,1,5 1 3 0,1
+sarmed_superuser_setno_12,932526,0,5 1 3 0,2	klevin_superuser_setno_12,932526,0,7 1 3 0,1
+sarmed_superuser_setno_12,17904,0,0 9 3,2	klevin_superuser_setno_12,17904,7,8 7 9,1
+sarmed_superuser_setno_12,619102,9,9 0 1,2	klevin_superuser_setno_12,619102,0,0 2 1,1
+sarmed_superuser_setno_12,324762,0,0 7,2	klevin_superuser_setno_12,324762,0,4 0 7 8,1
+sarmed_superuser_setno_13,390387,8,1 0 8 7 3,0	klevin_superuser_setno_13,390387,7,2 9 8 7,1
+sarmed_superuser_setno_13,739371,4,5 4 1,0	klevin_superuser_setno_13,739371,5,1 9 5 4,1
+sarmed_superuser_setno_13,1110312,0,8 5 0 4,2	klevin_superuser_setno_13,1110312,4,8 5 0 4,1
+sarmed_superuser_setno_13,611356,0,2 4 0 8,2	klevin_superuser_setno_13,611356,0,2 4 0,1
+sarmed_superuser_setno_13,812975,0,9 4 7 2 8,1	klevin_superuser_setno_13,812975,5,4 5 2,1
+sarmed_superuser_setno_13,1087419,8,8 3 0,1	klevin_superuser_setno_13,1087419,8,8 0,1
+sarmed_superuser_setno_13,693473,5,0 9 5,2	klevin_superuser_setno_13,693473,0,2 0 3 5,1
+sarmed_superuser_setno_13,1087414,0,5 0 4 8,2	klevin_superuser_setno_13,1087414,0,0 4 9,1
+sarmed_superuser_setno_13,682922,0,6 2 3 0,2	klevin_superuser_setno_13,682922,6,6 3 0,1
+sarmed_superuser_setno_13,823142,3,1 0 7 3 6 2,1	klevin_superuser_setno_13,823142,2,0 7 2,1
+sarmed_superuser_setno_14,47887,0,0 3 1 5,2	klevin_superuser_setno_14,47887,1,0 8 5 1,1
+sarmed_superuser_setno_14,37715,8,0 8 5,1	klevin_superuser_setno_14,37715,0,0 1 5 8,1
+sarmed_superuser_setno_14,319752,1,6 1 0 9 7 3,2	klevin_superuser_setno_14,319752,3,0 7 9 3 1,2
+sarmed_superuser_setno_14,1081816,0,3 7 8 0,2	klevin_superuser_setno_14,1081816,3,3 0 7,1
+sarmed_superuser_setno_14,542728,0,0 9 1 3 5,2	klevin_superuser_setno_14,542728,9,2 9 3 0,1
+sarmed_superuser_setno_14,860968,0,0 7 3 9 8,2	klevin_superuser_setno_14,860968,9,0 6 3 1 9,1
+sarmed_superuser_setno_14,860967,1,2 5 7 8 1,0	klevin_superuser_setno_14,860967,2,8 5 2 1,2
+sarmed_superuser_setno_14,462008,0,6 0 9,1	klevin_superuser_setno_14,462008,9,0 9,1
+sarmed_superuser_setno_14,1047591,0,0 2 7 5 6,0	klevin_superuser_setno_14,1047591,7,0 6 3 7 4,1
+sarmed_superuser_setno_14,37711,9,4 2 9 6 0 8,1	klevin_superuser_setno_14,37711,0,9 0 6 8 3,1
+sarmed_superuser_setno_15,1047592,0,0 8 4,0	klevin_superuser_setno_15,1047592,8,8 0,1
+sarmed_superuser_setno_15,305482,0,9 0 2 6 5,1	klevin_superuser_setno_15,305482,9,9 0 8,1
+sarmed_superuser_setno_15,399182,1,4 1,0	klevin_superuser_setno_15,399182,4,4 1 3,1
+sarmed_superuser_setno_15,771634,2,4 0 2 3,1	klevin_superuser_setno_15,771634,3,7 0 2 3 1,1
+sarmed_superuser_setno_15,395609,0,4 2 5 0,1	klevin_superuser_setno_15,395609,3,4 2 3 0,1
+sarmed_superuser_setno_15,639130,0,1 0,2	klevin_superuser_setno_15,639130,1,1 0,1
+sarmed_superuser_setno_15,237822,7,0 9 2 5 7,2	klevin_superuser_setno_15,237822,2,9 6 2 7 4,1
+sarmed_superuser_setno_15,1075704,0,3 1 8 2 0,1	klevin_superuser_setno_15,1075704,3,0 3 8,1
+sarmed_superuser_setno_15,247036,1,0 1,0	klevin_superuser_setno_15,247036,1,0 1 6,1
+sarmed_superuser_setno_15,541460,0,5 7 0 3,1	klevin_superuser_setno_15,541460,3,0 3 9 1,1
+sarmed_superuser_setno_16,667352,0,9 6 0 8 1 5,2	klevin_superuser_setno_16,667352,1,9 0 1,1
+sarmed_superuser_setno_16,1115758,4,4 7 8,0	klevin_superuser_setno_16,1115758,7,9 7 0 4,1
+sarmed_superuser_setno_16,664613,4,3 4 8 6 0,2	klevin_superuser_setno_16,664613,0,4 6 0,1
+sarmed_superuser_setno_16,229418,3,9 3 0 4,0	klevin_superuser_setno_16,229418,0,3 0 6 9,1
+sarmed_superuser_setno_16,829221,0,0 1,2	klevin_superuser_setno_16,829221,0,0 1,2
+sarmed_superuser_setno_16,624272,0,0 4 1 9 3,1	klevin_superuser_setno_16,624272,1,0 9 1,1
+sarmed_superuser_setno_16,624275,2,0 2 4 9 7,2	klevin_superuser_setno_16,624275,0,2 9 1 8 0,1
+sarmed_superuser_setno_16,829225,2,1 2 0 4,2	klevin_superuser_setno_16,829225,4,1 2 3 4,1
+sarmed_superuser_setno_16,822238,8,1 8 0 9,2	klevin_superuser_setno_16,822238,0,0 8 7,2
+sarmed_superuser_setno_16,354540,0,0 2,2	klevin_superuser_setno_16,354540,0,0 2,1
+sarmed_superuser_setno_17,842368,0,1 9 0 6 5,2	klevin_superuser_setno_17,842368,0,0 6 5,1
+sarmed_superuser_setno_17,794632,5,7 5 0 4,2	klevin_superuser_setno_17,794632,0,7 5 0 3 4,1
+sarmed_superuser_setno_17,378139,0,0 9 4 5 3,1	klevin_superuser_setno_17,378139,5,5 3 4 8 1 0,1
+sarmed_superuser_setno_17,1093723,0,0 1,0	klevin_superuser_setno_17,1093723,0,5 0 9,1
+sarmed_superuser_setno_17,266732,0,7 0 9,2	klevin_superuser_setno_17,266732,7,0 1 7 9,2
+sarmed_superuser_setno_17,503373,5,9 3 5 0,1	klevin_superuser_setno_17,503373,0,5 0,2
+sarmed_superuser_setno_17,425708,0,0 1 2,1	klevin_superuser_setno_17,425708,2,2 0 5,2
+sarmed_superuser_setno_17,887588,9,0 3 9 1 7,2	klevin_superuser_setno_17,887588,3,0 9 3 1,1
+sarmed_superuser_setno_17,703054,0,9 4 1 0 2,2	klevin_superuser_setno_17,703054,1,3 9 7 1 0,1
+sarmed_superuser_setno_17,460534,5,5 0 4,1	klevin_superuser_setno_17,460534,0,0 9 5 7,1
+sarmed_superuser_setno_18,150538,0,5 0,0	klevin_superuser_setno_18,150538,0,5 0,2
+sarmed_superuser_setno_18,708000,0,4 8 0 7 2,0	klevin_superuser_setno_18,708000,4,1 4 8 2 0,1
+sarmed_superuser_setno_18,838041,0,0 3 5,2	klevin_superuser_setno_18,838041,3,0 3 2 5,1
+sarmed_superuser_setno_18,632675,4,2 6 4,0	klevin_superuser_setno_18,632675,4,7 4 5,1
+sarmed_superuser_setno_18,969459,4,0 2 4 8,1	klevin_superuser_setno_18,969459,0,2 4 0,1
+sarmed_superuser_setno_18,706341,4,4 0 1 3,1	klevin_superuser_setno_18,706341,3,4 3 9 5,1
+sarmed_superuser_setno_18,706347,3,0 3 2 4,0	klevin_superuser_setno_18,706347,0,0 3 6 7,1
+sarmed_superuser_setno_18,81462,0,7 0 6,1	klevin_superuser_setno_18,81462,6,7 6 0,1
+sarmed_superuser_setno_18,1030398,6,6 9 5 8,0	klevin_superuser_setno_18,1030398,8,6 9 5 8,1
+sarmed_superuser_setno_18,545613,9,8 6 0 5 9,1	klevin_superuser_setno_18,545613,0,0 5 9 2,1
+sarmed_superuser_setno_19,1081432,0,1 0 8,1	klevin_superuser_setno_19,1081432,0,2 0 8,1
+sarmed_superuser_setno_19,656128,0,0 6 5 3,2	klevin_superuser_setno_19,656128,6,2 6 0,1
+sarmed_superuser_setno_19,834691,5,5 0 3,1	klevin_superuser_setno_19,834691,0,5 0 3,1
+sarmed_superuser_setno_19,732527,4,6 4 0,2	klevin_superuser_setno_19,732527,0,6 4 0,1
+sarmed_superuser_setno_19,1082896,2,0 2 3 4,1	klevin_superuser_setno_19,1082896,4,2 4,1
+sarmed_superuser_setno_19,199080,3,7 3 2 0 8,1	klevin_superuser_setno_19,199080,8,3 0 8,2
+sarmed_superuser_setno_19,770275,3,0 2 3,0	klevin_superuser_setno_19,770275,3,2 4 3 0,1
+sarmed_superuser_setno_19,631493,3,6 8 4 0 3,1	klevin_superuser_setno_19,631493,8,6 8 0 3,2
+sarmed_superuser_setno_19,368728,1,0 6 1 3 7,2	klevin_superuser_setno_19,368728,3,1 3 5 7,1
+sarmed_superuser_setno_19,411961,0,9 8 0 1,1	klevin_superuser_setno_19,411961,0,0 4 5 1,1
+sarmed_superuser_setno_20,1001149,4,4 1 0 6,1	klevin_superuser_setno_20,1001149,1,1 0 4,1
+sarmed_superuser_setno_20,844969,0,1 3 5 0,1	klevin_superuser_setno_20,844969,1,0 1 6 8 5,1
+sarmed_superuser_setno_20,951451,0,6 0 4 5 2 3,1	klevin_superuser_setno_20,951451,3,6 7 3 0,1
+sarmed_superuser_setno_20,1073221,1,3 7 0 1 5,2	klevin_superuser_setno_20,1073221,1,7 0 1,1
+sarmed_superuser_setno_20,670748,5,1 5,0	klevin_superuser_setno_20,670748,1,1 3 5,1
+sarmed_superuser_setno_20,1074321,5,5 0 2,2	klevin_superuser_setno_20,1074321,5,0 5,1
+sarmed_superuser_setno_20,575881,1,0 7 1,1	klevin_superuser_setno_20,575881,0,0 6 7 1,1
+sarmed_superuser_setno_20,331246,0,0 9,0	klevin_superuser_setno_20,331246,0,0,1
+sarmed_superuser_setno_20,666903,0,2 6 5 8 0,2	klevin_superuser_setno_20,666903,6,0 3 6 8,1
+sarmed_superuser_setno_20,660979,0,2 0 8 9,2	klevin_superuser_setno_20,660979,2,2 0 1,1
+davit_superuser_setno_21,1027379,0,0 7,2	steve_superuser_setno_21,1027379,0,4 0 7 8,0
+davit_superuser_setno_21,888695,0,1 0,2	steve_superuser_setno_21,888695,1,1 0 4 7,1
+davit_superuser_setno_21,1027376,1,1 3 0 8,2	steve_superuser_setno_21,1027376,0,4 5 1 9 0 8,1
+davit_superuser_setno_21,312886,1,0 1 5 3,1	steve_superuser_setno_21,312886,0,4 5 0 1 7,1
+davit_superuser_setno_21,369878,0,0,2	steve_superuser_setno_21,369878,0,5 0 1 3,1
+davit_superuser_setno_21,830279,4,6 0 4,2	steve_superuser_setno_21,830279,4,0 6 4,1
+davit_superuser_setno_21,974024,5,0 3 1 4 5,2	steve_superuser_setno_21,974024,7,3 7 0 4 5 9,1
+davit_superuser_setno_21,492454,0,0 4 9 6,2	steve_superuser_setno_21,492454,6,4 0 2 9 6,1
+davit_superuser_setno_21,830271,0,0,2	steve_superuser_setno_21,830271,0,7 0 8 5 6,0
+davit_superuser_setno_21,1004649,0,7 6 3 0 4,2	steve_superuser_setno_21,1004649,4,3 0 4 7 8 5,2
+davit_superuser_setno_22,832526,0,0 2 3,2	steve_superuser_setno_22,832526,3,0 2 3 7 5,1
+davit_superuser_setno_22,257981,0,6 0 2 3,2	steve_superuser_setno_22,257981,6,0 6 5 3 4,1
+davit_superuser_setno_22,586083,0,7 1 0 8 4,2	steve_superuser_setno_22,586083,1,1 9 5 8 0,1
+davit_superuser_setno_22,842066,5,0 5 1,1	steve_superuser_setno_22,842066,1,0 9 2 1,0
+davit_superuser_setno_22,1096739,0,9 3 5 0,2	steve_superuser_setno_22,1096739,5,3 2 5 0,1
+davit_superuser_setno_22,251203,3,3 4 2,2	steve_superuser_setno_22,251203,4,2 7 4 3,0
+davit_superuser_setno_22,806057,0,0 7 6,2	steve_superuser_setno_22,806057,7,4 7 0,1
+davit_superuser_setno_22,806054,0,0,2	steve_superuser_setno_22,806054,0,3 0,1
+davit_superuser_setno_22,877994,3,4 3 0 5,2	steve_superuser_setno_22,877994,4,3 4 9 6 7,1
+davit_superuser_setno_22,1009378,7,3 8 0 5 7,2	steve_superuser_setno_22,1009378,8,3 8 0 5,1
+davit_superuser_setno_23,1018586,4,0 3 5 4 9,2	steve_superuser_setno_23,1018586,3,2 3 1 4 0 9,1
+davit_superuser_setno_23,488167,9,0 9,2	steve_superuser_setno_23,488167,0,9 7 0,0
+davit_superuser_setno_23,422041,3,0 3 1,2	steve_superuser_setno_23,422041,0,3 1 5 0 4,1
+davit_superuser_setno_23,850036,4,4 3 0 2,2	steve_superuser_setno_23,850036,0,6 4 1 0 2,1
+davit_superuser_setno_23,514802,3,0 3,1	steve_superuser_setno_23,514802,0,0 3,1
+davit_superuser_setno_23,879458,0,4 0 7 3 2,2	steve_superuser_setno_23,879458,2,0 7 3 6 2,1
+davit_superuser_setno_23,45596,0,0,1	steve_superuser_setno_23,45596,9,9 2 0,1
+davit_superuser_setno_23,303642,0,9 0,2	steve_superuser_setno_23,303642,0,9 0 8,1
+davit_superuser_setno_23,1105389,0,0 5,1	steve_superuser_setno_23,1105389,0,8 1 0 5,0
+davit_superuser_setno_23,1020069,0,0,1	steve_superuser_setno_23,1020069,0,2 5 0,1
+davit_superuser_setno_24,1079343,0,0 2 1,2	steve_superuser_setno_24,1079343,0,0 2 3 4,0
+davit_superuser_setno_24,218946,3,5 3 2 6,1	steve_superuser_setno_24,218946,5,6 5 1 4,1
+davit_superuser_setno_24,1105387,0,2 0,2	steve_superuser_setno_24,1105387,0,2 0 9,1
+davit_superuser_setno_24,1079346,0,2 5 0 3,2	steve_superuser_setno_24,1079346,5,0 5 6 3,1
+davit_superuser_setno_24,875590,2,2 8 3 0,2	steve_superuser_setno_24,875590,3,2 3 8 1,1
+davit_superuser_setno_24,703585,0,3 6 2 0,2	steve_superuser_setno_24,703585,3,3 7 2 0,1
+davit_superuser_setno_24,992757,7,7 2 0,2	steve_superuser_setno_24,992757,1,7 0 3 6 1,1
+davit_superuser_setno_24,926193,0,0 8,1	steve_superuser_setno_24,926193,0,0 6 1,1
+davit_superuser_setno_24,622899,8,5 8 1,1	steve_superuser_setno_24,622899,5,7 5 3 8,1
+davit_superuser_setno_24,622890,0,1 0 5,2	steve_superuser_setno_24,622890,5,1 5 0 4 7,1
+davit_superuser_setno_25,380018,0,8 0 6,2	steve_superuser_setno_25,380018,6,8 5 0 6,1
+davit_superuser_setno_25,496455,7,8 7 0,1	steve_superuser_setno_25,496455,0,1 8 4 0,1
+davit_superuser_setno_25,850789,0,4 0,2	steve_superuser_setno_25,850789,8,2 8 7 1 0,1
+davit_superuser_setno_25,927242,7,8 7 0,2	steve_superuser_setno_25,927242,7,8 2 9 7 0,0
+davit_superuser_setno_25,295168,0,6 9 0,2	steve_superuser_setno_25,295168,6,6 9 1 0,1
+davit_superuser_setno_25,850786,8,1 8,1	steve_superuser_setno_25,850786,8,7 1 8,1
+davit_superuser_setno_25,1076349,8,8 1,2	steve_superuser_setno_25,1076349,1,1 8,1
+davit_superuser_setno_25,845776,0,1 3 0 8,2	steve_superuser_setno_25,845776,1,0 3 1 8,1
+davit_superuser_setno_25,560506,7,0 5 2 7,1	steve_superuser_setno_25,560506,5,0 5 2 6 7,1
+davit_superuser_setno_25,495050,8,7 8,2	steve_superuser_setno_25,495050,7,7 6 1 8 0,0
