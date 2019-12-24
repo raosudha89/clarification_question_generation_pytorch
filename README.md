@@ -11,6 +11,7 @@ Proceedings of NAACL-HLT 2019
 
 * Download embeddings from https://go.umd.edu/clarification_questions_embeddings
 * Download data from https://go.umd.edu/clarification_question_generation_dataset 
+  Unzip the two folders inside and copy them into the repository folder
 
 # Running models on StackExchange dataset
 
