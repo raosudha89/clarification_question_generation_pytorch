@@ -10,6 +10,7 @@ Proceedings of NAACL-HLT 2019
 # Downloading data
 
 * Download embeddings from https://go.umd.edu/clarification_questions_embeddings
+* Download data from https://go.umd.edu/clarification_question_generation_dataset 
 
 # Running models on StackExchange dataset
 
@@ -26,3 +27,11 @@ Proceedings of NAACL-HLT 2019
 * To train a Max-Utility model, run src/run_RL_main_HK.sh
 
 * To train a GAN-Utility model, run src/run_GAN_main_HK.sh
+
+# Evaluating generated outputs
+
+* BLEU score, run src/evaluation/run_bleu.sh
+
+* METEOR score, run src/evaluation/run_meteor.sh 
+
+* Diversity score, run src/evaluation/calculate_diversiy.sh <predictions_file>
