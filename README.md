@@ -31,8 +31,16 @@ Proceedings of NAACL-HLT 2019
 
 # Evaluating generated outputs
 
-* BLEU score, run src/evaluation/run_bleu.sh
+* For StackExchange dataset, reference for a subset of the test set was collected using human annotators.
+  Hence we first create a version of the predictions file for which we have references by running following:
+  src/evaluation/run_create_preds_for_refs.sh
 
-* METEOR score, run src/evaluation/run_meteor.sh 
+* For Amazon dataset, we have references for all instances in the test set.
 
-* Diversity score, run src/evaluation/calculate_diversiy.sh <predictions_file>
+* We remove <UNK> tokens from the generated outputs by simply removing them from the predictions file.
+
+* For BLEU score, run src/evaluation/run_bleu.sh
+
+* For METEOR score, run src/evaluation/run_meteor.sh 
+
+* For Diversity score, run src/evaluation/calculate_diversiy.sh <predictions_file>
