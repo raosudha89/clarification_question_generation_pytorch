@@ -1,18 +1,10 @@
 #!/bin/bash
 
-#SBATCH --job-name=RL_aus_emb200_selfcritic
-#SBATCH --output=RL_aus_emb200_selfcritic
-#SBATCH --qos=gpu-medium
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu
-#SBATCH --time=24:00:00
-#SBATCH --mem=64g
-
 SITENAME=askubuntu_unix_superuser
 
-CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
-SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
+CQ_DATA_DIR=clarification_question_generation_pytorch/$SITENAME
+SCRIPT_DIR=clarification_question_generation_pytorch/src
+EMB_DIR=clarification_question_generation_pytorch/embeddings/$SITENAME
 
 python $SCRIPT_DIR/RL_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--train_ques $CQ_DATA_DIR/train_question.txt \
