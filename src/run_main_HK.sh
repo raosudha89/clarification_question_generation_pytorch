@@ -1,21 +1,12 @@
 #!/bin/bash
 
-#SBATCH --job-name=pretrain_ques_HK_emb200
-#SBATCH --output=pretrain_ques_HK_emb200
-#SBATCH --qos=gpu-long
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu
-#SBATCH --time=48:00:00
-#SBATCH --mem=64g
-
 SITENAME=Home_and_Kitchen
 
-CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
-PARAMS_DIR=/fs/clip-scratch/raosudha/style_clarification_question_generation/$SITENAME
-SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/style_clarification_question_generation/embeddings/$SITENAME
+CQ_DATA_DIR=clarification_question_generation_pytorch/$SITENAME
+SCRIPT_DIR=clarification_question_generation_pytorch/src
+EMB_DIR=clarification_question_generation_pytorch/embeddings/$SITENAME
 
-export PATH=/cliphomes/raosudha/anaconda2/bin:$PATH
+PARAMS_DIR=$CQ_DATA_DIR
 
 python $SCRIPT_DIR/main.py    --train_context $CQ_DATA_DIR/train_context.txt \
                                     --train_ques $CQ_DATA_DIR/train_ques.txt \
