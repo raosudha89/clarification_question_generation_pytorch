@@ -10,6 +10,7 @@ Proceedings of NAACL-HLT 2019
 # Downloading data
 
 * Download embeddings from https://go.umd.edu/clarification_questions_embeddings
+  and save them into the repository folder
 * Download data from https://go.umd.edu/clarification_question_generation_dataset 
   Unzip the two folders inside and copy them into the repository folder
 
