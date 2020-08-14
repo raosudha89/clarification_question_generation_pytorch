@@ -1,18 +1,10 @@
 #!/bin/bash
 
-#SBATCH --job-name=aus_decode_emb200_seq2seq_epoch60
-#SBATCH --output=aus_decode_emb200_seq2seq_epoch60
-#SBATCH --qos=gpu-short
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu
-#SBATCH --time=1:00:00
-#SBATCH --mem=16g
-
 SITENAME=askubuntu_unix_superuser
 
-CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
-SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
+CQ_DATA_DIR=clarification_question_generation_pytorch/$SITENAME
+SCRIPT_DIR=clarification_question_generation_pytorch/src
+EMB_DIR=clarification_question_generation_pytorch/embeddings/$SITENAME
 
 python $SCRIPT_DIR/decode.py		--test_context $CQ_DATA_DIR/test_context.txt \
 									--test_ques $CQ_DATA_DIR/test_question.txt \
