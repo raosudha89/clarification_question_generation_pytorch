@@ -1,19 +1,12 @@
 #!/bin/bash
 
-#SBATCH --job-name=HK_decode_GAN_selfcritic_pred_ans_3perid_util_dis.epoch12
-#SBATCH --output=HK_decode_GAN_selfcritic_pred_ans_3perid_util_dis.epoch12
-#SBATCH --qos=gpu-short
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu
-#SBATCH --time=1:00:00
-#SBATCH --mem=16g
-
 SITENAME=Home_and_Kitchen
 
-CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
-PARAMS_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/$SITENAME
-SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
+CQ_DATA_DIR=clarification_question_generation_pytorch/$SITENAME
+SCRIPT_DIR=clarification_question_generation_pytorch/src
+EMB_DIR=clarification_question_generation_pytorch/embeddings/$SITENAME
+
+PARAMS_DIR=$CQ_DATA_DIR
 
 python $SCRIPT_DIR/decode.py        --test_context $CQ_DATA_DIR/test_context.txt \
 									--test_ques $CQ_DATA_DIR/test_ques.txt \
