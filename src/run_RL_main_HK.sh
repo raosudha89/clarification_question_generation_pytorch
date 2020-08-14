@@ -1,21 +1,12 @@
 #!/bin/bash
 
-#SBATCH --job-name=RL_HK_emb200_selfcritic_3perid
-#SBATCH --output=RL_HK_emb200_selfcritic_3perid
-#SBATCH --qos=gpu-medium
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu
-#SBATCH --time=24:00:00
-#SBATCH --mem=64g
-
 SITENAME=Home_and_Kitchen
 
-CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
-PARAMS_DIR=/fs/clip-scratch/raosudha/clarification_question_generation/$SITENAME
-SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
+CQ_DATA_DIR=clarification_question_generation_pytorch/$SITENAME
+SCRIPT_DIR=clarification_question_generation_pytorch/src
+EMB_DIR=clarification_question_generation_pytorch/embeddings/$SITENAME
 
-#module load cuda/9.1.85
+PARAMS_DIR=$CQ_DATA_DIR
 
 python $SCRIPT_DIR/RL_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--train_ques $CQ_DATA_DIR/train_ques.txt \
