@@ -1,22 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=pretrain_ques_aus_emb200_fullvocab
-#SBATCH --output=pretrain_ques_aus_emb200_fullvocab
-#SBATCH --qos=gpu-medium
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu
-#SBATCH --time=24:00:00
-#SBATCH --mem=64g
-
 SITENAME=askubuntu_unix_superuser
 
-CQ_DATA_DIR=/fs/clip-amr/clarification_question_generation_pytorch/$SITENAME
-SCRIPT_DIR=/fs/clip-amr/clarification_question_generation_pytorch/src
-EMB_DIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME
+CQ_DATA_DIR=clarification_question_generation_pytorch/$SITENAME
+SCRIPT_DIR=clarification_question_generation_pytorch/src
+EMB_DIR=clarification_question_generation_pytorch/embeddings/$SITENAME
 
 PARAMS_DIR=$CQ_DATA_DIR
 
-export PATH=/cliphomes/raosudha/anaconda2/bin:$PATH
 
 python $SCRIPT_DIR/main.py    --train_context $CQ_DATA_DIR/train_context.txt \
                                     --train_question $CQ_DATA_DIR/train_question.txt \
