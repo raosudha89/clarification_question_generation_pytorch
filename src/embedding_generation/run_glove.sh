@@ -1,24 +1,18 @@
 #!/bin/bash
 
-#SBATCH --qos=batch
-#SBATCH --job-name=glove_aus_200_10Kvocab
-#SBATCH --output=glove_aus_200_10Kvocab
-#SBATCH --mem=48g
-#SBATCH --time=24:00:00 
-
 # Makes programs, downloads sample data, trains a GloVe model, and then evaluates it.
 # One optional argument can specify the language used for eval script: matlab, octave or [default] python
 
 SITENAME=askubuntu_unix_superuser
 #SITENAME=Home_and_Kitchen
 
-DATADIR=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/200_10Kvocab
+DATADIR=clarification_question_generation_pytorch/embeddings/$SITENAME/200_10Kvocab
 
-CORPUS=/fs/clip-amr/clarification_question_generation_pytorch/embeddings/$SITENAME/${SITENAME}_data.txt
+CORPUS=clarification_question_generation_pytorch/embeddings/$SITENAME/${SITENAME}_data.txt
 VOCAB_FILE=$DATADIR/vocab.txt
 COOCCURRENCE_FILE=$DATADIR/cooccurrence.bin
 COOCCURRENCE_SHUF_FILE=$DATADIR/cooccurrence.shuf.bin
-BUILDDIR=/fs/clip-sw/user-supported/GloVe-1.2/build
+BUILDDIR=GloVe-1.2/build  #Download from https://nlp.stanford.edu/projects/glove/
 SAVE_FILE=$DATADIR/vectors
 VERBOSE=2
 MEMORY=4.0
