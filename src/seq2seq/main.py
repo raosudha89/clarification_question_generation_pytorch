@@ -31,11 +31,11 @@ def run_seq2seq(train_data, test_data, word2index, word_embeddings,
     # Keep track of time elapsed and running averages
     start = time.time()
     print_loss_total = 0  # Reset every print_every
-    # epoch = 0.0
-    epoch = 12.0
-    print('Loading encoded, decoder params')
-    encoder.load_state_dict(torch.load(encoder_params_contd_file+'.epoch%d' % epoch))
-    decoder.load_state_dict(torch.load(decoder_params_contd_file+'.epoch%d' % epoch))
+    epoch = 0.0
+    #epoch = 12.0
+    #print('Loading encoded, decoder params')
+    #encoder.load_state_dict(torch.load(encoder_params_contd_file+'.epoch%d' % epoch))
+    #decoder.load_state_dict(torch.load(decoder_params_contd_file+'.epoch%d' % epoch))
 
     ids_seqs, input_seqs, input_lens, output_seqs, output_lens = train_data
     
