@@ -1,5 +1,5 @@
 import argparse
-import cPickle as p
+import pickle as p
 import sys
 
 import torch

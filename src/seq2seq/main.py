@@ -11,10 +11,11 @@ from prepare_data import *
 
 
 def run_seq2seq(train_data, test_data, word2index, word_embeddings,
-                encoder_params_file, decoder_params_file, max_target_length,
+                encoder_params_file, decoder_params_file,
+                encoder_params_contd_file, decoder_params_contd_file, max_target_length,
                 n_epochs, batch_size, n_layers):
     # Initialize q models
-    print 'Initializing models'
+    print('Initializing models')
     encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers, dropout=DROPOUT)
     decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, n_layers)
 
@@ -30,11 +31,11 @@ def run_seq2seq(train_data, test_data, word2index, word_embeddings,
     # Keep track of time elapsed and running averages
     start = time.time()
     print_loss_total = 0  # Reset every print_every
-    epoch = 0.0
-    # epoch = 55.0
-    # print 'Loading encoded, decoder params'
-    # encoder.load_state_dict(torch.load(encoder_params_file+'.epoch%d' % epoch))
-    # decoder.load_state_dict(torch.load(decoder_params_file+'.epoch%d' % epoch))
+    # epoch = 0.0
+    epoch = 12.0
+    print('Loading encoded, decoder params')
+    encoder.load_state_dict(torch.load(encoder_params_contd_file+'.epoch%d' % epoch))
+    decoder.load_state_dict(torch.load(decoder_params_contd_file+'.epoch%d' % epoch))
 
     ids_seqs, input_seqs, input_lens, output_seqs, output_lens = train_data
     
@@ -66,14 +67,14 @@ def run_seq2seq(train_data, test_data, word2index, word_embeddings,
         # teacher_forcing_ratio = teacher_forcing_ratio - decr
         print_loss_avg = print_loss_total / n_batches
         print_loss_total = 0
-        print 'Epoch: %d' % epoch
-        print 'Train Set'
+        print('Epoch: %d' % epoch)
+        print('Train Set')
         print_summary = '%s %d %.4f' % (time_since(start, epoch / n_epochs), epoch, print_loss_avg)
         print(print_summary)
-        print 'Dev Set'
+        print('Dev Set')
         curr_test_loss = evaluate(word2index, None, encoder, decoder, test_data,
                                   max_target_length, batch_size, None)
-        print '%.4f ' % curr_test_loss
+        print('%.4f ' % curr_test_loss)
         # if prev_test_loss is not None:
         #     diff_test_loss = prev_test_loss - curr_test_loss
         #     if diff_test_loss <= 0:
@@ -84,9 +85,9 @@ def run_seq2seq(train_data, test_data, word2index, word_embeddings,
         #         torch.save(encoder.state_dict(), encoder_params_file + '.epoch%d' % epoch)
         #         torch.save(decoder.state_dict(), decoder_params_file + '.epoch%d' % epoch)
         #         return
-        if epoch % 5 == 0:
-            print 'Saving model params'
-            torch.save(encoder.state_dict(), encoder_params_file+'.epoch%d' % epoch)
-            torch.save(decoder.state_dict(), decoder_params_file+'.epoch%d' % epoch)
+        # if epoch % 5 == 0:
+        print('Saving model params')
+        torch.save(encoder.state_dict(), encoder_params_file+'.epoch%d' % epoch)
+        torch.save(decoder.state_dict(), decoder_params_file+'.epoch%d' % epoch)
 
 

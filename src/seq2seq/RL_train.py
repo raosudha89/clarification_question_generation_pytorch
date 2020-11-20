@@ -21,7 +21,7 @@ def get_decoded_seqs(output_seqs, word2index, max_len, batch_size):
                 decoded_seq.append(idx)
                 decoded_seq_mask[t] = 1
         decoded_lens.append(len(decoded_seq))
-        decoded_seq += [word2index[PAD_token]]*(max_len - len(decoded_seq))
+        decoded_seq += [word2index[PAD_token]]*int(max_len - len(decoded_seq))
         decoded_seqs.append(decoded_seq)
 
     decoded_lens = np.array(decoded_lens)

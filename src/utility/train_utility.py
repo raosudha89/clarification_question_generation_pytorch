@@ -1,4 +1,6 @@
-from helper import *
+import sys
+sys.path.append('src/utility')
+from helper_utility import *
 import numpy as np
 import torch
 from constants import *
@@ -26,11 +28,11 @@ def train_fn(context_model, question_model, answer_model, utility_model, train_d
     for c, cm, q, qm, a, am, l in iterate_minibatches(contexts, context_masks, questions, question_masks,
                                                       answers, answer_masks, labels, args.batch_size):
         optimizer.zero_grad()
-        c = torch.tensor(c)
+        c = torch.tensor(c.tolist())            
         cm = torch.FloatTensor(cm)
-        q = torch.tensor(q)
+        q = torch.tensor(q.tolist())
         qm = torch.FloatTensor(qm)
-        a = torch.tensor(a)
+        a = torch.tensor(a.tolist())
         am = torch.FloatTensor(am)
         if USE_CUDA:
             c = c.cuda()

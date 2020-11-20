@@ -1,6 +1,6 @@
 import argparse
 import os
-import cPickle as p
+import pickle as p
 import string
 import time
 import datetime
@@ -47,8 +47,8 @@ def main(args):
         test_data = read_data(args.tune_context, args.tune_question, args.tune_answer, None,
                               args.max_post_len, args.max_ques_len, args.max_ans_len)
 
-    print 'No. of train_data %d' % len(train_data)
-    print 'No. of test_data %d' % len(test_data)
+    print('No. of train_data %d' % len(train_data))
+    print('No. of test_data %d' % len(test_data))
 
     ids_seqs, post_seqs, post_lens, ques_seqs, ques_lens, post_ques_seqs, post_ques_lens, ans_seqs, ans_lens = \
         preprocess_data(train_data, word2index, args.max_post_len, args.max_ques_len, args.max_ans_len)
@@ -67,15 +67,17 @@ def main(args):
     if args.pretrain_ques:
         run_seq2seq(q_train_data, q_test_data, word2index, word_embeddings,
                     args.q_encoder_params, args.q_decoder_params,
+                    args.q_encoder_params_contd, args.q_decoder_params_contd,
                     args.max_ques_len, args.n_epochs, args.batch_size, n_layers=2)
     elif args.pretrain_ans:
         run_seq2seq(a_train_data, a_test_data, word2index, word_embeddings,
                     args.a_encoder_params, args.a_decoder_params,
+                    args.a_encoder_params_contd, args.a_decoder_params_contd,
                     args.max_ans_len, args.n_epochs, args.batch_size, n_layers=2)
     elif args.pretrain_util:
         run_utility(u_train_data, u_test_data, word_embeddings, index2word, args, n_layers=1)
     else:
-        print 'Please specify model to pretrain'
+        print('Please specify model to pretrain')
         return
 
 
@@ -93,6 +95,10 @@ if __name__ == "__main__":
     argparser.add_argument("--test_question", type = str)
     argparser.add_argument("--test_answer", type = str)
     argparser.add_argument("--test_ids", type=str)
+    argparser.add_argument("--q_encoder_params_contd", type = str)
+    argparser.add_argument("--q_decoder_params_contd", type = str)
+    argparser.add_argument("--a_encoder_params_contd", type = str)
+    argparser.add_argument("--a_decoder_params_contd", type = str)
     argparser.add_argument("--q_encoder_params", type = str)
     argparser.add_argument("--q_decoder_params", type = str)
     argparser.add_argument("--a_encoder_params", type = str)
@@ -112,7 +118,7 @@ if __name__ == "__main__":
     argparser.add_argument("--n_epochs", type = int, default=20)
     argparser.add_argument("--batch_size", type = int, default=128)
     args = argparser.parse_args()
-    print args
-    print ""
+    print(args)
+    print("")
     main(args)
 

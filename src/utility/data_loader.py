@@ -5,7 +5,7 @@ import torch
 import torch.autograd as autograd
 import random
 import torch.utils.data as Data
-import cPickle as p
+import pickle as p
 
 def load_data(contexts_fname, answers_fname):
 	contexts_file = open(contexts_fname, 'r')

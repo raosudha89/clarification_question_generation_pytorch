@@ -56,7 +56,7 @@ def evaluate_batch(input_batches, input_lens, encoder, decoder,
         #     decoded_lens.append(target_lens[b])
         # else:
         decoded_lens.append(len(decoded_seq))
-        decoded_seq += [word2index[PAD_token]]*(max_out_len - len(decoded_seq))
+        decoded_seq += [word2index[PAD_token]]*int(max_out_len - len(decoded_seq))
         decoded_seqs.append(decoded_seq)
 
     return decoded_seqs, decoded_lens    
@@ -104,13 +104,24 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder,
             decoder_output, decoder_hidden = decoder(decoder_input, decoder_hidden, encoder_outputs)
             all_decoder_outputs[t] = decoder_output
             # Choose top word from output
-            topv, topi = decoder_output.data.topk(1)
-            decoder_input = topi.squeeze(1) 
+            topv_list, topi_list = decoder_output.data.topk(10)
+            topi = topi_list[:, 0]
+            for i in range(len(topi)):
+                j = 0
+                while topi_list[i][j].item() == word2index[UNK_token]:
+                    j += 1
+                topi[i] = topi_list[i][j]
+            decoder_input = topi 
         for b in range(batch_size):
             decoded_words = []
             for t in range(max_out_len):
-                topv, topi = all_decoder_outputs[t][b].data.topk(1)
-                ni = topi[0].item()
+                topv_list, topi_list = all_decoder_outputs[t][b].data.topk(10)
+                for topi in topi_list:
+                    if topi.item() != word2index[UNK_token]:
+                        ni = topi.item()
+                        break   
+                if ni == word2index[UNK_token]:
+                    import pdb; pdb.set_trace()
                 if ni == word2index[EOS_token]:
                     decoded_words.append(EOS_token)
                     break
@@ -129,4 +140,4 @@ def evaluate_seq2seq(word2index, index2word, encoder, decoder,
             output_lens_batch, loss_fn, max_out_len
             )
         total_loss += loss.item()
-    print 'Loss: %.2f' % (total_loss/n_batches)
+    print('Loss: %.2f' % (total_loss/n_batches))

@@ -13,6 +13,7 @@ SOS_token = '<SOS>'
 EOP_token = '<EOP>'
 EOS_token = '<EOS>'
 UNK_token = '<unk>'
+# UNK_token = 'unk'
 SPECIFIC_token = '<specific>'
 GENERIC_token = '<generic>'
 

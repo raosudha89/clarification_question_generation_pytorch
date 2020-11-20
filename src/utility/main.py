@@ -1,6 +1,8 @@
 from constants import *
+import sys
+sys.path.append('src/utility')
 from FeedForward import *
-from evaluate import *
+from evaluate_utility import *
 import random
 from RNN import *
 import time
@@ -8,19 +10,19 @@ import torch
 from torch import optim
 import torch.nn as nn
 import torch.autograd as autograd
-from train import *
+from train_utility import *
 
 
 def update_neg_data(data, index2word):
     ids_seqs, post_seqs, post_lens, ques_seqs, ques_lens, ans_seqs, ans_lens = data
     N = 2
-    labels = [0]*(N*len(post_seqs))
-    new_post_seqs = [None]*(N*len(post_seqs))
-    new_post_lens = [None]*(N*len(post_lens))
-    new_ques_seqs = [None]*(N*len(ques_seqs))
-    new_ques_lens = [None]*(N*len(ques_lens))
-    new_ans_seqs = [None]*(N*len(ans_seqs))
-    new_ans_lens = [None]*(N*len(ans_lens))
+    labels = [0]*int(N*len(post_seqs))
+    new_post_seqs = [None]*int(N*len(post_seqs))
+    new_post_lens = [None]*int(N*len(post_lens))
+    new_ques_seqs = [None]*int(N*len(ques_seqs))
+    new_ques_lens = [None]*int(N*len(ques_lens))
+    new_ans_seqs = [None]*int(N*len(ans_seqs))
+    new_ans_lens = [None]*int(N*len(ans_lens))
     for i in range(len(post_seqs)):
         new_post_seqs[N*i] = post_seqs[i]
         new_post_lens[N*i] = post_lens[i]
@@ -90,13 +92,13 @@ def run_utility(train_data, test_data, word_embeddings, index2word, args, n_laye
                                          train_data, optimizer, criterion, args)
         valid_loss, valid_acc = evaluate(context_model, question_model, answer_model, utility_model,
                                          test_data, criterion, args)
-        print 'Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % \
-                (epoch, train_loss, train_acc, valid_loss, valid_acc)   
-        print 'Time taken: ', time.time()-start_time
-        if epoch % 5 == 0:
-            print 'Saving model params'
-            torch.save(context_model.state_dict(), args.context_params+'.epoch%d' % epoch)
-            torch.save(question_model.state_dict(), args.question_params+'.epoch%d' % epoch)
-            torch.save(answer_model.state_dict(), args.answer_params+'.epoch%d' % epoch)
-            torch.save(utility_model.state_dict(), args.utility_params+'.epoch%d' % epoch)
+        print('Epoch %d: Train Loss: %.3f, Train Acc: %.3f, Val Loss: %.3f, Val Acc: %.3f' % \
+                (epoch, train_loss, train_acc, valid_loss, valid_acc)) 
+        print('Time taken: ', time.time()-start_time)
+        # if epoch % 5 == 0:
+        print('Saving model params')
+        torch.save(context_model.state_dict(), args.context_params+'.epoch%d' % epoch)
+        torch.save(question_model.state_dict(), args.question_params+'.epoch%d' % epoch)
+        torch.save(answer_model.state_dict(), args.answer_params+'.epoch%d' % epoch)
+        torch.save(utility_model.state_dict(), args.utility_params+'.epoch%d' % epoch)
 

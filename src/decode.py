@@ -1,14 +1,14 @@
 import argparse
-import cPickle as p
+import pickle as p
 import sys
 import torch
 
 from seq2seq.encoderRNN import *
 from seq2seq.attnDecoderRNN import *
 from seq2seq.RL_beam_decoder import *
-from seq2seq.diverse_beam_decoder import *
+# from seq2seq.diverse_beam_decoder import *
 from seq2seq.RL_evaluate import *
-from RL_helper import *
+# from RL_helper import *
 from constants import *
 
 
@@ -27,19 +27,19 @@ def main(args):
         test_data = read_data(args.test_context, args.test_question, None, None,
                               args.max_post_len, args.max_ques_len, args.max_ans_len, mode='test')
 
-    print 'No. of test_data %d' % len(test_data)
+    print('No. of test_data %d' % len(test_data))
     run_model(test_data, word_embeddings, word2index, index2word, args)
 
 
 def run_model(test_data, word_embeddings, word2index, index2word, args):
-    print 'Preprocessing test data..'
+    print('Preprocessing test data..')
     te_id_seqs, te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens, \
         te_post_ques_seqs, te_post_ques_lens, te_ans_seqs, te_ans_lens = preprocess_data(test_data, word2index,
                                                                                          args.max_post_len,
                                                                                          args.max_ques_len,
                                                                                          args.max_ans_len)
 
-    print 'Defining encoder decoder models'
+    print('Defining encoder decoder models')
     q_encoder = EncoderRNN(HIDDEN_SIZE, word_embeddings, n_layers=2, dropout=DROPOUT)
     q_decoder = AttnDecoderRNN(HIDDEN_SIZE, len(word2index), word_embeddings, n_layers=2)
 
@@ -51,7 +51,7 @@ def run_model(test_data, word_embeddings, word2index, index2word, args):
     q_decoder = q_decoder.to(device)
 
     # Load encoder, decoder params
-    print 'Loading encoded, decoder params'
+    print('Loading encoded, decoder params')
     if USE_CUDA:
         q_encoder.load_state_dict(torch.load(args.q_encoder_params))
         q_decoder.load_state_dict(torch.load(args.q_decoder_params))
@@ -74,7 +74,7 @@ def run_model(test_data, word_embeddings, word2index, index2word, args):
                               te_id_seqs, te_post_seqs, te_post_lens, te_ques_seqs, te_ques_lens,
                               args.batch_size, args.max_ques_len, out_fname)
     else:
-        print 'Please specify mode of decoding: --greedy OR --beam OR --diverse_beam'
+        print('Please specify mode of decoding: --greedy OR --beam OR --diverse_beam')
 
 
 if __name__ == "__main__":
@@ -98,6 +98,6 @@ if __name__ == "__main__":
     argparser.add_argument("--beam", type=bool, default=False)
     argparser.add_argument("--diverse_beam", type=bool, default=False)
     args = argparser.parse_args()
-    print args
-    print ""
+    print(args)
+    print("")
     main(args)

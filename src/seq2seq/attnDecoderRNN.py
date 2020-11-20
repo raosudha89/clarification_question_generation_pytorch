@@ -1,5 +1,7 @@
 import torch
 import torch.nn as nn
+import sys
+sys.path.append('src/seq2seq')
 from attn import *
 
 

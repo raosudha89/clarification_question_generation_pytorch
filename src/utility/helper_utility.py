@@ -18,7 +18,9 @@ def iterate_minibatches(c, cm, q, qm, a, am, l, batch_size, shuffle=True):
 def get_masks(lens, max_len):
 	masks = []
 	for i in range(len(lens)):
-		masks.append([1]*lens[i]+[0]*(max_len-lens[i]))
+		if lens[i] == None:
+			lens[i] = 0
+		masks.append([1]*int(lens[i])+[0]*int(max_len-lens[i]))
 	return np.array(masks)
 
 

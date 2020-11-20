@@ -35,7 +35,8 @@ def iterate_minibatches(p, pl, q, ql, pq, pql, a, al, batch_size, shuffle=True):
 
 def reverse_dict(word2index):
 	index2word = {}
-	for w, ix in word2index.iteritems():
+	for w in word2index:
+		ix = word2index[w]
 		index2word[ix] = w
 	return index2word
 

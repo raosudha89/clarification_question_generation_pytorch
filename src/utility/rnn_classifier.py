@@ -1,5 +1,5 @@
 import argparse, sys
-import cPickle as p
+import pickle as p
 import numpy as np
 import torch
 from torchtext import data
@@ -133,7 +133,7 @@ def prepare_sequence(seq, to_ix, max_len, cuda=False):
 	mask_idx = 0
 	for s in seq:
 		sequence = [to_ix[w] if w in to_ix else to_ix['<unk>'] for w in s.split(' ')[:max_len]]
-		sequence += [mask_idx]*(max_len - len(sequence))
+		sequence += [mask_idx]*int(max_len - len(sequence))
 		sequences.append(sequence)
 	sequences = torch.LongTensor(sequences).cuda()
 	return sequences

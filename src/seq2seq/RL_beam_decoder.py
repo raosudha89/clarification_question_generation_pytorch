@@ -226,4 +226,4 @@ def evaluate_beam(word2index, index2word, encoder, decoder, id_seqs, input_seqs,
     if out_fname:
         for k in range(BEAM_SIZE):
             out_files[k].close()
-    print 'Loss: %.2f' % (total_loss/n_batches)
+    print('Loss: %.2f' % (total_loss/n_batches))

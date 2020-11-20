@@ -1,5 +1,5 @@
 import sys
-import cPickle as p
+import pickle as p
 
 if __name__ == "__main__":
 	askubuntu = p.load(open(sys.argv[1], 'rb'))
