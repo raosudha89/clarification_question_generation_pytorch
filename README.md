@@ -33,13 +33,19 @@ Proceedings of NAACL-HLT 2019
 # Generating outputs using trained models
 
 * Run following scripts to generate outputs for models trained on StackExchange dataset:
+
 ** For MLE model, run src/run_decode.sh
+
 ** For Max-Utility model, run src/run_RL_decode.sh 
+
 ** For GAN-Utility model, run src/run_GAN_decode.sh
 
 * Run following scripts to generate outputs for models trained on Amazon dataset:
+
 ** For MLE model, run src/run_decode_HK.sh
+
 ** For Max-Utility model, run src/run_RL_decode_HK.sh 
+
 ** For GAN-Utility model, run src/run_GAN_decode_HK.sh
 
 # Evaluating generated outputs
