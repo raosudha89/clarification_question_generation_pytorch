@@ -14,7 +14,7 @@ Proceedings of NAACL-HLT 2019
 * Download data from https://go.umd.edu/clarification_question_generation_dataset 
   Unzip the two folders inside and copy them into the repository folder
 
-# Running models on StackExchange dataset
+# Training models on StackExchange dataset
 
 * To train an MLE model, run src/run_main.sh 
 
@@ -22,13 +22,25 @@ Proceedings of NAACL-HLT 2019
 
 * To train a GAN-Utility model, run src/run_GAN_main.sh
 
-# Running models on Amazon (Home & Kitchen) dataset
+# Training models on Amazon (Home & Kitchen) dataset
 
 * To train an MLE model, run src/run_main_HK.sh
 
 * To train a Max-Utility model, run src/run_RL_main_HK.sh
 
 * To train a GAN-Utility model, run src/run_GAN_main_HK.sh
+
+# Generating outputs using trained models
+
+* Run following scripts to generate outputs for models trained on StackExchange dataset:
+** For MLE model, run src/run_decode.sh
+** For Max-Utility model, run src/run_RL_decode.sh 
+** For GAN-Utility model, run src/run_GAN_decode.sh
+
+* Run following scripts to generate outputs for models trained on Amazon dataset:
+** For MLE model, run src/run_decode_HK.sh
+** For Max-Utility model, run src/run_RL_decode_HK.sh 
+** For GAN-Utility model, run src/run_GAN_decode_HK.sh
 
 # Evaluating generated outputs
 
