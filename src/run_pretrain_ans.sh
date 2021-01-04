@@ -35,5 +35,5 @@ python $SCRIPT_DIR/main.py    --train_context $CQ_DATA_DIR/train_context.txt \
                                     --max_post_len 100 \
                                     --max_ques_len 20 \
                                     --max_ans_len 20 \
-                                    --pretrain_ques True \
+                                    --pretrain_ans True \
 

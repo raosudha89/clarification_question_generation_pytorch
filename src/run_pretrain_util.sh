@@ -31,9 +31,9 @@ python $SCRIPT_DIR/main.py    --train_context $CQ_DATA_DIR/train_context.txt \
                                     --utility_params $PARAMS_DIR/utility_params \
                                     --word_embeddings $EMB_DIR/word_embeddings.p \
                                     --vocab $EMB_DIR/vocab.p \
-                                    --n_epochs 100 \
+                                    --n_epochs 10 \
                                     --max_post_len 100 \
                                     --max_ques_len 20 \
                                     --max_ans_len 20 \
-                                    --pretrain_ques True \
+                                    --pretrain_util True \
 

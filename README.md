@@ -18,17 +18,41 @@ Proceedings of NAACL-HLT 2019
 
 * To train an MLE model, run src/run_main.sh 
 
-* To train a Max-Utility model, run src/run_RL_main.sh
+* To train a Max-Utility model, follow these three steps:
 
-* To train a GAN-Utility model, run src/run_GAN_main.sh
+  * run src/run_pretrain_ans.sh
+
+  * run src/run_pretrain_util.sh
+  
+  * run src/run_RL_main.sh 
+
+* To train a GAN-Utility model, follow these three steps (note, you can skip first two steps if you have already ran them for Max-Utility model):
+
+  * run src/run_pretrain_ans.sh
+
+  * run src/run_pretrain_util.sh
+  
+  * run src/run_GAN_main.sh 
 
 # Training models on Amazon (Home & Kitchen) dataset
 
 * To train an MLE model, run src/run_main_HK.sh
 
-* To train a Max-Utility model, run src/run_RL_main_HK.sh
+* To train a Max-Utility model, follow these three steps:
 
-* To train a GAN-Utility model, run src/run_GAN_main_HK.sh
+  * run src/run_pretrain_ans_HK.sh
+
+  * run src/run_pretrain_util_HK.sh
+  
+  * run src/run_RL_main_HK.sh 
+
+* To train a GAN-Utility model, follow these three steps (note, you can skip first two steps if you have already ran them for Max-Utility model):
+
+  * run src/run_pretrain_ans_HK.sh
+
+  * run src/run_pretrain_util_HK.sh
+  
+  * run src/run_GAN_main_HK.sh 
 
 # Generating outputs using trained models
 
