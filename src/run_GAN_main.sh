@@ -26,7 +26,7 @@ python $SCRIPT_DIR/GAN_main.py    --train_context $CQ_DATA_DIR/train_context.txt
                                     --utility_params $CQ_DATA_DIR/utility_params.epoch10 \
                                     --word_embeddings $EMB_DIR/word_embeddings.p \
                                     --vocab $EMB_DIR/vocab.p \
-									--model GAN_selfcritic_pred_ans \
+                                    --model GAN_selfcritic_pred_ans \
                                     --max_post_len 100 \
                                     --max_ques_len 20 \
                                     --max_ans_len 20 \

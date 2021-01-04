@@ -31,7 +31,7 @@ python $SCRIPT_DIR/RL_main.py	--train_context $CQ_DATA_DIR/train_context.txt \
 									--utility_params $PARAMS_DIR/utility_params.epoch10 \
 									--word_embeddings $EMB_DIR/word_embeddings.p \
 									--vocab $EMB_DIR/vocab.p \
-									--model RL_selfcritic_3perid \
+									--model RL_selfcritic \
 									--max_post_len 100 \
 									--max_ques_len 20 \
 									--max_ans_len 20 \

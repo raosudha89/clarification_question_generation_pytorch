@@ -91,7 +91,6 @@ if __name__ == "__main__":
     argparser.add_argument("--max_post_len", type = int, default=300)
     argparser.add_argument("--max_ques_len", type = int, default=50)
     argparser.add_argument("--max_ans_len", type = int, default=50)
-    argparser.add_argument("--n_epochs", type = int, default=20)
     argparser.add_argument("--batch_size", type = int, default=128)
     argparser.add_argument("--model", type=str)
     argparser.add_argument("--greedy", type=bool, default=False)
